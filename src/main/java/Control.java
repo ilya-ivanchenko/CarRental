@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.ivanchenko.carrental.dao.impl.UserDAOImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -77,6 +78,7 @@ public class Control extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
+
 
 
 

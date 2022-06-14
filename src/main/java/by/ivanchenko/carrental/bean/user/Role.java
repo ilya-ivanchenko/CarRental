@@ -11,9 +11,8 @@ public class Role {
 
     public Role(){
         this.typeOfRole = TypeOfRole.UNKNOWN;
-    }
 
-// еще конструкторы?
+    }
 
     public TypeOfRole getTypeOfRole() {
         return typeOfRole;
