@@ -5,11 +5,12 @@ public class User {
     private String name;
     private String surname;
     private String phone;
-    private String login;
     private String password;      // пароль не хранить больше чем для авторизации
     private String email;
     private Role role;
     private int id;
+
+
 
 
     public int getId() {
@@ -69,21 +70,31 @@ public class User {
     }
 
 //конструкторы, какие?
-    public User(String login, String password) {
-        this.login = login;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
-        //this.role = new Role();
-
+    }
+    public User ()  {
     }
 
-    public User(String name, String surname, String phone, String login, String password, String email, Role role) {
+    public User(String email, String password, Role role) {
+        this.email = email;
+        this.password = password;
+        this.role = new Role();
+    }
+
+    public User(String name, String surname, String phone, String password, String email, int id) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-        this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
+        this.id = id;
     }
+
+
+    // equals
+    // hashCode
+    // toString
 }
 
