@@ -1,5 +1,7 @@
 package by.ivanchenko.carrental.bean.user;
 
+import java.util.Objects;
+
 public class User {
 
     private String name;
@@ -9,8 +11,6 @@ public class User {
     private String email;
     private Role role;
     private int id;
-
-
 
 
     public int getId() {
@@ -69,10 +69,12 @@ public class User {
         this.role = role;
     }
 
-//конструкторы, какие?
+//конструкторы, какие необходимы?
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+        this.role = new Role();
     }
     public User ()  {
     }
@@ -80,21 +82,49 @@ public class User {
     public User(String email, String password, Role role) {
         this.email = email;
         this.password = password;
-        this.role = new Role();
+        this.role = role;
     }
 
-    public User(String name, String surname, String phone, String password, String email, int id) {
+    public User(String name, String surname, String phone, String password, String email, int id, Role role) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.password = password;
         this.email = email;
         this.id = id;
+        this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", id=" + id +
+                '}';
+    }
 
-    // equals
-    // hashCode
-    // toString
-}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return id == user.id && Objects.equals(name, user.name) && Objects.equals(surname, user.surname)
+                && Objects.equals(phone, user.phone) && Objects.equals(password, user.password)
+                && Objects.equals(email, user.email) && Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, phone, password, email, role, id);
+    }
+    }
 

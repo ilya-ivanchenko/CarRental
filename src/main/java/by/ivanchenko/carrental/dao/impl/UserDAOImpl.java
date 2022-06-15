@@ -18,7 +18,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String ROLE = "id_role";
 
 
-    private static final String REGISTER_USER = "INSERT INTO users ('name', 'surname', 'phone', 'password', 'email') VALUES (?, ?, ?, ?, ?)";  //  id_role' ?
+    private static final String REGISTER_USER = "INSERT INTO users ('name', 'surname', 'phone', 'password', 'email', 'id_role') VALUES (?, ?, ?, ?, ?, ?)";
     private static final String DELETE_USER = "DELETE FROM users WHERE 'id_user' = ?";  // или (?)
     //.? ..LOG_IN через SELECT
 
@@ -72,8 +72,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
     //метод добавить на  проверку  существующего логина в БД
-    public void registration(String name, String surname, String phone, String password, String email) throws DAOException { //, int idRole ?
+    public void registration(String name, String surname, String phone, String password, String email, int id_role) throws DAOException { //, int idRole ?
         boolean isRegistration = false;
+
     // private DaoFactory  daoFactory = DaoFactory.getInstance();    ?
 
 
@@ -92,6 +93,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(3,phone);
             preparedStatement.setString(4,password);
             preparedStatement.setString(5,email);
+            preparedStatement.setInt(6,id_role);
 
             preparedStatement.executeUpdate();
 
@@ -99,7 +101,7 @@ public class UserDAOImpl implements UserDAO {
             resultSet.next();  // while?
             user = new User(resultSet.getString("name"), resultSet.getString("surname"),
                     resultSet.getString("phone"), resultSet.getString("password"),
-                    resultSet.getString("email"), resultSet.getInt("id"));
+                    resultSet.getString("email"), resultSet.getInt("id"), resultSet.get); ///role ?
             //what about id there?
 
 //            user.setRole(resultSet.getInt("role"));
