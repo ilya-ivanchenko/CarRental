@@ -3,6 +3,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.dao.impl.UserDAOImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
@@ -53,7 +54,6 @@ public class Control extends HttpServlet {
                 car.setMileage(resultset.getInt(12));
 
                 cars.add(car);
-
 //
 //                request.setAttribute("id",id);
 //                request.setAttribute("name", name);
@@ -69,6 +69,23 @@ public class Control extends HttpServlet {
 //                request.setAttribute("mileage", mileage);
             }
 
+            /* см.jd2 les 10 Apr 24, 2020     1:14
+            для формы авторизации: */
+            String email;
+            String password;
+            String commandName;
+
+            email = request.getParameter("email");
+            password = request.getParameter("password");
+            commandName = request.getParameter("command");
+
+            System.out.println("command: " + commandName);
+            System.out.println(email +" - " + password);
+
+
+
+
+            
 
                //servletContext  можно и session
 //request.getSession().setAttribute("car ", car);
@@ -78,7 +95,6 @@ public class Control extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
-
 
 
 
