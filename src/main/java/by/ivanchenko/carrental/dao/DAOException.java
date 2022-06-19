@@ -1,7 +1,7 @@
-package by.ivanchenko.carrental.dao.exception;
+package by.ivanchenko.carrental.dao;
 
 public class DAOException  extends Exception{
-
+   // private static final long serialVersionUID = ;
     public DAOException() {
         super();
     }
@@ -10,6 +10,9 @@ public class DAOException  extends Exception{
         super(message,e);
     }
 
+    public DAOException(String message) {
+        super(message);
+    }
     public DAOException(Exception e) {
         super(e);
     }

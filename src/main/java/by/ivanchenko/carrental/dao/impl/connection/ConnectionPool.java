@@ -24,25 +24,36 @@ public final class ConnectionPool {    // final ?
 не освободит место в ней.
      */
 
-    private final String driver;
-    private final String url;
-    private final String user;
-    private final String password;
-    private final int poolSize;
+    private  String driver;
+    private  String url;
+    private  String user;
+    private  String password;
+    private  int poolSize;
+    private int defaultPoolSize = 5;
 
-    private ConnectionPool() {
+    private static ConnectionPool instance;    //  volatile ?
+
+
+    private ConnectionPool() {                                                           //private ? or public
         DBResourseManager dbResourceManager = DBResourseManager.getInstance();
         this.driver = dbResourceManager.getValue(DBParameter.DRIVER);
         this.url = dbResourceManager.getValue(DBParameter.URL);
         this.user = dbResourceManager.getValue(DBParameter.USER);
         this.password = dbResourceManager.getValue(DBParameter.PASSWORD);
-        this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.POOLSIZE));
-        // try ?   см.конспект
+        try {
+            this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.POOLSIZE));
+        } catch (NumberFormatException e) {
+            poolSize = defaultPoolSize;
+        }
     }
 
+    public static ConnectionPool getInstance() {
+        if(instance == null) {
+            instance = new ConnectionPool();
+        }
+        return instance;
+    }
     public void initPool() throws ConnectionPoolException {
-        Locale.setDefault(Locale.ENGLISH);                              // check
-
         try {
             Class.forName(driver);
             givenConnectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
@@ -51,13 +62,12 @@ public final class ConnectionPool {    // final ?
                 Connection connection = DriverManager.getConnection(url, user, password);
                 PooledConnection pooledConnection = new PooledConnection(connection);
                 freeConnectionQueue.add(pooledConnection);
-                // log ?
             }
         } catch (SQLException e) {
-            //log
+            //log ?
             throw new ConnectionPoolException("SQLException in intializing ConnectinPool", e);
         } catch (ClassNotFoundException e) {
-            //log
+            //log ?
             throw new ConnectionPoolException("Can't find database driver class", e);
         }
     }
@@ -77,7 +87,6 @@ public final class ConnectionPool {    // final ?
 
     public Connection takeConnection() throws ConnectionPoolException {
         Connection connection = null;
-
         try {
             connection = freeConnectionQueue.take();
             givenConnectionQueue.add(connection);
@@ -91,11 +100,6 @@ public final class ConnectionPool {    // final ?
 
     public void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
-            con.close();
-        } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool", e);    e  передаем или только  message ?
-        }
-        try {
             rs.close();
         } catch (SQLException e) {
             //logger.log(Level.ERROR, "ResultSet isn't closed", e);
@@ -105,18 +109,23 @@ public final class ConnectionPool {    // final ?
         } catch(SQLException e) {
             //logger.log(Level.ERROR, "Statement isn't closed", e);
         }
-    }
-
-    public void closeConnection(Connection con, Statement st) {
         try {
             con.close();
         } catch (SQLException e) {
             //logger.log(Level.ERROR, "Connection isn't return to the pool", e);    e  передаем или только  message ?
         }
+    }
+
+    public void closeConnection(Connection con, Statement st) {
         try {
             st.close();
         } catch(SQLException e) {
             //logger.log(Level.ERROR, "Statement isn't closed", e);
+        }
+        try {
+            con.close();
+        } catch (SQLException e) {
+            //logger.log(Level.ERROR, "Connection isn't return to the pool", e);    e  передаем или только  message ?
         }
     }
 
@@ -129,9 +138,6 @@ public final class ConnectionPool {    // final ?
             ((PooledConnection) connection).reallyClose();  // см ниже
         }
     }
-
-
-
 
     private class PooledConnection implements Connection {          // вложенный
         private Connection  connection;

@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>control</servlet-name>
-        <servlet-class>Control</servlet-class>
+        <servlet-class>by.ivanchenko.carrental.controller.Control</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>control</servlet-name>
@@ -19,5 +19,15 @@
     <servlet-mapping>
         <servlet-name>mainjsp</servlet-name>
         <url-pattern>/main</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>testjsp</servlet-name>
+        <jsp-file>/test.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>testjsp</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
 </web-app>

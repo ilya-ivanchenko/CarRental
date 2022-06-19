@@ -1,3 +1,5 @@
+package by.ivanchenko.carrental.controller;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 
 import by.ivanchenko.carrental.bean.*;
 
-//@WebServlet(name = "Control", value = "/Control")
+//@WebServlet(name = "by.ivanchenko.carrental.controller.Control", value = "/by.ivanchenko.carrental.controller.Control")
 public class Control extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

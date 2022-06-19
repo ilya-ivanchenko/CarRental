@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  %>
+<%@ page  import="by.ivanchenko.carrental.bean.user.User" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  %>
 <%--<%@ page isELIgnored="true" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -10,7 +10,7 @@
     <title>main</title>
 </head>
 
-<body>
+
 <h3>Каталог авто </h3>
 <br/>
 
@@ -46,16 +46,27 @@
         <td>${cars.mileage}</td>
     </tr>
 </c:forEach>
-
-
-</table>
+    </table>
 
 <%--<tr>--%>
 <%--    <td>${car1.id}</td>--%>
 <%--    <td>${car1.name}</td>--%>
 <%--    <td>${cars[1].name}</td>--%>
 <%--</tr>--%>
+<a href="mainpage">logIn</a>
 
+<%--форма авторизации  method="get" или post  --%>
+<form action="mainpage" method="get">
+    <input type="hidden" name="command" value="authorization"/>
+
+    Enter email:<br/>
+    <input type="text" name="email" value=""/> <br/>
+
+    Enter password:<br/>
+    <input type="password" name="password" value=""/> <br/>
+
+    <input type="submit" value="press me"/>
+</form>
 
 
 </body>

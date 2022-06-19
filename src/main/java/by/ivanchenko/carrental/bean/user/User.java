@@ -9,7 +9,7 @@ public class User {
     private String phone;
     private String password;      // пароль не хранить больше чем для авторизации
     private String email;
-    private Role role;
+    private int role;
     private int id;
 
 
@@ -61,11 +61,11 @@ public class User {
         this.email = email;
     }
 
-    public Role getRole() {
+    public int getRole() {    //   public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -74,18 +74,24 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.role = new Role();
+       // this.role =; unknown
     }
     public User ()  {
     }
 
-    public User(String email, String password, Role role) {
+    public User(String email, String password, int role) {
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public User(String name, String surname, String phone, String password, String email, int id, Role role) {
+    public User(String name, String surname, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+    }
+
+    public User(String name, String surname, String phone, String password, String email, int id, int role) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;

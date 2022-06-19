@@ -2,7 +2,9 @@ package by.ivanchenko.carrental.dao.impl;
 
 import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.dao.UserDAO;
-import by.ivanchenko.carrental.dao.exception.DAOException;
+import by.ivanchenko.carrental.dao.DAOException;
+import by.ivanchenko.carrental.dao.impl.connection.ConnectionPool;
+import by.ivanchenko.carrental.dao.impl.connection.ConnectionPoolException;
 
 import java.sql.*;
 
@@ -17,104 +19,95 @@ public class UserDAOImpl implements UserDAO {
     private static final String EMAIL = "email";
     private static final String ROLE = "id_role";
 
+    private static final String REGISTER_USER = "INSERT INTO users ('name', 'surname', 'phone', 'password', 'email') VALUES (?, ?, ?, ?, ?)";
+    private static final String DELETE_USER = "DELETE FROM users WHERE 'id_user' = ?";  // или  по email
+    private static final String LOG_IN = "SELECT * FROM users WHERE email = ? and password = ?";
 
-    private static final String REGISTER_USER = "INSERT INTO users ('name', 'surname', 'phone', 'password', 'email', 'id_role') VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String DELETE_USER = "DELETE FROM users WHERE 'id_user' = ?";  // или (?)
-    //.? ..LOG_IN через SELECT
-
-
-
-
-
+    private  static final  ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     @Override
-    public User logIn(String email, String password) throws DAOException {    //
+    public User logIn(String email, String password) throws DAOException {
+          // private final static?
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-
-            Connection connection = null;
-            Statement statement = null;
-            // ConnectionPool connecctionPool = null;  git
-            ResultSet resultSet = null;
-            PreparedStatement preparedStatement = null;
-
-        try {
-            // con pool
-//            connection =
-//                    statement =
-//                            resultSet =
+         try {
+             connection = connectionPool.takeConnection();
+             preparedStatement = connection.prepareStatement(LOG_IN);
+             preparedStatement.setString(1, email);
+             preparedStatement.setString(2, password);
+             preparedStatement.executeQuery();
 
             if (!resultSet.next()) {
                 return null;
             }
-            User user = new User();
-            user.setId(resultSet.getInt(1));
-            user.setName(resultSet.getString(2));
-            user.setSurname(resultSet.getString("surname"));   //either... or ..3
-            user.setPhone(resultSet.getString(4));
-            user.setPassword(resultSet.getString(5));
-            user.setEmail(resultSet.getString(6));
-           // user.setRole(resultSet.getInt(8));  role?
+
+            resultSet.last();                        // required?
+
+//            if (resultSet.getRow() == 1) {
+//                return new User(.......)            required ?
+//            }
+
+            return  new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
+                    resultSet.getString(EMAIL));
+            // надо ли полные данные передавать в юзера ?
 
             //  to do    con.pool close    код с примера моего   с  finally
-
-
-        } catch (SQLException e) {  // to do
-            throw new DAOException(e);
-        } // catch (ConnectionPoolEsception) ?
-
-
-        return null; // del
+         } catch (SQLException e) {
+             //log.error("some message", e);
+             throw new DAOException("Error while authorizing User", e);
+         } catch (ConnectionPoolException e) {
+             throw new DAOException("Error in Connection Pool while authorizing new User", e);
+         }
+         finally {
+             connectionPool.closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
+         }
     }
-
-
-
 
     @Override
     // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
     //метод добавить на  проверку  существующего логина в БД
-    public void registration(String name, String surname, String phone, String password, String email, int id_role) throws DAOException { //, int idRole ?
-        boolean isRegistration = false;
+    public void registration(String name, String surname, String phone, String password, String email) throws DAOException { //, int idRole ?
 
     // private DaoFactory  daoFactory = DaoFactory.getInstance();    ?
-
-
-
-            User user = null;        // need or not
+            User user = new User();
             Connection connection = null;
-            Statement statement = null;
-            // ConnectionPool connecctionPool = null;  git
-            ResultSet resultSet = null;
             PreparedStatement preparedStatement = null;
-        try {
+            ResultSet resultSet = null;
 
-            preparedStatement = connection.prepareStatement(REGISTER_USER, Statement.RETURN_GENERATED_KEYS);   // necessary or not Statement.RETURN_GENERATED_KEYS
-            preparedStatement.setString(1,name);
-            preparedStatement.setString(2,surname);
-            preparedStatement.setString(3,phone);
-            preparedStatement.setString(4,password);
-            preparedStatement.setString(5,email);
-            preparedStatement.setInt(6,id_role);
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(REGISTER_USER, Statement.RETURN_GENERATED_KEYS);   //  для получения id из БД
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, surname);
+            preparedStatement.setString(3, phone);
+            preparedStatement.setString(4, password);
+            preparedStatement.setString(5, email);
+            preparedStatement.setInt(6, 2);  // уст роли customer
 
             preparedStatement.executeUpdate();
 
+// role  не передаем, а уcтанавливаем setUserRole (email, 2);   или в запросе устанавливаем по стандарту 2 ?
+
+            preparedStatement.executeUpdate();
+
+            // надо ли юзера получать?
             resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();  // while?
-            user = new User(resultSet.getString("name"), resultSet.getString("surname"),
-                    resultSet.getString("phone"), resultSet.getString("password"),
-                    resultSet.getString("email"), resultSet.getInt("id"), resultSet.get); ///role ?
-            //what about id there?
-
-//            user.setRole(resultSet.getInt("role"));
-//            в примере отдельно еще адресс, телефон, id и т.д
-
-
-
-//cp.closeConection(connection,statement);
-// log.trace  - after closing connection
+            //int role = resultSet.getInt("id_role");    Role  or int      или 1 вместо id_role
+            user = new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
+                    resultSet.getString(PHONE), resultSet.getString(PASSWORD),
+                    resultSet.getString(EMAIL), resultSet.getInt(ID), resultSet.getInt(ROLE));
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
             //log.error("some message", e);
-             throw new DAOException(e);   // or  throw new DAOException("message", e);
-        } // catch (ConnectionPoolEsception) ?
+             throw new DAOException("Error while adding new User", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while adding new User", e);
+        }
+        finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
+        }
     }
 
 
