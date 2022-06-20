@@ -1,2 +1,5 @@
-package by.ivanchenko.carrental.dao.transaction;public class Transaction {
+package by.ivanchenko.carrental.dao.transaction;
+
+public interface Transaction extends AutoCloseable {
+
 }

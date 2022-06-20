@@ -9,8 +9,6 @@ import by.ivanchenko.carrental.dao.impl.connection.ConnectionPoolException;
 import java.sql.*;
 
 public class UserDAOImpl implements UserDAO {
-
-    //public final static String     SQL команды для PreparedStatement
     private static final String ID = "id_user";
     private static final String NAME = "name";
     private static final String SURNAME = "surname";
@@ -19,9 +17,11 @@ public class UserDAOImpl implements UserDAO {
     private static final String EMAIL = "email";
     private static final String ROLE = "id_role";
 
+    // check SQL-commands ('...' need or not)
     private static final String REGISTER_USER = "INSERT INTO users ('name', 'surname', 'phone', 'password', 'email') VALUES (?, ?, ?, ?, ?)";
-    private static final String DELETE_USER = "DELETE FROM users WHERE 'id_user' = ?";  // или  по email
-    private static final String LOG_IN = "SELECT * FROM users WHERE email = ? and password = ?";
+    private static final String LOG_IN = "SELECT * FROM users WHERE 'email' = ? and 'password' = ?";
+    private static final String UPDATE_INFO = "UPDATE users SET 'name' = ?, 'surname' = ?, 'phone' = ?, 'password' = ?, 'email' = ? WHERE 'id_user' = ?";
+    private static final String DELETE_USER = "DELETE FROM users WHERE 'email' = ?";
 
     private  static final  ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -89,9 +89,6 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.executeUpdate();
 
 // role  не передаем, а уcтанавливаем setUserRole (email, 2);   или в запросе устанавливаем по стандарту 2 ?
-
-            preparedStatement.executeUpdate();
-
             // надо ли юзера получать?
             resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();  // while?
@@ -110,23 +107,52 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
+    public void updateInfo(User user) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
+        try {
+            connection = connectionPool.takeConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_INFO);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setInt(6,user.getId());
+
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Error while adding new User", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while adding new User", e);
+        }
+        finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
+        }
+    }
 
     @Override
-    public void delete(int idUser) {
+    public void delete(String email) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
-            Connection connection = null;
-            Statement statement = null;
-            // ConnectionPool connecctionPool = null;  git
-            ResultSet resultSet = null;
-            PreparedStatement preparedStatement = null;
         try {
+          connection = connectionPool.takeConnection();
           preparedStatement = connection.prepareStatement(DELETE_USER);
-          preparedStatement.setInt(1, idUser);
+          preparedStatement.setString(1, EMAIL);
           preparedStatement.executeUpdate();
-
-        } catch (SQLException e) {
-         //   throw new DaoException(e);
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Error while adding new User", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while adding new User", e);
+        }
+        finally {
+            connectionPool.closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
         }
     }
 }

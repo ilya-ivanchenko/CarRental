@@ -1,2 +1,4 @@
-package by.ivanchenko.carrental.service;public interface CarService {
+package by.ivanchenko.carrental.service;
+
+public interface CarService {
 }

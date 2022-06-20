@@ -76,7 +76,7 @@ public class User {
         this.password = password;
        // this.role =; unknown
     }
-    public User ()  {
+    public User() {
     }
 
     public User(String email, String password, int role) {
