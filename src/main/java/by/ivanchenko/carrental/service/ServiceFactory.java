@@ -6,21 +6,18 @@ import by.ivanchenko.carrental.service.impl.UserServiceImpl;
 
 public class ServiceFactory {
 
-    private static ServiceFactory instatnce;
-    private final UserService userService;
-    private final CarService carService;
-    private final OrderService orderService;
+    private static ServiceFactory instatnce = new ServiceFactory();
+    private final UserService userService = new UserServiceImpl();
+    private final CarService carService = new CarServiceImpl();
+    private final OrderService orderService = new OrderServiceImpl();
 
     private ServiceFactory() {
-        userService = new UserServiceImpl();
-        carService = new CarServiceImpl();
-        orderService = new OrderServiceImpl();
     }
 
-    public static ServiceFactory getInstance() {
-        if (instatnce == null) {
-            instatnce = new ServiceFactory();
-        }
+    public static ServiceFactory getInstance() {    //synсhronized ?
+//        if (instatnce == null) {
+//            instatnce = new ServiceFactory();
+//        }
         return instatnce;
     }
 

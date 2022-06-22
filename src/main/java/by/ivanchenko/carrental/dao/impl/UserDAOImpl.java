@@ -69,6 +69,7 @@ public class UserDAOImpl implements UserDAO {
     // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
     //метод добавить на  проверку  существующего логина в БД
     public void registration(String name, String surname, String phone, String password, String email) throws DAOException { //, int idRole ?
+// или public void registration(User user) throws DAOException {
 
     // private DaoFactory  daoFactory = DaoFactory.getInstance();    ?
             User user = new User();

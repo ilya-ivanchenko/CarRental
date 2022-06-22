@@ -8,18 +8,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionFactory {
-    private static TransactionFactory instance;
+    private final static TransactionFactory instance = new TransactionFactory();
 
-    public TransactionFactory  getInstance() {
-        if (instance == null) {
-            instance = new TransactionFactory();
-        }
+    public TransactionFactory getInstance() {
         return instance;
     }
 
     public Transaction getTransaction() throws DAOException {
         try {
-           // Connection connection = ConnectionPool.getInstance().   getConnection
+            Connection connection = ConnectionPool.getInstance().takeConnection();   //is it right? check
             connection.setAutoCommit(false);
             return new TransactionImpl(connection);
         } catch (ConnectionPoolException e) {
