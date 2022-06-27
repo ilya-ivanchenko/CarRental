@@ -11,7 +11,6 @@
         <servlet-name>control</servlet-name>
         <url-pattern>/mainpage</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>mainjsp</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
@@ -30,4 +29,13 @@
         <servlet-name>testjsp</servlet-name>
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
+
+
+<!--    запрещаем скриплеты      -->
+<!--    <jsp-config>-->
+<!--        <jsp-property-group>-->
+<!--            <url-pattern>*.jsp</url-pattern>-->
+<!--            <scripting-invalid>true</scripting-invalid>-->
+<!--        </jsp-property-group>-->
+<!--    </jsp-config>-->
 </web-app>

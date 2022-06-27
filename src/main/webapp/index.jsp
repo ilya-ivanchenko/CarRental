@@ -1,19 +1,43 @@
 <%@ page  import="by.ivanchenko.carrental.bean.user.User" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  %>
 <%--<%@ page isELIgnored="true" %>--%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>main</title>
+    <title>Main</title>
+    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setBundle basename="local" var="localization"/> <%-- "local" - стандатрные данные  --%>
+
+    <fmt:message bundle="${localization}" key="local.message" var="message"/>
+    <fmt:message bundle="${localization}" key="local.locbutton.name.en" var="en_button"/>
+    <fmt:message bundle="${localization}" key="local.locbutton.name.ru" var="ru_button"/>
+    <fmt:message bundle="${localization}" key="local.locbutton.name.by" var="by_button"/>
 </head>
+<body>
+<form action="mainpage" method="post">
+    <input type="hidden" name="local" value="en"/>
+    <input type="submit" value="${en_button}" />
+</form>
 
+<form action="mainpage" method="post">
+    <input type="hidden" name="local" value="ru"/>
+    <input type="submit" value="${ru_button}" />
+</form>
 
-<h3>Каталог авто </h3>
+<form action="mainpage" method="post">
+    <input type="hidden" name="local" value="by"/>
+    <input type="submit" value="${by_button}" />
+</form>
+
+<h3>${message}</h3>
+${sessionScope.local}
+
 <br/>
-
+<br/>
+<a href="mainpage">logIn</a>
+<a href="registration.jsp">Registration</a>
 <table cellpadding="5">
 <tr>
     <th scope="col">id</th>
@@ -53,21 +77,19 @@
 <%--    <td>${car1.name}</td>--%>
 <%--    <td>${cars[1].name}</td>--%>
 <%--</tr>--%>
-<a href="mainpage">logIn</a>
+
 
 <%--форма авторизации  method="get" или post  --%>
-<form action="mainpage" method="get">
-    <input type="hidden" name="command" value="authorization"/>
+<%--<form action="mainpage" method="get">  &lt;%&ndash; post &ndash;%&gt;--%>
+<%--    <input type="hidden" name="command" value="authorization"/>--%>
 
-    Enter email:<br/>
-    <input type="text" name="email" value=""/> <br/>
+<%--    Enter email:<br/>--%>
+<%--    <input type="text" name="email" value=""/> <br/>--%>
 
-    Enter password:<br/>
-    <input type="password" name="password" value=""/> <br/>
+<%--    Enter password:<br/>--%>
+<%--    <input type="password" name="password" value=""/> <br/>--%>
 
-    <input type="submit" value="press me"/>
-</form>
-
-
+<%--    <input type="submit" value="Send"/>--%>
+<%--</form>--%>
 </body>
 </html>

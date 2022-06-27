@@ -31,7 +31,7 @@ public final class ConnectionPool {    // final ?
     private  int poolSize;
     private int defaultPoolSize = 5;
 
-    private static ConnectionPool instance;    //  volatile ?
+    private static ConnectionPool instance = new ConnectionPool();    //  volatile ?
 
 
     private ConnectionPool() {                                                           //private ? or public
@@ -53,6 +53,7 @@ public final class ConnectionPool {    // final ?
         }
         return instance;
     }
+
     public void initPool() throws ConnectionPoolException {
         try {
             Class.forName(driver);

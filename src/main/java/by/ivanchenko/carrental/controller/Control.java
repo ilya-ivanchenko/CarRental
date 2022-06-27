@@ -10,6 +10,7 @@ import by.ivanchenko.carrental.dao.impl.UserDAOImpl;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +19,9 @@ import jakarta.servlet.http.HttpSession;
 import by.ivanchenko.carrental.bean.*;
 
 //@WebServlet(name = "by.ivanchenko.carrental.controller.Control", value = "/by.ivanchenko.carrental.controller.Control")
+//@WebServlet("/adress");
 public class Control extends HttpServlet {
+    private  static  final  long serialVersionUID = 1L;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
@@ -87,7 +90,7 @@ public class Control extends HttpServlet {
 
 
 
-            
+
 
                //servletContext  можно и session
 //request.getSession().setAttribute("car ", car);
@@ -112,6 +115,14 @@ public class Control extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession(true).setAttribute("local", request.getParameter("local"));
+        request.getRequestDispatcher("index.jsp").forward(request,response);
 
+
+        System.out.println("req.attr - " + request.getAttribute("local"));
+        System.out.println("session.attr - " + request.getSession().getAttribute("local"));
+        System.out.println("req.param - " + request.getParameter("local"));
+        System.out.println("---------------");
     }
+
 }

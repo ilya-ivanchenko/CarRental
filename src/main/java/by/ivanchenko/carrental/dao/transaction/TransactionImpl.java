@@ -6,18 +6,12 @@ import by.ivanchenko.carrental.dao.OrderDAO;
 import by.ivanchenko.carrental.dao.UserDAO;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class TransactionImpl implements Transaction {
     private Connection connection;
     public TransactionImpl(Connection connection) {
         this.connection = connection;
-    }
-
-//
-
-    @Override
-    public void close() throws Exception {
-
     }
 
     @Override
@@ -37,16 +31,29 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public void commit() throws DAOException {
-
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw new DAOException("Commit error", e);
+        }
     }
 
     @Override
     public void rollback() throws DAOException {
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            throw new DAOException("Rollback error", e);
+        }
+    }
+
+    @Override
+    public void close() throws Exception {
 
     }
 
     @Override
     public Connection getConnection() {
-        return null;
+        return connection;
     }
 }
