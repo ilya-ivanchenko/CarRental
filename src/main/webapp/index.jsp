@@ -38,6 +38,16 @@ ${sessionScope.local}
 <br/>
 <a href="mainpage">logIn</a>
 <a href="registration.jsp">Registration</a>
+
+
+<form action="registration.jsp" method="post">  <%-- post/get      // action  = "/registration" --%>
+    <input type="hidden" name="command" value="GoToRegistration"/>
+    <input type="submit" value="Registration"/>
+</form>
+
+
+
+
 <table cellpadding="5">
 <tr>
     <th scope="col">id</th>

@@ -3,9 +3,10 @@ package by.ivanchenko.carrental.dao.impl.connection;
 import java.util.ResourceBundle;
 
 public class DBResourseManager {
+    private static final String DB= "db";
     private  static  final DBResourseManager instance = new DBResourseManager();
 
-    private ResourceBundle bundle = ResourceBundle.getBundle("db");   // чтение *.properties,  интернационализация  через этот класс
+    private ResourceBundle bundle = ResourceBundle.getBundle(DB);   // чтение *.properties,  интернационализация  через этот класс
 
     public  static DBResourseManager getInstance() {
         return instance;

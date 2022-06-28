@@ -15,7 +15,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(User user) throws ServiceException {
-
+      try {
+          UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+          userDAO.registration(user);
+      } catch (Exception e) {
+          throw new ServiceException("Error while register user",e);
+      }
     }
 
     @Override
@@ -24,8 +29,6 @@ public class UserServiceImpl implements UserService {
 if (email == null || email.isEmpty()) {
     throw new ServiceException("Incorrect email"); // "User with e-mail not found"
 }
-
-
         try {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();

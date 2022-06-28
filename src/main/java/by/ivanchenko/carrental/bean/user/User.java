@@ -91,13 +91,13 @@ public class User {
         this.email = email;
     }
 
-    public User(String name, String surname, String phone, String password, String email, int id, int role) {
+    public User(String name, String surname, String phone, String password, String email, int role) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
         this.password = password;
         this.email = email;
-        this.id = id;
+       // this.id = id;
         this.role = role;
     }
 

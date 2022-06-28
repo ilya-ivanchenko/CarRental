@@ -20,9 +20,9 @@
 <br/>
 
 <%--вместо getProperty:  --%>
-<c:out value="${pageScope.registration.name}"/>
+${pageScope.registration.name}
 <%-- requestScope   sessionScope  applicationScope   cookie  header ... --%>
-
+<a href="index.jsp">Home page</a>
 
 <%--${list.[1]}--%>
 <%--<c:out value="${list.[1]}"/>--%>

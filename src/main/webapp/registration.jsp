@@ -24,7 +24,4 @@
 </html>
 
 <%----%>
-<form action="registration" method="post">  <%-- post/get      // action  = "/registration" --%>
-  <input type="hidden" name="command" value="GoToRegistration"/>
-  <input type="submit" value="Registration"/>
-</form>
+

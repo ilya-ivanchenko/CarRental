@@ -52,8 +52,6 @@ public class UserDAOImpl implements UserDAO {
             return  new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
                     resultSet.getString(EMAIL));
             // надо ли полные данные передавать в юзера ?
-
-            //  to do    con.pool close    код с примера моего   с  finally
          } catch (SQLException e) {
              //log.error("some message", e);
              throw new DAOException("Error while authorizing User", e);
@@ -68,11 +66,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
     //метод добавить на  проверку  существующего логина в БД
-    public void registration(String name, String surname, String phone, String password, String email) throws DAOException { //, int idRole ?
+    public void registration(User user) throws DAOException { //, int idRole ?
 // или public void registration(User user) throws DAOException {
 
     // private DaoFactory  daoFactory = DaoFactory.getInstance();    ?
-            User user = new User();
+
             Connection connection = null;
             PreparedStatement preparedStatement = null;
             ResultSet resultSet = null;
@@ -80,11 +78,11 @@ public class UserDAOImpl implements UserDAO {
         try {
             connection = connectionPool.takeConnection();
             preparedStatement = connection.prepareStatement(REGISTER_USER, Statement.RETURN_GENERATED_KEYS);   //  для получения id из БД
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, surname);
-            preparedStatement.setString(3, phone);
-            preparedStatement.setString(4, password);
-            preparedStatement.setString(5, email);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(3, user.getPhone());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(5, user.getEmail());
             preparedStatement.setInt(6, 2);  // уст роли customer
 
             preparedStatement.executeUpdate();
@@ -94,9 +92,11 @@ public class UserDAOImpl implements UserDAO {
             resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();  // while?
             //int role = resultSet.getInt("id_role");    Role  or int      или 1 вместо id_role
-            user = new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
-                    resultSet.getString(PHONE), resultSet.getString(PASSWORD),
-                    resultSet.getString(EMAIL), resultSet.getInt(ID), resultSet.getInt(ROLE));
+
+//            user = new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
+//                    resultSet.getString(PHONE), resultSet.getString(PASSWORD),
+//                    resultSet.getString(EMAIL), resultSet.getInt(ID), resultSet.getInt(ROLE));
+
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
             //log.error("some message", e);
              throw new DAOException("Error while adding new User", e);
