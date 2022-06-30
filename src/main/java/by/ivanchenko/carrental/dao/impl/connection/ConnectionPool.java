@@ -31,10 +31,10 @@ public final class ConnectionPool {    // final ?
     private  int poolSize;
     private int defaultPoolSize = 5;
 
-    private static ConnectionPool instance = new ConnectionPool();    //  volatile ?
+     private static ConnectionPool instance;    //  volatile ?
 
 
-    private ConnectionPool() {                                                           //private ? or public
+    private ConnectionPool() throws ConnectionPoolException{                                                           //private ? or public
         DBResourseManager dbResourceManager = DBResourseManager.getInstance();
         this.driver = dbResourceManager.getValue(DBParameter.DRIVER);
         this.url = dbResourceManager.getValue(DBParameter.URL);
@@ -45,11 +45,17 @@ public final class ConnectionPool {    // final ?
         } catch (NumberFormatException e) {
             poolSize = defaultPoolSize;
         }
+        initPool();
     }
 
-    public static ConnectionPool getInstance() {
+    public static ConnectionPool getInstance()  {
         if(instance == null) {
-            instance = new ConnectionPool();
+            try {
+                instance = new ConnectionPool();
+            } catch (ConnectionPoolException e) {
+                //  logger.log(Level.ERROR, "Can't create ConnectionPool", e);
+                //exception?
+            }
         }
         return instance;
     }
