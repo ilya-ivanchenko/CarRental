@@ -19,14 +19,14 @@ public class UserDAOImpl implements UserDAO {
     private static final String ROLE = "id_role";
 
 
-    private static final String REGISTER_USER = "INSERT INTO users (name, surname, phone, password, email, id_role) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String REGISTER_USER = "INSERT INTO users (name, surname, phone, password, email, id_role) VALUES (?, ?, ?, ?, ?, ?)";  // +
     private static final String LOG_IN = "SELECT * FROM users WHERE email = ? and password = ?";
     private static final String UPDATE_INFO = "UPDATE users SET name = ?, surname = ?, phone = ?, password = ?, email = ? WHERE id_user = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE email = ?";
 
     @Override
     public User logIn(String email, String password) throws DAOException {
-          // private final static?
+
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -36,21 +36,17 @@ public class UserDAOImpl implements UserDAO {
              preparedStatement = connection.prepareStatement(LOG_IN);
              preparedStatement.setString(1, email);
              preparedStatement.setString(2, password);
-             preparedStatement.executeQuery();
+             resultSet = preparedStatement.executeQuery();
 
             if (!resultSet.next()) {
                 return null;
+               // throw new DAOException("User with this email doesn't exist");
+                //page with error
             }
+            //resultSet.last();
+            return  new User(resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getString(SURNAME),
+                    resultSet.getString(PHONE), resultSet.getString(PASSWORD), resultSet.getString(EMAIL), resultSet.getInt(ROLE));
 
-            resultSet.last();                        // required?
-
-//            if (resultSet.getRow() == 1) {
-//                return new User(.......)            required ?
-//            }
-
-            return  new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
-                    resultSet.getString(EMAIL));
-            // надо ли полные данные передавать в юзера ?
          } catch (SQLException e) {
              //log.error("some message", e);
              throw new DAOException("Error while authorizing User", e);
@@ -66,10 +62,6 @@ public class UserDAOImpl implements UserDAO {
     // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
     //метод добавить на  проверку  существующего логина в БД
     public void registration(User user) throws DAOException { //, int idRole ?
-// или public void registration(User user) throws DAOException {
-
-    // private DaoFactory  daoFactory = DaoFactory.getInstance();    ?
-
             Connection connection = null;
             PreparedStatement preparedStatement = null;
             ResultSet resultSet = null;
@@ -86,16 +78,12 @@ public class UserDAOImpl implements UserDAO {
 
             preparedStatement.executeUpdate();
 
-// role  не передаем, а уcтанавливаем setUserRole (email, 2);   или в запросе устанавливаем по стандарту 2 ?
-            // надо ли юзера получать?
             resultSet = preparedStatement.getGeneratedKeys();
             resultSet.next();  // while?
             //int role = resultSet.getInt("id_role");    Role  or int      или 1 вместо id_role
-
 //            user = new User(resultSet.getString(NAME), resultSet.getString(SURNAME),
 //                    resultSet.getString(PHONE), resultSet.getString(PASSWORD),
 //                    resultSet.getString(EMAIL), resultSet.getInt(ID), resultSet.getInt(ROLE));
-
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
             //log.error("some message", e);
              throw new DAOException("Error while adding new User", e);
@@ -144,7 +132,7 @@ public class UserDAOImpl implements UserDAO {
           connection = ConnectionPool.getInstance().takeConnection();
           preparedStatement = connection.prepareStatement(DELETE_USER);
           preparedStatement.setString(1, EMAIL);
-          preparedStatement.executeUpdate();
+           preparedStatement.executeUpdate();  //resultSet =
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
             //log.error("some message", e);
             throw new DAOException("Error while adding new User", e);

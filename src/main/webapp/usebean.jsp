@@ -11,6 +11,7 @@
     Hi,
 <jsp:getProperty name="registration" property="name"/>
 <jsp:getProperty name="registration" property="surname"/>
+
 <br/>
 <br/>
 

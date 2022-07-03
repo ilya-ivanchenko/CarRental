@@ -5,7 +5,7 @@
     <title>Registration</title>
 </head>
 <body>
-<form action="registration" method="post">  <%-- post/get      // action  = "/registration" --%>
+<form action="registration" method="post">
   <input type="hidden" name="command" value="registration"/>
 
   Enter name:<br/>

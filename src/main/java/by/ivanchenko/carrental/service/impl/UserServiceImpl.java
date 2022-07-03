@@ -24,20 +24,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void authorize(String email, String password) throws ServiceException {
-//
+    public User authorize(String email, String password) throws ServiceException {
+//validation ADD
 if (email == null || email.isEmpty()) {
-    throw new ServiceException("Incorrect email"); // "User with e-mail not found"
+    throw new ServiceException("Incorrect email"); // "User with this e-mail not found"
 }
+// cессия
+        // поверка на авторизован ли уже
+
         try {
-        DAOFactory daoFactory = DAOFactory.getInstance();
-        UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.logIn(email, password);
-//
+            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+       User user =  userDAO.logIn(email, password);
+//       if (user != null) {
+//           return user;
+//       } else {
+//           return
+//       }
+            return user;
         } catch (DAOException e) {
             throw new ServiceException("", e);
         }
-        //
     }
 
     @Override

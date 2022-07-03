@@ -36,8 +36,10 @@ ${sessionScope.local}
 
 <br/>
 <br/>
-<a href="mainpage">logIn</a>
+<a href="authorization.jsp">logIn</a>
 <a href="registration.jsp">Registration</a>
+<br/>
+<a href="usebean.jsp">Profile</a>
 
 
 <form action="registration.jsp" method="post">  <%-- post/get      // action  = "/registration" --%>

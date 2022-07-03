@@ -33,7 +33,7 @@ public class Registration extends HttpServlet {
         resp.setContentType("text/html");
         if ("registration".equals((req.getParameter("command")))) {
             req.getRequestDispatcher("usebean.jsp").forward(req, resp);
-            System.out.println("forward ok");
+            System.out.println("forward after reg OK");
             RegistrationCommand registrationCommand = new RegistrationCommand();
             registrationCommand.execute(req,resp);
         }

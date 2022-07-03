@@ -87,11 +87,6 @@ public class Control extends HttpServlet {
             System.out.println("command: " + commandName);
             System.out.println(email +" - " + password);
 
-
-
-
-
-
                //servletContext  можно и session
 //request.getSession().setAttribute("car ", car);
 
@@ -100,9 +95,6 @@ public class Control extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
-
-
-
 
         } catch (ClassNotFoundException exception) {
             //
