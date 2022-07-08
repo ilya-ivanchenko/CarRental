@@ -5,7 +5,7 @@
     <title>Authorization</title>
 </head>
 <body>
-<form action="authorization" method="post">  <%-- post/get      // action  = "/registration" --%>
+<form action="controller" method="post">  <%-- post/get      // action  = "/registration" --%>
   <input type="hidden" name="command" value="authorization"/>
 
   Enter email:<br/>
@@ -14,5 +14,7 @@
   <input type="password" name="password" value=""/> <br/>
   <input type="submit" value="Enter"/>
 </form>
+<br/>
+<button onclick="location='index.jsp'">Main page</button>
 </body>
 </html>

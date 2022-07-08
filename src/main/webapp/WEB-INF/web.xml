@@ -3,6 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
     <servlet>
         <servlet-name>control</servlet-name>
         <servlet-class>by.ivanchenko.carrental.controller.Control</servlet-class>
@@ -19,8 +20,6 @@
         <servlet-name>mainjsp</servlet-name>
         <url-pattern>/main</url-pattern>
     </servlet-mapping>
-
-
     <servlet>
         <servlet-name>testjsp</servlet-name>
         <jsp-file>/test.jsp</jsp-file>
@@ -28,6 +27,17 @@
     <servlet-mapping>
         <servlet-name>testjsp</servlet-name>
         <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>by.ivanchenko.carrental.controller.Controller</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
 

@@ -1,10 +1,10 @@
 package by.ivanchenko.carrental.controller;
 
 public enum CommandName {
-    REGISTRATION("registration");
+    REGISTRATION,
+    AUTHORIZATION,
         // another
-    String name;
-    CommandName(String name) {
-        this.name = name;
-    }
+    WRONG_COMMAND
+
+
 }

@@ -5,18 +5,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import by.ivanchenko.carrental.bean.user.User;
-import by.ivanchenko.carrental.dao.impl.UserDAOImpl;
+import by.ivanchenko.carrental.bean.car.Car;
 import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import by.ivanchenko.carrental.bean.*;
 
 //@WebServlet(name = "by.ivanchenko.carrental.controller.Control", value = "/by.ivanchenko.carrental.controller.Control")
 //@WebServlet("/adress");

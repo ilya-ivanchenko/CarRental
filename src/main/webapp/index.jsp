@@ -10,7 +10,8 @@
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var="localization"/> <%-- "local" - стандатрные данные  --%>
 
-    <fmt:message bundle="${localization}" key="local.message" var="message"/>
+    <fmt:message bundle="${localization}" key="local.cars" var="name"/>
+    <fmt:message bundle="${localization}" key="local.registration" var="reg"/>
     <fmt:message bundle="${localization}" key="local.locbutton.name.en" var="en_button"/>
     <fmt:message bundle="${localization}" key="local.locbutton.name.ru" var="ru_button"/>
     <fmt:message bundle="${localization}" key="local.locbutton.name.by" var="by_button"/>
@@ -31,24 +32,18 @@
     <input type="submit" value="${by_button}" />
 </form>
 
-<h3>${message}</h3>
-${sessionScope.local}
+<h3>${name}</h3>
 
 <br/>
 <br/>
 <a href="authorization.jsp">logIn</a>
-<a href="registration.jsp">Registration</a>
+<a href="registration.jsp">${reg}</a>
 <br/>
-<a href="usebean.jsp">Profile</a>
 
-
-<form action="registration.jsp" method="post">  <%-- post/get      // action  = "/registration" --%>
-    <input type="hidden" name="command" value="GoToRegistration"/>
-    <input type="submit" value="Registration"/>
-</form>
-
-
-
+<%--<form action="registration.jsp" method="post">  &lt;%&ndash; post/get      // action  = "/registration" &ndash;%&gt;--%>
+<%--    <input type="hidden" name="command" value="GoToRegistration"/>--%>
+<%--    <input type="submit" value="Registration"/>--%>
+<%--</form>--%>
 
 <table cellpadding="5">
 <tr>
@@ -84,6 +79,11 @@ ${sessionScope.local}
 </c:forEach>
     </table>
 
+
+
+
+<br/>
+<button onclick="location='registration.jsp'">Registration</button>
 <%--<tr>--%>
 <%--    <td>${car1.id}</td>--%>
 <%--    <td>${car1.name}</td>--%>
@@ -103,5 +103,21 @@ ${sessionScope.local}
 
 <%--    <input type="submit" value="Send"/>--%>
 <%--</form>--%>
+
+
+
+<c:set var="admin" value="admin_user" scope="session"/>
+<c:set var="manger" value="manager_user" scope="session"/>
+<c:set var="customer" value="customer_user" scope="session"/>
+<c:choose>
+    <c:when test="${user.role==2}">
+        <button onclick="location='customer_home.jsp'">Customer page</button>
+    </c:when>
+</c:choose>
+
+<br/>
+
+
+
 </body>
 </html>

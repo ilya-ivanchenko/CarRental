@@ -20,10 +20,10 @@ public class Authorization extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setContentType("text/html");
         if ("authorization".equals(req.getParameter("command"))) {
-            req.getRequestDispatcher("after_authorization.jsp").forward(req, resp);
+            req.getRequestDispatcher("after_registration.jsp").forward(req, resp);
             System.out.println("forward after authorization OK");
-            AuthorizatonCommand authorizatonCommand = new AuthorizatonCommand();
-            authorizatonCommand.execute(req, resp);
+            AuthorizationCommand authorizationCommand = new AuthorizationCommand();
+            authorizationCommand.execute(req, resp);
         }
     }
 }

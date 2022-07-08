@@ -6,16 +6,32 @@ import by.ivanchenko.carrental.dao.DAOFactory;
 import by.ivanchenko.carrental.dao.UserDAO;
 import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.UserService;
+import by.ivanchenko.carrental.service.Validator;
 
 public class UserServiceImpl implements UserService {
 
-
-    //во всех методах проверка входящих параметров быть должна
-
+    private static final Validator validator = new Validator();
 
     @Override
     public void register(User user) throws ServiceException {
-      try {
+
+        if (!validator.nameValidation(user.getName())) {
+            throw new ServiceException("Incorrect name format. The name must not contain numbers");
+        }
+
+        if (!validator.nameValidation(user.getSurname())) {
+            throw new ServiceException("Incorrect surname format. The surname must not contain numbers");
+        }
+
+        if (!validator.phoneValidation(user.getPhone())) {
+            throw new ServiceException("Incorrect phone format. The phone must start with +...");
+        }
+
+        if (!validator.emailValidation(user.getEmail())) {
+            throw new ServiceException("Incorrect email format");
+        }
+
+        try {
           UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
           userDAO.registration(user);
       } catch (Exception e) {
@@ -25,24 +41,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User authorize(String email, String password) throws ServiceException {
-//validation ADD
-if (email == null || email.isEmpty()) {
-    throw new ServiceException("Incorrect email"); // "User with this e-mail not found"
-}
-// cессия
+        if (!validator.emailValidation(email)) {
+            throw new ServiceException("Incorrect email format");   // page?
+        }
+        // cессия
         // поверка на авторизован ли уже
-
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
        User user =  userDAO.logIn(email, password);
-//       if (user != null) {
-//           return user;
-//       } else {
-//           return
-//       }
             return user;
         } catch (DAOException e) {
-            throw new ServiceException("", e);
+            throw new ServiceException("User authorization error: incorrect email or wrong password", e);
         }
     }
 

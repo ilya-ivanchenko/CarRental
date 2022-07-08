@@ -5,12 +5,14 @@ public class PageParameter {
     private PageParameter() {
     }
 
-    public  static final String USER_HOME  = "user_home";
-    public  static final String ERROR_REGISTRATION  = "error_registration";
 
-    public  static final String ADMIN_HOME  = "admin_home";
-    public  static final String MANAGER_HOME  = "manager_home";
-    public  static final String ERROR_AUTHORIZATION  = "error_authorization";
+    public  static final String ERROR_PAGE  = "page.error_page";
+    public  static final String AFTER_REGISTRATION  = "page.after_registration";
+    public  static final String CUSTOMER_HOME  = "page.customer_home";
+    public  static final String ADMIN_HOME  = "page.admin_home";
+    public  static final String MANAGER_HOME  = "page.manager_home";
+
+
 
 
 }

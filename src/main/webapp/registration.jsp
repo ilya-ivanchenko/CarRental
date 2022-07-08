@@ -5,7 +5,7 @@
     <title>Registration</title>
 </head>
 <body>
-<form action="registration" method="post">
+<form action="controller" method="post">
   <input type="hidden" name="command" value="registration"/>
 
   Enter name:<br/>
@@ -17,9 +17,11 @@
   Enter password:<br/>
   <input type="password" name="password" value=""/> <br/>
   Enter email:<br/>
-  <input type="text" name="email" value=""/> <br/>
-  <input type="submit" value="Send"/>
+  <input type="email" name="email" value=""/> <br/>
+  <input type="submit" value="Registration"/>
 </form>
+<br/>
+<a href="index.jsp">Home page</a>
 </body>
 </html>
 

@@ -9,22 +9,26 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Controller extends HttpServlet {
+    private final CommandProvider provider = new CommandProvider();
+    Command command;
+    String commandName;
+    String commandPage;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doRequest(req, resp);
+        executeTask(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doRequest(req, resp);
+        executeTask(req, resp);
     }
 
-    private void doRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String commandName = request.getParameter("command");
-        Command command = CommandProvider.getCommand(commandName);
-        CommandResponse commandResponse = command.execute(request, response);
-        request.getRequestDispatcher(commandResponse.getResponsePage()).forward(request, response);  //check;
-
+    private void executeTask(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        commandName = request.getParameter("command");
+        command = provider.getCommand(commandName);
+        commandPage = command.execute(request, response);
+        request.getRequestDispatcher(commandPage).forward(request, response);  //check;
     }
 
 }

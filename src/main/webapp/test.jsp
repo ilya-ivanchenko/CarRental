@@ -7,12 +7,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TEST PAGE</title>
+    <title>ERROR PAGE</title>
 <h2>опа</h2>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="local" var="localization"/> <%-- "local_en" - стандатрные данные  --%>
 
-<fmt:message bundle="${localization}" key="local.message" var="message"/>
+    <button onclick="location='index.jsp'">Main page</button>
 <fmt:message bundle="${localization}" key="local.locbutton.name.en" var="en_button"/>
 <fmt:message bundle="${localization}" key="local.locbutton.name.ru" var="ru_button"/>
 <fmt:message bundle="${localization}" key="local.locbutton.name.by" var="by_button"/>
@@ -33,10 +33,10 @@
     <input type="submit" value="${by_button}" />
 </form>
 
-<c:out value="${message}"/>
+
 <h3>${message}</h3>
 
-${sessionScope.local}
+
 
 
 

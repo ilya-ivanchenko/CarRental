@@ -6,4 +6,6 @@ public interface UserDAO{
      public void registration(User user) throws DAOException;
      public void updateInfo(User user) throws DAOException;
      public void delete(String email) throws DAOException;
+//     public void read(User user) throws DAOException;
+
 }
