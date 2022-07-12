@@ -1,6 +1,6 @@
 package by.ivanchenko.carrental.controller;
 
-import jakarta.servlet.RequestDispatcher;
+import by.ivanchenko.carrental.controller.command.Command;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +28,16 @@ public class Controller extends HttpServlet {
         commandName = request.getParameter("command");
         command = provider.getCommand(commandName);
         commandPage = command.execute(request, response);
+        request.getSession(true).setAttribute("local", request.getParameter("local"));
         request.getRequestDispatcher(commandPage).forward(request, response);  //check;
+
+
+
+        //request.getRequestDispatcher("index.jsp").forward(request,response);
+        System.out.println("req.attr - " + request.getAttribute("local"));
+        System.out.println("session.attr - " + request.getSession().getAttribute("local"));
+        System.out.println("req.param - " + request.getParameter("local"));
+        System.out.println("---------------");
     }
 
 }

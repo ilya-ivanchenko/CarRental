@@ -11,6 +11,7 @@ public class PageParameter {
     public  static final String CUSTOMER_HOME  = "page.customer_home";
     public  static final String ADMIN_HOME  = "page.admin_home";
     public  static final String MANAGER_HOME  = "page.manager_home";
+    public  static final String MAIN  = "page.main";
 
 
 

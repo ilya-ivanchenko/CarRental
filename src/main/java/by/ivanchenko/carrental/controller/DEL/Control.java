@@ -1,4 +1,4 @@
-package by.ivanchenko.carrental.controller;
+package by.ivanchenko.carrental.controller.DEL;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-//@WebServlet(name = "by.ivanchenko.carrental.controller.Control", value = "/by.ivanchenko.carrental.controller.Control")
+//@WebServlet(name = "by.ivanchenko.carrental.controller.DEL.Control", value = "/by.ivanchenko.carrental.controller.DEL.Control")
 //@WebServlet("/adress");
 public class Control extends HttpServlet {
     private  static  final  long serialVersionUID = 1L;

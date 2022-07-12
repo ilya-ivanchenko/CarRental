@@ -1,5 +1,9 @@
 package by.ivanchenko.carrental.controller;
 
+import by.ivanchenko.carrental.controller.command.Command;
+import by.ivanchenko.carrental.controller.command.CommandName;
+import by.ivanchenko.carrental.controller.command.impl.*;
+
 import java.util.HashMap;
 
 final class CommandProvider {
@@ -8,7 +12,10 @@ final class CommandProvider {
         CommandProvider() {
             commands.put(CommandName.REGISTRATION, new RegistrationCommand());
             commands.put(CommandName.AUTHORIZATION, new AuthorizationCommand());
-            // another
+            commands.put(CommandName.GET_CAR_LIST, new GetCarListCommand());
+            commands.put(CommandName.GET_CAR_LIST_FILTRED, new GetCarListFiltredCommand());
+            commands.put(CommandName.CHANGE_LANG, new ChangeLangCommand());
+            // another UNKNOWN
 
         }
 
@@ -21,7 +28,7 @@ final class CommandProvider {
             command = commands.get(commandName);
             } catch (IllegalArgumentException | NullPointerException e) {
                 //log
-                command = commands.get(CommandName.WRONG_COMMAND);
+                command = commands.get(CommandName.UNKNOWN);
             }
             return command;
         }

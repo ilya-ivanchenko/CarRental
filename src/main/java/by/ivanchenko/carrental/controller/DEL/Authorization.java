@@ -1,5 +1,6 @@
-package by.ivanchenko.carrental.controller;
+package by.ivanchenko.carrental.controller.DEL;
 
+import by.ivanchenko.carrental.controller.command.impl.AuthorizationCommand;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         try {
           UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
           userDAO.registration(user);
-      } catch (Exception e) {
+      } catch (DAOException e) {
           throw new ServiceException("Error while register user",e);
       }
     }
@@ -48,11 +48,16 @@ public class UserServiceImpl implements UserService {
         // поверка на авторизован ли уже
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-       User user =  userDAO.logIn(email, password);
+            User user =  userDAO.logIn(email, password);
             return user;
         } catch (DAOException e) {
             throw new ServiceException("User authorization error: incorrect email or wrong password", e);
         }
+    }
+
+    @Override
+    public void updateInfo(User user) throws ServiceException {
+
     }
 
     @Override

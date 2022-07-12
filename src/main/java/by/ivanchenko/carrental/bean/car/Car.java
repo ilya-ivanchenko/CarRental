@@ -16,22 +16,6 @@ public class Car {
     private int price;
     private  int mileage;
 
-    public Car(int id, String name, double engineCapacity, String transmission, int year, String drive,
-               int tank, double consumption, String fuel, String bodyType, int price, int mileage) {
-        setId(id);
-        setName(name);
-        setEngineCapacity(engineCapacity);
-        setTransmission(transmission);
-        setYear(year);
-        setDrive(drive);
-        setTank(tank);
-        setConsumption(consumption);
-        setFuel(fuel);
-        setBodyType(bodyType);
-        setPrice(price);
-        setMileage(mileage);
-    }
-
     public int getId() {
         return id;
     }
@@ -128,6 +112,25 @@ public class Car {
         this.mileage = mileage;
     }
 
+    public Car() {
+
+    }
+    public Car(int id, String name, double engineCapacity, String transmission, int year, String drive,
+               int tank, double consumption, String fuel, String bodyType, int price, int mileage) {
+        setId(id);
+        setName(name);
+        setEngineCapacity(engineCapacity);
+        setTransmission(transmission);
+        setYear(year);
+        setDrive(drive);
+        setTank(tank);
+        setConsumption(consumption);
+        setFuel(fuel);
+        setBodyType(bodyType);
+        setPrice(price);
+        setMileage(mileage);
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -146,19 +149,24 @@ public class Car {
                 '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Car car = (Car) o;
-//        return id == car.id && Double.compare(car.engineCapacity, engineCapacity) == 0 && year == car.year
-//                && tank == car.tank && Double.compare(car.consumption, consumption) == 0 && price == car.price
-//                && mileage == car.mileage && Objects.equals(name, car.name) && Objects.equals(transmission, car.transmission)
-//                && Objects.equals(drive, car.drive) && Objects.equals(fuel, car.fuel) && Objects.equals(bodyType, car.bodyType);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name, engineCapacity, transmission, year, drive, tank, consumption, fuel, bodyType, price, mileage);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Car car = (Car) o;
+        return id == car.id && Double.compare(car.engineCapacity, engineCapacity) == 0 && year == car.year
+                && tank == car.tank && Double.compare(car.consumption, consumption) == 0 && price == car.price
+                && mileage == car.mileage && Objects.equals(name, car.name) && Objects.equals(transmission, car.transmission)
+                && Objects.equals(drive, car.drive) && Objects.equals(fuel, car.fuel) && Objects.equals(bodyType, car.bodyType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, engineCapacity, transmission, year,
+                drive, tank, consumption, fuel, bodyType, price, mileage);
+    }
 }

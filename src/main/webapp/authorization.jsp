@@ -16,5 +16,6 @@
 </form>
 <br/>
 <button onclick="location='index.jsp'">Main page</button>
+<div> <input type = "button" value = "Back" onclick = "window.history.back ();" /> </div>
 </body>
 </html>

@@ -4,13 +4,14 @@ import java.util.Objects;
 
 public class User {
 
+    private int id;
     private String name;
     private String surname;
     private String phone;
     private String password;      // пароль не хранить больше чем для авторизации
     private String email;
     private int role;
-    private int id;
+
 
 
     public int getId() {
@@ -69,38 +70,36 @@ public class User {
         this.role = role;
     }
 
-//конструкторы, какие необходимы?
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-       // this.role =; unknown
-    }
     public User() {
     }
 
+    public User(String email, String password) {
+        setEmail(email);
+        setPassword(password);
+    }
+
     public User(String email, String password, int role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        setEmail(email);
+        setPassword(password);
+        setRole(role);
     }
 
     public User( String name, String surname, String phone, String password, String email) {
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
-        this.password = password;
-        this.email = email;
+       setName(name);
+       setSurname(surname);
+       setPhone(phone);
+       setPassword(password);
+       setEmail(email);
     }
 
     public User(int id, String name, String surname, String phone, String password, String email, int role) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.phone = phone;
-        this.password = password;
-        this.email = email;
-        this.role = role;
+        setId(id);
+        setName(name);
+        setSurname(surname);
+        setPhone(phone);
+        setPassword(password);
+        setEmail(email);
+        setRole(role);
     }
 
     @Override

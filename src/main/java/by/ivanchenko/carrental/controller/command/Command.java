@@ -1,4 +1,4 @@
-package by.ivanchenko.carrental.controller;
+package by.ivanchenko.carrental.controller.command;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

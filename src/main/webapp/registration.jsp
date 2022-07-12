@@ -21,7 +21,10 @@
   <input type="submit" value="Registration"/>
 </form>
 <br/>
+
 <a href="index.jsp">Home page</a>
+<div> <input type = "button" value = "Back" onclick = "window.history.back();" /> </div>
+<button onclick="window.history.back();">Back1</button>
 </body>
 </html>
 

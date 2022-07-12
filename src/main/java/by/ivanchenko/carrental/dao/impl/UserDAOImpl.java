@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
     private static final String UPDATE_INFO = "UPDATE users SET name = ?, surname = ?, phone = ?, password = ?, email = ? WHERE id_user = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE email = ?";
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
-    private static final String READ_INFO = "SELECT * FROM users WHERE email = ?";
+
 
     @Override
     public User logIn(String email, String password) throws DAOException {
