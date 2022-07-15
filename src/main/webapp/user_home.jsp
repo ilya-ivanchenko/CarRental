@@ -19,7 +19,23 @@
 
 <br/>
 <button onclick="location='index.jsp'">Main page</button>
-<button onclick="location='index.jsp'">Edit information</button>
+<button onclick="location='edit_user.jsp'">Edit information</button>
 
+<form  action="controller" method="post">
+    <input type="hidden" name="command" value="delete_user"/>
+    <input class="del" type="submit"  value="Delete user"/>
+</form>
+
+
+<style>
+    input.del {
+    /*font-weight: bold;*/
+        color: red;
+    }
+    form {
+    display: inline-block;
+    }
+
+</style>
 </body>
 </html>

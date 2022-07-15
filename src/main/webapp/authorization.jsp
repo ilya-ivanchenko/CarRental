@@ -9,13 +9,13 @@
   <input type="hidden" name="command" value="authorization"/>
 
   Enter email:<br/>
-  <input type="text" name="email" value=""/> <br/>
+  <input type="text" name="email" value="" required="required"/> <br/>
   Enter password:<br/>
-  <input type="password" name="password" value=""/> <br/>
+  <input type="password" name="password" value="" required="required"/> <br/>
   <input type="submit" value="Enter"/>
 </form>
 <br/>
 <button onclick="location='index.jsp'">Main page</button>
-<div> <input type = "button" value = "Back" onclick = "window.history.back ();" /> </div>
+<button onclick="window.history.back();">Back</button>
 </body>
 </html>

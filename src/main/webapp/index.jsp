@@ -34,45 +34,56 @@
     <input type="hidden" name="command" value="change_lang"/>
     <input type="submit" value="${by_button}" />
 </form>
-
-
-
-
 <br/>
 <br/>
-<a href="authorization.jsp">logIn</a>
-<a href="registration.jsp">${reg}</a>
+<button onclick="location='registration.jsp'">${reg}</button>
+<%--<c:choose>--%>
+<%--    <c:when test="${user==null}">--%>
+        <button onclick="location='authorization.jsp'">Log In</button>
+<%--    </c:when>--%>
+<%--</c:choose>--%>
+<c:choose>
+    <c:when test="${user.role>1}">
+        <button onclick="location='user_home.jsp'">Your page</button>
+    </c:when>
+</c:choose>
 <br/>
+<br/>
+
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="get_car_list"/>
     <input type="submit"  value="Каталог авто"/>
 </form>
 
+
+
 <form action="controller" method="post">
     <input type="hidden" name="command" value="get_car_list_filtred"/>
 <div>
     <br/>Gear box:<br/>
-    <input type="radio" name="transmission" value="Любая" checked/>Любая <br/>
+    <input type="radio" name="transmission" value="%" checked/>Любая <br/>
     <input type="radio" name="transmission" value="Механика" />Механика <br/>
     <input type="radio" name="transmission" value="Автомат" />Автомат <br/>
 </div>
 <div>
     Drive:<br/>
-    <input type="checkbox" name="drive" value="Передний" checked/>Передний <br/>
-    <input type="checkbox" name="drive" value="Задний" checked/>Задний <br/>
-    <input type="checkbox" name="drive" value="Полный" checked/>Полный <br/>
+    <input type="radio" name="drive" value="%" checked/>Любой <br/>
+    <input type="radio" name="drive" value="Передний" />Передний <br/>
+    <input type="radio" name="drive" value="Задний" />Задний <br/>
+    <input type="radio" name="drive" value="Полный" />Полный <br/>
 </div>
-    <div class="aaa" >
+    <div>
         <br/>Engine:<br/>
-        <input type="checkbox" name="fuel" value="Бензин" checked/>Бензин <br/>
-        <input type="checkbox" name="fuel" value="Дизель" checked/>Дизель <br/>
-        <input type="checkbox" name="fuel" value="Электро" checked/>Электро <br/>
+        <input type="radio" name="fuel" value="%" checked/>Любой <br/>
+        <input type="radio" name="fuel" value="Бензин" />Бензин <br/>
+        <input type="radio" name="fuel" value="Дизель" />Дизель <br/>
+        <input type="radio" name="fuel" value="Электро" />Электро <br/>
     </div>
 <div>
     Engine capacity, l.:<br/>
     <select name="engine_capacity1">
-                <option value="1.0">1.0</option>
+                <option selected value="0.0">0.0</option>
                 <option value="1.4">1.4</option>
                 <option value="1.6">1.6</option>
                 <option value="1.8">1.8</option>
@@ -81,19 +92,19 @@
                 <option value="3.0">3.0</option>
     </select>
     <select name="engine_capacity2">
-        <option value="1.0">1.0</option>
+        <option value="0.0">0.0</option>
         <option value="1.4">1.4</option>
         <option value="1.6">1.6</option>
         <option value="1.8">1.8</option>
         <option value="2.0">2.0</option>
         <option value="2.5">2.5</option>
-        <option value="3.0">3.0</option>
+        <option selected value="3.0">3.0</option>
     </select>
 </div>
     <div>
         Consumption, l/100 km:<br/>
         <select name="consumption1">
-            <option value="4.0">4.0</option>
+            <option selected value="4.0">4.0</option>
             <option value="5.0">5.0</option>
             <option value="6.0">6.0</option>
             <option value="7.0">7.0</option>
@@ -112,13 +123,13 @@
             <option value="9.0">9.0</option>
             <option value="10.0">10.0</option>
             <option value="11.0">11.0</option>
-            <option value="12.0">12.0</option>
+            <option selected value="12.0">12.0</option>
         </select>
     </div>
 <div>
     Cost per day, $:<br/>
     <select name="price1">
-        <option value="15">15</option>
+        <option selected value="15">15</option>
         <option value="20">20</option>
         <option value="25">25</option>
         <option value="30">30</option>
@@ -143,18 +154,16 @@
         <option value="60">60</option>
         <option value="70">70</option>
         <option value="80">80</option>
-        <option value="90">90</option>
+        <option  selected value="90">90</option>
     </select>
 </div>
 
-<%--    <select name="transmission">--%>
-<%--        <option value="">Любая</option>--%>
-<%--        <option value="Механика">Механика</option>--%>
-<%--        <option value="Автомат">Автомат</option>--%>
-<%--    </select>--%>
+<div>
+    Rental dates:<br/>
+    <input type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
+    <input type="date" name="date2" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
+</div>
 
-
-<%--    ...--%>
     <br/><input type="submit" value="Применить"/>
 </form>
 
@@ -162,7 +171,7 @@
 
 <table cellpadding="5">
 <tr>
-<%--    <th scope="col">id</th>--%>
+
     <th scope="col">Car</th>
     <th scope="col">Transmission</th>
     <th scope="col">Year</th>
@@ -174,11 +183,14 @@
     <th scope="col">Body Type</th>
     <th scope="col">Price</th>
     <th scope="col">Mileage</th>
+    <th></th>
 </tr>
 
 <c:forEach  var="cars" items="${cars}">
     <tr scope="row">
-<%--        <td>${cars.id}</td>--%>
+
+<%--        <td><input type="radio" name="" value="${cars.id}" /></td>--%>
+
         <td>${cars.name}</td>
         <td>${cars.transmission}</td>
         <td>${cars.year}</td>
@@ -190,61 +202,36 @@
         <td>${cars.bodyType}</td>
         <td>${cars.price}</td>
         <td>${cars.mileage}</td>
+        <td>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="book_car"/>
+                <input type="hidden" name="car" value="${cars.id}" />
+                <input type="submit"  value="Забронировать"/>
+            </form>
+        </td>
     </tr>
 </c:forEach>
     </table>
 
-
-
-
-<br/>
-<button onclick="location='registration.jsp'">Registration</button>
-
-
-<%--<tr>--%>
-<%--    <td>${car1.id}</td>--%>
-<%--    <td>${car1.name}</td>--%>
-<%--    <td>${cars[1].name}</td>--%>
-<%--</tr>--%>
-
-
-<%--форма авторизации  method="get" или post  --%>
-<%--<form action="mainpage" method="get">  &lt;%&ndash; post &ndash;%&gt;--%>
-<%--    <input type="hidden" name="command" value="authorization"/>--%>
-
-<%--    Enter email:<br/>--%>
-<%--    <input type="text" name="email" value=""/> <br/>--%>
-
-<%--    Enter password:<br/>--%>
-<%--    <input type="password" name="password" value=""/> <br/>--%>
-
-<%--    <input type="submit" value="Send"/>--%>
-<%--</form>--%>
-
-
-
+<c:set var="cars" value="${cars}" scope="session"/>
 <c:set var="admin" value="admin_user" scope="session"/>
-<c:set var="manger" value="manager_user" scope="session"/>
+<c:set var="manager" value="manager_user" scope="session"/>
 <c:set var="customer" value="customer_user" scope="session"/>
-<c:choose>
-    <c:when test="${user.role==2}">
-        <button onclick="location='customer_home.jsp'">Customer page</button>
-    </c:when>
-</c:choose>
 
-<br/>
 
+
+
+date: ${currentDate}
 <style>
-    /*div.aaa { display: inline;*/
-    /*margin-right: 30px;*/
-    /*text-align: left;}*/
     div {
         display: inline-block;
         padding: 10px;
     }
     form.local {
         display: inline-block;
-
+    }
+    h3 {
+        text-decoration: red;
     }
 </style>
 

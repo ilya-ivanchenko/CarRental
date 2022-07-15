@@ -1,7 +1,6 @@
 package by.ivanchenko.carrental.dao.impl;
 
 import by.ivanchenko.carrental.bean.car.Car;
-import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.dao.CarDAO;
 import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.impl.connection.ConnectionPool;
@@ -27,11 +26,8 @@ public class CarDAOImpl implements CarDAO {
 
     private static final String GET_CAR_LIST = "SELECT * FROM cars";
     //TO DO:
-    private static final String GET_CAR_LIST_FILTRED = "SELECT * FROM cars WHERE drive = ? AND transmission = ? ";
-
-    private static final String GET_CAR_LIST_FILTRED_TEST = "SELECT * FROM cars WHERE drive LIKE '%'";
-    //WHERE Price BETWEEN 20000 AND 50000;   для расхода топлива и т.п.
-
+    private static final String GET_CAR_LIST_FILTRED = "SELECT * FROM cars WHERE drive LIKE ? AND transmission LIKE ?  AND " +
+            "engine_capacity BETWEEN ? AND ? AND fuel LIKE ? AND consumption BETWEEN ? AND ? AND price BETWEEN ? AND ?";
 
     @Override
     public List<Car> getCarList() throws DAOException {
@@ -41,7 +37,10 @@ public class CarDAOImpl implements CarDAO {
         ResultSet resultSet = null;
 
         try {
-            connection = ConnectionPool.getInstance().takeConnection();
+           connection = ConnectionPool.getInstance().takeConnection();
+//            ConnectionPool connectionPool = new ConnectionPool();
+//            connection = connectionPool.takeConnection();
+
             statement = connection.createStatement();
             resultSet = statement.executeQuery(GET_CAR_LIST);
 
@@ -59,24 +58,34 @@ public class CarDAOImpl implements CarDAO {
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection Pool while getting car list", e);
         } finally {
-            ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);     // проверить в конце
+           ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);     // проверить в конце
         }
     }
 
     @Override
-    public List<Car> getCarListFiltred(String transmission, String drive, String engine, double engine_capacity1,
-                                       double engine_capacity2, double consumption1, double consumption2,
-                                       int price1, int price2) throws DAOException {
+    public List<Car> getCarListFiltred(String transmission, String drive, String fuel, double engine_capacity1, double engine_capacity2,
+                                       double consumption1, double consumption2, int price1, int price2) throws DAOException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
+
         try {
+//            ConnectionPool connectionPool = new ConnectionPool();
+//            connection = connectionPool.takeConnection();
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(GET_CAR_LIST_FILTRED);
             preparedStatement.setString(1, drive);
             preparedStatement.setString(2, transmission);
+            preparedStatement.setDouble(3, engine_capacity1);
+            preparedStatement.setDouble(4, engine_capacity2);
+            preparedStatement.setString(5, fuel);
+            preparedStatement.setDouble(6, consumption1);
+            preparedStatement.setDouble(7, consumption2);
+            preparedStatement.setInt(8, price1);
+            preparedStatement.setInt(9, price2);
+
             //add
             resultSet = preparedStatement.executeQuery();
 

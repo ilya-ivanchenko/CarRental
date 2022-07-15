@@ -32,11 +32,11 @@ public class UserServiceImpl implements UserService {
         }
 
         try {
-          UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-          userDAO.registration(user);
-      } catch (DAOException e) {
-          throw new ServiceException("Error while register user",e);
-      }
+            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+            userDAO.registration(user);
+        } catch (DAOException e) {
+            throw new ServiceException("Error while register user", e);
+        }
     }
 
     @Override
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
         // поверка на авторизован ли уже
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-            User user =  userDAO.logIn(email, password);
+            User user = userDAO.logIn(email, password);
             return user;
         } catch (DAOException e) {
             throw new ServiceException("User authorization error: incorrect email or wrong password", e);
@@ -58,10 +58,37 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateInfo(User user) throws ServiceException {
 
+        if (!validator.nameValidation(user.getName())) {
+            throw new ServiceException("Incorrect name format. The name must not contain numbers");
+        }
+
+        if (!validator.nameValidation(user.getSurname())) {
+            throw new ServiceException("Incorrect surname format. The surname must not contain numbers");
+        }
+
+        if (!validator.phoneValidation(user.getPhone())) {
+            throw new ServiceException("Incorrect phone format. The phone must start with +...");
+        }
+
+        if (!validator.emailValidation(user.getEmail())) {
+            throw new ServiceException("Incorrect email format");
+        }
+
+        try {
+            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+            userDAO.updateInfo(user);
+        } catch (DAOException e) {
+            throw new ServiceException("Error while editing user", e);
+        }
     }
 
     @Override
     public void delete(User user) throws ServiceException {
-
+        try {
+            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+            userDAO.delete(user);
+        } catch (DAOException e) {
+            throw new ServiceException("Error while deleting user", e);
+        }
     }
 }
