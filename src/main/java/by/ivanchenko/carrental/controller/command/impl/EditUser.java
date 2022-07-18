@@ -22,9 +22,6 @@ public class EditUser implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-
-//            User user  = new User(38,request.getParameter(NAME), request.getParameter(SURNAME),
-//                    request.getParameter(PHONE), request.getParameter(PASSWORD),request.getParameter(EMAIL),2);
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("user");
             user.setName(request.getParameter(NAME));

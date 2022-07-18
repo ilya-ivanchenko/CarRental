@@ -8,6 +8,9 @@ public enum CommandName {
     CHANGE_LANG,
     EDIT_USER,
     DELETE_USER,
+    LOG_OUT,
+    BOOK_CAR,
+    CREATE_ORDER,
         // another
    UNKNOWN
 

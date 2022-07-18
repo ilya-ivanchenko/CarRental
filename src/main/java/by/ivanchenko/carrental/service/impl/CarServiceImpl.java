@@ -27,9 +27,19 @@ public class CarServiceImpl implements CarService {
         try {
             CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
             return carDAO.getCarListFiltred(transmission, drive, fuel, engine_capacity1,
-                    engine_capacity2, consumption1, consumption2, price1, price2);//TO DO  edit
+                    engine_capacity2, consumption1, consumption2, price1, price2);    //TO DO  edit    date?
         } catch (DAOException e) {
             throw new ServiceException("Error displaying car filtred list", e);
+        }
+    }
+
+    @Override
+    public Car bookCar(int id) throws ServiceException {
+        try {
+            CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
+            return carDAO.bookCar(id);
+        } catch (DAOException e) {
+            throw new ServiceException("Error displaying booked car", e);
         }
     }
 }

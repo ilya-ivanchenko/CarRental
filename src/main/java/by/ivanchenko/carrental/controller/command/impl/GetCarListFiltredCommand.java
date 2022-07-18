@@ -11,10 +11,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class GetCarListFiltredCommand implements Command{
     private static final String ID = "id_car";
@@ -44,6 +46,25 @@ public class GetCarListFiltredCommand implements Command{
                     parseDouble(request.getParameter(CONSUMPTION2)), parseInt(request.getParameter(PRICE1)), parseInt(request.getParameter(PRICE2)));
             HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
             session.setAttribute("cars", cars);
+            LocalDate  startDate =  LocalDate.parse(request.getParameter("date1"));
+            LocalDate  endDate =  LocalDate.parse(request.getParameter("date2"));
+            int rentDays = (int) DAYS.between(startDate, endDate);
+//            int totalPrice =
+
+//            session.setAttribute("filter", request.getParameter("filter"));   закинуть фильтр в сессию?
+            session.setAttribute("start_date", startDate);
+            session.setAttribute("end_date", endDate);
+            session.setAttribute("rent_days", rentDays);
+
+
+// TO DO: add dates
+
+
+            System.out.println("start: " + startDate);
+            System.out.println("end: " + endDate);
+            System.out.println("days:" + rentDays);
+
+
             return PageResourseManager.getValue(PageParameter.MAIN);
         } catch (ServiceException e) {
             request.setAttribute("message", e.getMessage());

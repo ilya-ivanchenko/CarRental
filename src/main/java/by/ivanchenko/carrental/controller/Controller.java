@@ -34,10 +34,10 @@ public class Controller extends HttpServlet {
 
 
         //request.getRequestDispatcher("index.jsp").forward(request,response);
-        System.out.println("req.attr - " + request.getAttribute("local"));
-        System.out.println("session.attr - " + request.getSession().getAttribute("local"));
-        System.out.println("req.param - " + request.getParameter("local"));
-        System.out.println("---------------");
+//        System.out.println("req.attr - " + request.getAttribute("local"));
+//        System.out.println("session.attr - " + request.getSession().getAttribute("local"));
+//        System.out.println("req.param - " + request.getParameter("local"));
+//        System.out.println("---------------");
     }
 
 }

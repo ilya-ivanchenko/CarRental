@@ -14,8 +14,8 @@ public class Order {
     private int customerId;
     private int carId;
     private int managerId;
-    private Calendar startDate; //GregorianCalendar    SimpleDateFormat   LocalDate
-    private Calendar endDate;
+    private Date startDate; //GregorianCalendar    SimpleDateFormat   LocalDate
+    private Date endDate;
     private int totalPrice;
     private String description;
     private boolean payment;
@@ -23,7 +23,7 @@ public class Order {
     private boolean needRepair;
     private boolean isApproved;
     private int repairPrice;
-    private int userId;
+
 
     public int getId() {
         return id;
@@ -57,19 +57,19 @@ public class Order {
         this.managerId = managerId;
     }
 
-    public Calendar getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Calendar endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -129,17 +129,9 @@ public class Order {
         this.repairPrice = repairPrice;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public Order(int id, int customerId, int carId, int managerId, Calendar startDate, Calendar endDate,
+    public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate,
                  int totalPrice, String description, boolean payment, boolean isReturned, boolean needRepair,
-                 boolean isApproved, int repairPrice, int userId) {
+                 boolean isApproved, int repairPrice) {
         setId(id);
         setCustomerId(customerId);
         setCarId(carId);
@@ -153,7 +145,14 @@ public class Order {
         setNeedRepair(needRepair);
         setApproved(isApproved);
         setRepairPrice(repairPrice);
-        setUserId(userId);
+    }
+
+    public Order (int customerId, int carId, Date startDate, Date endDate, int totalPrice) {
+        setCustomerId(customerId);
+        setCarId(carId);
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setTotalPrice(totalPrice);
     }
 
     @Override
@@ -172,7 +171,6 @@ public class Order {
                 ", needRepair=" + needRepair +
                 ", isApproved=" + isApproved +
                 ", repairPrice=" + repairPrice +
-                ", userId=" + userId +
                 '}';
     }
 
@@ -188,13 +186,13 @@ public class Order {
         return id == order.id && customerId == order.customerId && carId == order.carId && managerId == order.managerId
                 && totalPrice == order.totalPrice && payment == order.payment && isReturned == order.isReturned
                 && needRepair == order.needRepair && isApproved == order.isApproved && repairPrice == order.repairPrice
-                && userId == order.userId && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate)
+                && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate)
                 && Objects.equals(description, order.description);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, customerId, carId, managerId, startDate, endDate, totalPrice, description, payment, isReturned,
-                needRepair, isApproved, repairPrice, userId);
+                needRepair, isApproved, repairPrice);
     }
 }

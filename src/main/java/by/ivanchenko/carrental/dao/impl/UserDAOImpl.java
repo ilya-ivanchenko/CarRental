@@ -25,7 +25,6 @@ public class UserDAOImpl implements UserDAO {
     private static final String DELETE_USER = "DELETE FROM users WHERE email = ? AND id_user = ?";
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
 
-
     @Override
     public User logIn(String email, String password) throws DAOException {
 
@@ -106,11 +105,6 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-
-
-
-
-
     @Override
     public void updateInfo(User user) throws DAOException {
 
@@ -141,11 +135,6 @@ public class UserDAOImpl implements UserDAO {
             ConnectionPool.getInstance().closeConnection(connection, preparedStatement);     // проверить в конце
         }
     }
-
-
-
-
-
 
     @Override
     public void delete(User user) throws DAOException {

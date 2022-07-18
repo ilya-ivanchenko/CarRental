@@ -28,6 +28,7 @@ public class CarDAOImpl implements CarDAO {
     //TO DO:
     private static final String GET_CAR_LIST_FILTRED = "SELECT * FROM cars WHERE drive LIKE ? AND transmission LIKE ?  AND " +
             "engine_capacity BETWEEN ? AND ? AND fuel LIKE ? AND consumption BETWEEN ? AND ? AND price BETWEEN ? AND ?";
+    private  static final String GET_CAR = "SELECT * FROM cars WHERE id_car = ?";
 
     @Override
     public List<Car> getCarList() throws DAOException {
@@ -106,4 +107,38 @@ public class CarDAOImpl implements CarDAO {
             ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
         }
     }
+
+    @Override
+    public Car bookCar(int id) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+//            ConnectionPool connectionPool = new ConnectionPool();
+//            connection = connectionPool.takeConnection();
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(GET_CAR);
+            preparedStatement.setInt(1, id);
+
+            resultSet = preparedStatement.executeQuery();
+
+            Car car = new Car();
+            while (resultSet.next()) {
+               car = new Car(resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getDouble(ENGINE_CAPACITY),
+                        resultSet.getString(TRANSMISSION), resultSet.getInt(YEAR), resultSet.getString(DRIVE),
+                        resultSet.getInt(TANK), resultSet.getDouble(CONSUMPTION), resultSet.getString(FUEL),
+                        resultSet.getString(BODY_TYPE), resultSet.getInt(PRICE), resultSet.getInt(MILEAGE));
+            }
+            return car;
+        } catch (SQLException e) {
+            //log.error("some message", e);
+            throw new DAOException("Error while getting booked car list", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while getting booked car list", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
+        }
+    }
+
 }

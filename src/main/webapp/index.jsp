@@ -37,14 +37,25 @@
 <br/>
 <br/>
 <button onclick="location='registration.jsp'">${reg}</button>
-<%--<c:choose>--%>
-<%--    <c:when test="${user==null}">--%>
+<c:choose>
+    <c:when test="${user==null}">
         <button onclick="location='authorization.jsp'">Log In</button>
-<%--    </c:when>--%>
-<%--</c:choose>--%>
+    </c:when>
+</c:choose>
+
+<c:choose>
+    <c:when test="${user!=null}">
+        <form class="logout" action="controller" method="post">
+            <input type="hidden" name="command" value="log_out"/>
+            <input type="hidden" name="filter" value=""/>
+            <input type="submit"  value="Log out"/>
+        </form>
+    </c:when>
+</c:choose>
+
 <c:choose>
     <c:when test="${user.role>1}">
-        <button onclick="location='user_home.jsp'">Your page</button>
+        <button class="yourpage" onclick="location='user_home.jsp'">Your profile</button>
     </c:when>
 </c:choose>
 <br/>
@@ -57,6 +68,10 @@
 </form>
 
 
+
+<h3>${name}</h3>
+<c:choose>
+    <c:when test="${cars != null}">
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="get_car_list_filtred"/>
@@ -163,11 +178,15 @@
     <input type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
     <input type="date" name="date2" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
 </div>
-
+    <c:choose>
+        <c:when test="${rent_days!=null}">
+            <div>
+            Total rental days: ${rent_days}
+            </div>
+        </c:when>
+    </c:choose>
     <br/><input type="submit" value="Применить"/>
 </form>
-
-<h3>${name}</h3>
 
 <table cellpadding="5">
 <tr>
@@ -181,15 +200,19 @@
     <th scope="col">Tank</th>
     <th scope="col">Consumption</th>
     <th scope="col">Body Type</th>
-    <th scope="col">Price</th>
+    <th scope="col">Cost per day</th>
     <th scope="col">Mileage</th>
+    <c:choose>
+        <c:when test="${rent_days!=null}">
+            <th scope="col">Total price</th>
+        </c:when>
+    </c:choose>
+
     <th></th>
 </tr>
 
 <c:forEach  var="cars" items="${cars}">
     <tr scope="row">
-
-<%--        <td><input type="radio" name="" value="${cars.id}" /></td>--%>
 
         <td>${cars.name}</td>
         <td>${cars.transmission}</td>
@@ -202,6 +225,11 @@
         <td>${cars.bodyType}</td>
         <td>${cars.price}</td>
         <td>${cars.mileage}</td>
+        <c:choose>
+            <c:when test="${rent_days!=null}">
+                <td class="price">${cars.price * rent_days}</td>
+            </c:when>
+        </c:choose>
         <td>
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="book_car"/>
@@ -212,16 +240,25 @@
     </tr>
 </c:forEach>
     </table>
+    </c:when>
+</c:choose>
+<br/>
 
-<c:set var="cars" value="${cars}" scope="session"/>
+
+
+
+
+
 <c:set var="admin" value="admin_user" scope="session"/>
 <c:set var="manager" value="manager_user" scope="session"/>
 <c:set var="customer" value="customer_user" scope="session"/>
 
 
 
-
-date: ${currentDate}
+<%--${start_date}--%>
+<%--${end_date}--%>
+<%--date: ${currentDate}--%>
+<%--days: ${rent_days}--%>
 <style>
     div {
         display: inline-block;
@@ -230,9 +267,16 @@ date: ${currentDate}
     form.local {
         display: inline-block;
     }
-    h3 {
-        text-decoration: red;
+    form.logout {
+        display: inline-block;
     }
+    button.yourpage {
+        display: inline-block;
+    }
+    td.price {
+        font-weight: bold;
+    }
+
 </style>
 
 </body>
