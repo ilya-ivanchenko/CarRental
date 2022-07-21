@@ -36,9 +36,10 @@
 </form>
 <br/>
 <br/>
-<button onclick="location='registration.jsp'">${reg}</button>
+
 <c:choose>
-    <c:when test="${user==null}">
+    <c:when test="${user==null || user.role == 4}">
+        <button onclick="location='registration.jsp'">${reg}</button>
         <button onclick="location='authorization.jsp'">Log In</button>
     </c:when>
 </c:choose>
@@ -55,7 +56,7 @@
 
 <c:choose>
     <c:when test="${user.role>1}">
-        <button class="yourpage" onclick="location='user_home.jsp'">Your profile</button>
+        <button class="yourpage" onclick="location='user_home.jsp'">My profile</button>
     </c:when>
 </c:choose>
 <br/>
@@ -190,7 +191,6 @@
 
 <table cellpadding="5">
 <tr>
-
     <th scope="col">Car</th>
     <th scope="col">Transmission</th>
     <th scope="col">Year</th>
@@ -207,13 +207,11 @@
             <th scope="col">Total price</th>
         </c:when>
     </c:choose>
-
     <th></th>
 </tr>
 
 <c:forEach  var="cars" items="${cars}">
     <tr scope="row">
-
         <td>${cars.name}</td>
         <td>${cars.transmission}</td>
         <td>${cars.year}</td>
@@ -223,11 +221,11 @@
         <td>${cars.tank}</td>
         <td>${cars.consumption}</td>
         <td>${cars.bodyType}</td>
-        <td>${cars.price}</td>
+        <td>${cars.price}$</td>
         <td>${cars.mileage}</td>
         <c:choose>
             <c:when test="${rent_days!=null}">
-                <td class="price">${cars.price * rent_days}</td>
+                <td class="price">${cars.price * rent_days}$</td>
             </c:when>
         </c:choose>
         <td>
@@ -249,9 +247,9 @@
 
 
 
-<c:set var="admin" value="admin_user" scope="session"/>
-<c:set var="manager" value="manager_user" scope="session"/>
-<c:set var="customer" value="customer_user" scope="session"/>
+<%--<c:set var="admin" value="admin_user" scope="session"/>--%>
+<%--<c:set var="manager" value="manager_user" scope="session"/>--%>
+<%--<c:set var="customer" value="customer_user" scope="session"/>--%>
 
 
 
@@ -276,6 +274,10 @@
     td.price {
         font-weight: bold;
     }
+    td {
+        text-align: center;
+    }
+
 
 </style>
 

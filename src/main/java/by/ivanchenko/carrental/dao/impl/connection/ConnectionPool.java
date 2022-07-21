@@ -10,10 +10,11 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
-public final class ConnectionPool {    // final ?
-   private BlockingQueue<Connection> freeConnectionQueue;      //EDIT   : private
+public final class ConnectionPool {
+   private BlockingQueue<Connection> freeConnectionQueue;
    private BlockingQueue<Connection> givenConnectionQueue;
-   private static  ConnectionPool instance;
+   private static ConnectionPool instance;
+
     /*
 Реализация данного интерфейса BlockingQueue обеспечивает блокировку потока в двух случаях :
     при попытке получения элемента из пустой очереди;
@@ -31,7 +32,7 @@ public final class ConnectionPool {    // final ?
     private  int poolSize;
     private int defaultPoolSize = 5;
 
-    private ConnectionPool() throws ConnectionPoolException{                    //private ?  EDIT
+    private ConnectionPool() throws ConnectionPoolException {                    //private ?  EDIT
         DBResourseManager dbResourceManager = DBResourseManager.getInstance();
         this.driver = dbResourceManager.getValue(DBParameter.DRIVER);
         this.url = dbResourceManager.getValue(DBParameter.URL);
@@ -42,18 +43,18 @@ public final class ConnectionPool {    // final ?
         } catch (NumberFormatException e) {
             poolSize = defaultPoolSize;
         }
-            initPool();
+        initPool();
     }
 
-    static {
-        try {
-            instance = new ConnectionPool();
-        } catch (ConnectionPoolException e) {
-            //log
+
+    public static ConnectionPool getInstance() {
+        if (instance==null) {
+            try {
+                instance = new ConnectionPool();
+            } catch (ConnectionPoolException e) {
+                //log?
+            }
         }
-    }
-
-    public static ConnectionPool getInstance()  {
         return instance;
     }
 
@@ -64,7 +65,7 @@ public final class ConnectionPool {    // final ?
             freeConnectionQueue = new ArrayBlockingQueue<Connection>(poolSize);
             for (int i = 0; i < poolSize; i++) {
                 Connection connection = DriverManager.getConnection(url, user, password);
-                PooledConnection pooledConnection = new PooledConnection(connection);
+                PooledConnection pooledConnection = new PooledConnection(connection);//
                 freeConnectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
@@ -172,7 +173,7 @@ public final class ConnectionPool {    // final ?
             if (!givenConnectionQueue.remove(this)) {
                 throw new SQLException("Error deleting connection from the given away connection pool.");
             }
-            if (!freeConnectionQueue.remove(this)) {
+            if (!freeConnectionQueue.offer(this)) {
                 throw new SQLException("Error allocating connection in the pool.");
             }
         }

@@ -84,12 +84,13 @@ public class User {
         setRole(role);
     }
 
-    public User( String name, String surname, String phone, String password, String email) {
+    public User( String name, String surname, String phone, String password, String email, int role) {
        setName(name);
        setSurname(surname);
        setPhone(phone);
        setPassword(password);
        setEmail(email);
+       setRole(role);
     }
 
     public User(int id, String name, String surname, String phone, String password, String email, int role) {

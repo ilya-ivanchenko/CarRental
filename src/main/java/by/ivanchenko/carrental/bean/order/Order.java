@@ -19,9 +19,9 @@ public class Order {
     private int totalPrice;
     private String description;
     private boolean payment;
-    private boolean isReturned;
+    private boolean returned;
     private boolean needRepair;
-    private boolean isApproved;
+    private boolean approved;
     private int repairPrice;
 
 
@@ -98,11 +98,11 @@ public class Order {
     }
 
     public boolean isReturned() {
-        return isReturned;
+        return returned;
     }
 
     public void setReturned(boolean returned) {
-        isReturned = returned;
+        this.returned = returned;
     }
 
     public boolean isNeedRepair() {
@@ -114,11 +114,11 @@ public class Order {
     }
 
     public boolean isApproved() {
-        return isApproved;
+        return approved;
     }
 
     public void setApproved(boolean approved) {
-        isApproved = approved;
+        this.approved = approved;
     }
 
     public int getRepairPrice() {
@@ -130,8 +130,8 @@ public class Order {
     }
 
     public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate,
-                 int totalPrice, String description, boolean payment, boolean isReturned, boolean needRepair,
-                 boolean isApproved, int repairPrice) {
+                 int totalPrice, String description, boolean payment, boolean returned, boolean needRepair,
+                 boolean approved, int repairPrice) {
         setId(id);
         setCustomerId(customerId);
         setCarId(carId);
@@ -141,9 +141,9 @@ public class Order {
         setTotalPrice(totalPrice);
         setDescription(description);
         setPayment(payment);
-        setReturned(isReturned);
+        setReturned(returned);
         setNeedRepair(needRepair);
-        setApproved(isApproved);
+        setApproved(approved);
         setRepairPrice(repairPrice);
     }
 
@@ -167,9 +167,9 @@ public class Order {
                 ", totalPrice=" + totalPrice +
                 ", description='" + description + '\'' +
                 ", payment=" + payment +
-                ", isReturned=" + isReturned +
+                ", returned=" + returned +
                 ", needRepair=" + needRepair +
-                ", isApproved=" + isApproved +
+                ", approved=" + approved +
                 ", repairPrice=" + repairPrice +
                 '}';
     }
@@ -184,15 +184,15 @@ public class Order {
         }
         Order order = (Order) o;
         return id == order.id && customerId == order.customerId && carId == order.carId && managerId == order.managerId
-                && totalPrice == order.totalPrice && payment == order.payment && isReturned == order.isReturned
-                && needRepair == order.needRepair && isApproved == order.isApproved && repairPrice == order.repairPrice
+                && totalPrice == order.totalPrice && payment == order.payment && returned == order.returned
+                && needRepair == order.needRepair && approved == order.approved && repairPrice == order.repairPrice
                 && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate)
                 && Objects.equals(description, order.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customerId, carId, managerId, startDate, endDate, totalPrice, description, payment, isReturned,
-                needRepair, isApproved, repairPrice);
+        return Objects.hash(id, customerId, carId, managerId, startDate, endDate, totalPrice, description, payment, returned,
+                needRepair, approved, repairPrice);
     }
 }

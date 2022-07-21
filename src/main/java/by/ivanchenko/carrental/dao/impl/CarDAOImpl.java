@@ -39,9 +39,6 @@ public class CarDAOImpl implements CarDAO {
 
         try {
            connection = ConnectionPool.getInstance().takeConnection();
-//            ConnectionPool connectionPool = new ConnectionPool();
-//            connection = connectionPool.takeConnection();
-
             statement = connection.createStatement();
             resultSet = statement.executeQuery(GET_CAR_LIST);
 
@@ -58,7 +55,8 @@ public class CarDAOImpl implements CarDAO {
             throw new DAOException("Error while getting car list", e);
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection Pool while getting car list", e);
-        } finally {
+        }
+        finally {
            ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);     // проверить в конце
         }
     }
@@ -70,7 +68,6 @@ public class CarDAOImpl implements CarDAO {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
 
         try {
 //            ConnectionPool connectionPool = new ConnectionPool();

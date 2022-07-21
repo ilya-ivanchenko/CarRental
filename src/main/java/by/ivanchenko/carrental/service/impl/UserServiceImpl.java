@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User authorize(String email, String password) throws ServiceException {
         if (!validator.emailValidation(email)) {
-            throw new ServiceException("Incorrect email format");   // page?
+            throw new ServiceException("Incorrect email format");
         }
         // cессия
         // поверка на авторизован ли уже

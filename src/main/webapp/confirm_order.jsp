@@ -47,7 +47,7 @@
 <h3 class="dates">Total days: ${rent_days}</h3>
 
 
-<h3 class="dates">Total price: ${car.price * rent_days}</h3>
+<h3 class="dates">Total price: ${car.price * rent_days}$</h3>
 
 <br/>
 <br/>

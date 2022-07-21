@@ -17,6 +17,7 @@ public class LogOut implements Command {
         
         HttpSession session = request.getSession();
         session.removeAttribute("user");
+        session.removeAttribute("orders");
         return PageResourseManager.getValue(PageParameter.MAIN);
     }
 }

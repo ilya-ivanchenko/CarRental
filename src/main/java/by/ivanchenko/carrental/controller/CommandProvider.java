@@ -20,6 +20,7 @@ final class CommandProvider {
             commands.put(CommandName.LOG_OUT, new LogOut());
             commands.put(CommandName.BOOK_CAR, new BookCar());
             commands.put(CommandName.CREATE_ORDER, new CreateOrder());
+            commands.put(CommandName.ORDER_INFO, new GetOrderInfo());
             // another UNKNOWN
 
         }

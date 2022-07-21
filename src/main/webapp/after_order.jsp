@@ -8,6 +8,7 @@
 <h3>Rental order completed successfully! Manager will contact you</h3>
 <br/>Also you can check  your orders status in
 <button class="yourpage" onclick="location='user_home.jsp'">Your profile</button>
+<br/>
 <br/><button onclick="location='index.jsp'">Main page</button>
 </body>
 </html>

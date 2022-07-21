@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -7,7 +8,14 @@
 <body>
 <form action="controller" method="post">
   <input type="hidden" name="command" value="registration"/>
-
+  <c:choose>
+    <c:when test="${user.role == 4}">
+      <input type="hidden" name="role" value="3"/>
+    </c:when>
+    <c:when test="${user.role != 4}">
+      <input type="hidden" name="role" value="2"/>
+    </c:when>
+  </c:choose>
   Enter name:<br/>
   <input type="text" name="name" value=""/> <br/>
   Enter surname:<br/>

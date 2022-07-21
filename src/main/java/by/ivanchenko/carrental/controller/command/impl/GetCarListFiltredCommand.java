@@ -11,14 +11,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.temporal.Temporal;
+import java.util.Date;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class GetCarListFiltredCommand implements Command{
+public class GetCarListFiltredCommand implements Command {
     private static final String ID = "id_car";
     private static final String NAME = "name";
     private static final String ENGINE_CAPACITY1 = "engine_capacity1";
@@ -46,8 +50,10 @@ public class GetCarListFiltredCommand implements Command{
                     parseDouble(request.getParameter(CONSUMPTION2)), parseInt(request.getParameter(PRICE1)), parseInt(request.getParameter(PRICE2)));
             HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
             session.setAttribute("cars", cars);
-            LocalDate  startDate =  LocalDate.parse(request.getParameter("date1"));
-            LocalDate  endDate =  LocalDate.parse(request.getParameter("date2"));
+            //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+            LocalDate startDate = LocalDate.parse(request.getParameter("date1"));
+            LocalDate endDate = LocalDate.parse(request.getParameter("date2"));
             int rentDays = (int) DAYS.between(startDate, endDate);
 //            int totalPrice =
 

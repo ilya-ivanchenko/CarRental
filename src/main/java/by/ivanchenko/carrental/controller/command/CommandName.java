@@ -11,6 +11,7 @@ public enum CommandName {
     LOG_OUT,
     BOOK_CAR,
     CREATE_ORDER,
+    ORDER_INFO,
         // another
    UNKNOWN
 

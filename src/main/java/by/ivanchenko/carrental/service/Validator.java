@@ -7,11 +7,14 @@ public class Validator {
 
     public boolean emailValidation(String email) {
 
-        Pattern pattern = Pattern.compile("([.[^@\\s]]+)@([.[^@\\s]]+)\\.([a-z]+)" );
-        Matcher matcher = pattern.matcher(email);
-        boolean checkEmail = matcher.matches();
+        Pattern patternEmail = Pattern.compile("([.[^@\\s]]+)@([.[^@\\s]]+)\\.([a-z]+)");
+        Pattern patternAdmin = Pattern.compile("admin");
+        Matcher matcherEmail = patternEmail.matcher(email);
+        Matcher matcherAdmin = patternAdmin.matcher(email);
+        boolean checkEmail = matcherEmail.matches();
+        boolean checkAdmin = matcherAdmin.matches();
 
-        if (email == null || email.isEmpty() || !checkEmail) {
+        if (email == null || email.isEmpty() || !(!checkEmail || !checkAdmin)) {
             return  false;
         } else {
             return true;

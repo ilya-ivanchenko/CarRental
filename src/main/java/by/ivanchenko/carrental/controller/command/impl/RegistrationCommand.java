@@ -20,20 +20,31 @@ public class RegistrationCommand implements Command {
     private static final String PHONE = "phone";
     private static final String PASSWORD = "password";
     private static final String EMAIL = "email";
- //    private static final String ROLE = "id_role";
+    private static final String ROLE = "role";
+    private static final String MANAGER_REG= "Manager registration completed successfully!";
+ // ;
 
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User user  = new User(req.getParameter(NAME), req.getParameter(SURNAME),
-                    req.getParameter(PHONE), req.getParameter(PASSWORD),req.getParameter(EMAIL));
+                User user  = new User(req.getParameter(NAME), req.getParameter(SURNAME), req.getParameter(PHONE),
+                        req.getParameter(PASSWORD),req.getParameter(EMAIL), Integer.parseInt(req.getParameter(ROLE)));
+
+//            if (req.getParameter("role") != null){
+//                user.setRole(Integer.parseInt(req.getParameter("role")));
+//            }
             userService.register(user);
             //*
             HttpSession session = req.getSession(true);
-            session.setAttribute("user", user);
-            //поиск юзера
 
-        return PageResourseManager.getValue(PageParameter.AFTER_REGISTRATION);
+
+            if (session.getAttribute("user") == null) {
+//                session.setAttribute("user", user);
+                return PageResourseManager.getValue(PageParameter.AFTER_REGISTRATION);
+            } else {
+                req.setAttribute("message",MANAGER_REG);
+                return PageResourseManager.getValue(PageParameter.USER_HOME);
+            }
         } catch (ServiceException e) {
             req.setAttribute("message", e.getMessage());
             return PageResourseManager.getValue(PageParameter.ERROR_PAGE);

@@ -22,21 +22,11 @@ public class AuthorizationCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
 
-//            if (request.getSession().getAttribute("user") != null) {
-//                return PageResourseManager.getValue(PageParameter.CUSTOMER_HOME);
-//            }
-
             UserService userService = ServiceFactory.getInstance().getUserService();
             User user =  userService.authorize(request.getParameter(EMAIL), request.getParameter(PASSWORD));
             HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
             session.setAttribute("user", user);
-            if (user.getRole() == 2) {                          // подумать над порядком  if
-                return PageResourseManager.getValue(PageParameter.USER_HOME);
-            } else  if (user.getRole() == 3){
-                return PageResourseManager.getValue(PageParameter.MANAGER_HOME);
-            } else {
-                return PageResourseManager.getValue(PageParameter.ADMIN_HOME);
-            }
+            return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute("message", e.getMessage());
             return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
