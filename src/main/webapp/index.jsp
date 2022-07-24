@@ -120,7 +120,7 @@
     <div>
         Consumption, l/100 km:<br/>
         <select name="consumption1">
-            <option selected value="4.0">4.0</option>
+            <option selected value="0.0">4.0</option>
             <option value="5.0">5.0</option>
             <option value="6.0">6.0</option>
             <option value="7.0">7.0</option>
@@ -173,11 +173,10 @@
         <option  selected value="90">90</option>
     </select>
 </div>
-
 <div>
     Rental dates:<br/>
     <input type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
-    <input type="date" name="date2" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
+    <input type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
 </div>
     <c:choose>
         <c:when test="${rent_days!=null}">

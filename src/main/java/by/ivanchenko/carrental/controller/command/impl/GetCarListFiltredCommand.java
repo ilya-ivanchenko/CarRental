@@ -44,33 +44,21 @@ public class GetCarListFiltredCommand implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             CarService carService = ServiceFactory.getInstance().getCarService();
+            LocalDate startDate = LocalDate.parse(request.getParameter("date1"));
+            LocalDate endDate = LocalDate.parse(request.getParameter("date2"));
             List<Car> cars = carService.getCarListFiltred(request.getParameter(TRANSMISSION), request.getParameter(DRIVE),
                     request.getParameter(FUEL), parseDouble(request.getParameter(ENGINE_CAPACITY1)),
                     parseDouble(request.getParameter(ENGINE_CAPACITY2)), parseDouble(request.getParameter(CONSUMPTION1)),
-                    parseDouble(request.getParameter(CONSUMPTION2)), parseInt(request.getParameter(PRICE1)), parseInt(request.getParameter(PRICE2)));
+                    parseDouble(request.getParameter(CONSUMPTION2)), parseInt(request.getParameter(PRICE1)),
+                    parseInt(request.getParameter(PRICE2)), startDate, endDate);
             HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
             session.setAttribute("cars", cars);
             //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-            LocalDate startDate = LocalDate.parse(request.getParameter("date1"));
-            LocalDate endDate = LocalDate.parse(request.getParameter("date2"));
             int rentDays = (int) DAYS.between(startDate, endDate);
-//            int totalPrice =
-
-//            session.setAttribute("filter", request.getParameter("filter"));   закинуть фильтр в сессию?
             session.setAttribute("start_date", startDate);
             session.setAttribute("end_date", endDate);
             session.setAttribute("rent_days", rentDays);
-
-
-// TO DO: add dates
-
-
-            System.out.println("start: " + startDate);
-            System.out.println("end: " + endDate);
-            System.out.println("days:" + rentDays);
-
-
             return PageResourseManager.getValue(PageParameter.MAIN);
         } catch (ServiceException e) {
             request.setAttribute("message", e.getMessage());

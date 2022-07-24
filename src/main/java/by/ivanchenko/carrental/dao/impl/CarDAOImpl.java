@@ -7,6 +7,7 @@ import by.ivanchenko.carrental.dao.impl.connection.ConnectionPool;
 import by.ivanchenko.carrental.dao.impl.connection.ConnectionPoolException;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,10 @@ public class CarDAOImpl implements CarDAO {
     private static final String GET_CAR_LIST = "SELECT * FROM cars";
     //TO DO:
     private static final String GET_CAR_LIST_FILTRED = "SELECT * FROM cars WHERE drive LIKE ? AND transmission LIKE ?  AND " +
-            "engine_capacity BETWEEN ? AND ? AND fuel LIKE ? AND consumption BETWEEN ? AND ? AND price BETWEEN ? AND ?";
+            " engine_capacity BETWEEN ? AND ? AND fuel LIKE ? AND consumption BETWEEN ? AND ? AND price BETWEEN ? AND ? " +
+            " AND id_car NOT IN (SELECT car_id FROM orders WHERE ? BETWEEN start_date AND end_date OR ? BETWEEN start_date " +
+            "AND end_date OR start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?)";
+
     private  static final String GET_CAR = "SELECT * FROM cars WHERE id_car = ?";
 
     @Override
@@ -63,7 +67,8 @@ public class CarDAOImpl implements CarDAO {
 
     @Override
     public List<Car> getCarListFiltred(String transmission, String drive, String fuel, double engine_capacity1, double engine_capacity2,
-                                       double consumption1, double consumption2, int price1, int price2) throws DAOException {
+                                       double consumption1, double consumption2, int price1, int price2,
+                                       LocalDate startDate, LocalDate endDate) throws DAOException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -83,6 +88,12 @@ public class CarDAOImpl implements CarDAO {
             preparedStatement.setDouble(7, consumption2);
             preparedStatement.setInt(8, price1);
             preparedStatement.setInt(9, price2);
+            preparedStatement.setDate(10, Date.valueOf(startDate));
+            preparedStatement.setDate(11, Date.valueOf(endDate));
+            preparedStatement.setDate(12, Date.valueOf(startDate));
+            preparedStatement.setDate(13, Date.valueOf(endDate));
+            preparedStatement.setDate(14, Date.valueOf(startDate));
+            preparedStatement.setDate(15, Date.valueOf(endDate));
 
             //add
             resultSet = preparedStatement.executeQuery();

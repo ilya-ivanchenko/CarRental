@@ -18,12 +18,12 @@ public class UserDAOImpl implements UserDAO {
     private static final String EMAIL = "email";
     private static final String ROLE = "id_role";
 
-
     private static final String REGISTER_USER = "INSERT INTO users (name, surname, phone, password, email, id_role) VALUES (?, ?, ?, ?, ?,?)";  // +
     private static final String LOG_IN = "SELECT * FROM users WHERE email = ? and password = ?";
     private static final String UPDATE_INFO = "UPDATE users SET name = ?, surname = ?, phone = ?, password = ?, email = ? WHERE id_user = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE email = ? AND id_user = ?";
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
+
 
     @Override
     public User logIn(String email, String password) throws DAOException {
@@ -161,41 +161,4 @@ public class UserDAOImpl implements UserDAO {
             ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
         }
     }
-
-//    @Override
-//    public void read(User user) throws DAOException {
-//        Connection connection = null;
-//        PreparedStatement preparedStatement = null;
-//        ResultSet resultSet = null;
-//
-//        try {
-//            connection = ConnectionPool.getInstance().takeConnection();
-//            preparedStatement = connection.prepareStatement(READ_INFO);
-//            preparedStatement.setString(1, user.getEmail());
-//            resultSet = preparedStatement.executeQuery();
-//            if (resultSet.next()) {
-//                throw new DAOException("User with this email isn't exist");
-//                //как обработать?   page?
-//            }
-//
-//            preparedStatement = connection.prepareStatement(REGISTER_USER, Statement.RETURN_GENERATED_KEYS);   //  для получения id из БД
-//            preparedStatement.setString(1, user.getName());
-//            preparedStatement.setString(2, user.getSurname());
-//            preparedStatement.setString(3, user.getPhone());
-//            preparedStatement.setString(4, user.getPassword());
-//            preparedStatement.setString(5, user.getEmail());
-//
-//            preparedStatement.executeQuery();
-////            resultSet = preparedStatement.getGeneratedKeys();
-////            resultSet.next();
-//        } catch (SQLException e) {  // to do      likewise upper 'logIn'
-//            //log.error("some message", e);
-//            throw new DAOException("Error while adding new User", e);
-//        } catch (ConnectionPoolException e) {
-//            throw new DAOException("Error in Connection Pool while adding new User", e);
-//        }
-//        finally {
-//            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
-//        }
-//    }
 }

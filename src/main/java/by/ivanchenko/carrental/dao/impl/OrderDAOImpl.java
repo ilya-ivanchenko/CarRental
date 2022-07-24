@@ -25,13 +25,20 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String NEED_REPAIR = "need_repair";
     private static final String APPROVED = "order_approved";
     private static final String REPAIR_PRICE = "repair_price";
+    private static final String PASSPORT = "passport";
 
-    private static final String CREATE_ORDER = "INSERT INTO orders (car_id, start_date, end_date, total_price, user_id) VALUES (?,?,?,?,?)";
+    private static final String CREATE_ORDER = "INSERT INTO orders (car_id, start_date, end_date, total_price, user_id," +
+            " passport, description) VALUES (?,?,?,?,?,?,?)";
     private static final String ORDER_INFO = "SELECT * FROM orders WHERE user_id = ?";
+    private static final String ORDER_INFO_MANAGER = "SELECT * FROM orders WHERE manager_id = ?";
     private static final String ORDER_INFO_ALL = "SELECT * FROM orders";
+    private static final String APPROVE_ORDER = "UPDATE orders SET order_approved = 1, manager_id = ? WHERE id_order = ? ";
+    private static final String PAY = "UPDATE orders SET payment_rental = 1 WHERE id_order = ?";
+    private static final String DELETE_ORDER = "DELETE FROM orders WHERE id_order = ?";
+    private static final String GIVE_CAR = "UPDATE orders SET returned = 0 WHERE id_order = ?";
 
     @Override
-    public void create(int customerId, int carId, Date startDate, Date endDate, int totalPrice) throws DAOException {
+    public void create(int customerId, int carId, Date startDate, Date endDate, int totalPrice, String passport, String description) throws DAOException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -45,6 +52,8 @@ public class OrderDAOImpl implements OrderDAO {
             preparedStatement.setDate(3, (java.sql.Date) endDate);
             preparedStatement.setInt(4, totalPrice);
             preparedStatement.setInt(5, customerId);
+            preparedStatement.setString(6, passport);
+            preparedStatement.setString(7, description);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
@@ -53,7 +62,7 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection Pool while creating new Order", e);
         } finally {
-            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);     // проверить в конце
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
         }
     }
 
@@ -69,14 +78,12 @@ public class OrderDAOImpl implements OrderDAO {
             resultSet = preparedStatement.executeQuery();
 
             ArrayList<Order> orders = new ArrayList<>();
-         if (resultSet.next()) {
-                orders.add (new Order(resultSet.getInt(ID_ORDER), resultSet.getInt(ID_CUSTOMER), resultSet.getInt(ID_CAR),
-                        resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
-                        resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
-                        resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
-                        resultSet.getInt(REPAIR_PRICE)));
-            } else {
-             throw new DAOException("You don't have any orders");
+         while (resultSet.next()) {
+             orders.add(new Order(resultSet.getInt(ID_ORDER), resultSet.getInt(ID_CUSTOMER), resultSet.getInt(ID_CAR),
+                     resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
+                     resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
+                     resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
+                     resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT)));
          }
          return orders;
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
@@ -85,10 +92,39 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection Pool while getting info about Orders", e);
         } finally {
-            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);
         }
     }
 
+    @Override
+    public List<Order> getInfoManager(int idManager) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(ORDER_INFO_MANAGER);
+            preparedStatement.setInt(1, idManager);
+            resultSet = preparedStatement.executeQuery();
+
+            ArrayList<Order> orders = new ArrayList<>();
+            while (resultSet.next()) {
+                orders.add(new Order(resultSet.getInt(ID_ORDER), resultSet.getInt(ID_CUSTOMER), resultSet.getInt(ID_CAR),
+                        resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
+                        resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
+                        resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
+                        resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT)));
+            }
+            return orders;
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("You don't have any orders", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while getting info about Orders", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);
+        }
+    }
 
     public List<Order> getInfoAll() throws DAOException {
         Connection connection = null;
@@ -100,14 +136,12 @@ public class OrderDAOImpl implements OrderDAO {
             resultSet = statement.executeQuery(ORDER_INFO_ALL);
 
             ArrayList<Order> orders = new ArrayList<>();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 orders.add(new Order(resultSet.getInt(ID_ORDER), resultSet.getInt(ID_CUSTOMER), resultSet.getInt(ID_CAR),
                         resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
                         resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
                         resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
-                        resultSet.getInt(REPAIR_PRICE)));
-            } else {
-                throw new DAOException("Any orders don't exist");
+                        resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT)));
             }
             return orders;
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
@@ -116,8 +150,89 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (ConnectionPoolException e) {
             throw new DAOException("Error in Connection Pool while getting info about Orders", e);
         } finally {
-            ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);     // проверить в конце
+            ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);
         }
     }
+
+    @Override
+    public void approve(int idOrder, int idManager) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(APPROVE_ORDER);
+            preparedStatement.setInt(1, idManager);
+            preparedStatement.setInt(2, idOrder);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Can't to approve the order", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while approving the order", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
+        }
+    }
+
+    public void payment(int idOrder) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(PAY);
+            preparedStatement.setInt(1, idOrder);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Can't to pay for order", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while paying for order", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void deleteOrder(int idOrder) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+
+            preparedStatement = connection.prepareStatement(DELETE_ORDER);
+            preparedStatement.setInt(1, idOrder);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Error while deleting Order", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while deleting Order", e);
+        }
+        finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void giveCarCustomer(int idOrder) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(GIVE_CAR);
+            preparedStatement.setInt(1, idOrder);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Can't change the  return status", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while changing the return status", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
+        }
+    }
+
+
 }
 

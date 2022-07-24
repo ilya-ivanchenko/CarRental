@@ -23,6 +23,7 @@ public class Order {
     private boolean needRepair;
     private boolean approved;
     private int repairPrice;
+    private String passport;
 
 
     public int getId() {
@@ -128,10 +129,16 @@ public class Order {
     public void setRepairPrice(int repairPrice) {
         this.repairPrice = repairPrice;
     }
+    public String getPassport() {
+        return passport;
+    }
+    public void setPassport(String passport) {
+        this.passport = passport;
+    }
 
     public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate,
                  int totalPrice, String description, boolean payment, boolean returned, boolean needRepair,
-                 boolean approved, int repairPrice) {
+                 boolean approved, int repairPrice, String passport) {
         setId(id);
         setCustomerId(customerId);
         setCarId(carId);
@@ -145,6 +152,7 @@ public class Order {
         setNeedRepair(needRepair);
         setApproved(approved);
         setRepairPrice(repairPrice);
+        setPassport(passport);
     }
 
     public Order (int customerId, int carId, Date startDate, Date endDate, int totalPrice) {
@@ -171,6 +179,7 @@ public class Order {
                 ", needRepair=" + needRepair +
                 ", approved=" + approved +
                 ", repairPrice=" + repairPrice +
+                ", passport=" + passport +
                 '}';
     }
 
@@ -187,12 +196,12 @@ public class Order {
                 && totalPrice == order.totalPrice && payment == order.payment && returned == order.returned
                 && needRepair == order.needRepair && approved == order.approved && repairPrice == order.repairPrice
                 && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate)
-                && Objects.equals(description, order.description);
+                && Objects.equals(description, order.description) && Objects.equals(passport, order.passport);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, customerId, carId, managerId, startDate, endDate, totalPrice, description, payment, returned,
-                needRepair, approved, repairPrice);
+                needRepair, approved, repairPrice, passport);
     }
 }

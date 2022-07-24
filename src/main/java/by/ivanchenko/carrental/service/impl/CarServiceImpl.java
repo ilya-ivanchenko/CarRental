@@ -7,6 +7,7 @@ import by.ivanchenko.carrental.dao.DAOFactory;
 import by.ivanchenko.carrental.service.CarService;
 import by.ivanchenko.carrental.service.ServiceException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CarServiceImpl implements CarService {
@@ -23,11 +24,12 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<Car> getCarListFiltred(String transmission, String drive, String fuel, double engine_capacity1, double engine_capacity2,
-                                       double consumption1, double consumption2, int price1, int price2) throws ServiceException {
+                                       double consumption1, double consumption2, int price1, int price2,
+                                       LocalDate startDate, LocalDate endDate) throws ServiceException {
         try {
             CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
             return carDAO.getCarListFiltred(transmission, drive, fuel, engine_capacity1,
-                    engine_capacity2, consumption1, consumption2, price1, price2);    //TO DO  edit    date?
+                    engine_capacity2, consumption1, consumption2, price1, price2, startDate, endDate);    //TO DO  edit    date?
         } catch (DAOException e) {
             throw new ServiceException("Error displaying car filtred list", e);
         }

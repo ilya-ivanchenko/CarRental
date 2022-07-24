@@ -30,6 +30,8 @@ public class GetCarListCommand implements Command {
 
             LocalDate currentDate = LocalDate.now();
             LocalDate maxDate = currentDate.plusDays(180);
+            LocalDate currentDatePlus = currentDate.plusDays(1);
+            session.setAttribute("currentDatePlus", currentDatePlus);
             session.setAttribute("currentDate", currentDate);
             session.setAttribute("maxDate", maxDate);
 

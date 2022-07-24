@@ -48,9 +48,8 @@
 
 
 <h3 class="dates">Total price: ${car.price * rent_days}$</h3>
+<br/>
 
-<br/>
-<br/>
 <h3>Your information:</h3>
 <div>
     <p>Имя: ${user.name}</p>
@@ -59,13 +58,14 @@
     <p>E-mail: ${user.email}</p>
     <p>ID: ${user.id}</p>
 </div>
-<br/>
-<br/>
+
 <form action="controller" method="post">
     <input type="hidden" name="command" value="create_order"/>
     <input type="hidden" name="total_price" value="${car.price * rent_days}"/>
-
-    Enter passport id:<br/>
+    You can write a comment:<br/>
+    <textarea name="comment" cols="30" rows="3"></textarea>
+    <br/>
+    Enter passport ID:<br/>
     <input type="text" name="passport" value=""  required="required"/> <br/>
 
     <input type="submit" value="Send book request"/>

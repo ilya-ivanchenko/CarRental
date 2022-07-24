@@ -21,6 +21,11 @@ final class CommandProvider {
             commands.put(CommandName.BOOK_CAR, new BookCar());
             commands.put(CommandName.CREATE_ORDER, new CreateOrder());
             commands.put(CommandName.ORDER_INFO, new GetOrderInfo());
+            commands.put(CommandName.APPROVE_ORDER, new ApproveOrder());
+            commands.put(CommandName.PAY, new PayForOrder());
+            commands.put(CommandName.MANAGER_ORDER, new ManagerOrder());
+            commands.put(CommandName.DELETE_ORDER, new DeleteOrder());
+            commands.put(CommandName.GIVE_CAR_CUSTOMER, new GiveCarCustomer());
             // another UNKNOWN
 
         }

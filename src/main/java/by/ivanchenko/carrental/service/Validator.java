@@ -15,31 +15,43 @@ public class Validator {
         boolean checkAdmin = matcherAdmin.matches();
 
         if (email == null || email.isEmpty() || !(!checkEmail || !checkAdmin)) {
-            return  false;
+            return false;
         } else {
             return true;
         }
     }
 
     public boolean phoneValidation(String phone) {
-        Pattern pattern = Pattern.compile("(\\+\\d{12})" );
+        Pattern pattern = Pattern.compile("(\\+\\d{12})");
         Matcher matcher = pattern.matcher(phone);
         boolean checkPhone = matcher.matches();
 
         if (phone == null || phone.isEmpty() || !checkPhone) {
-            return  false;
+            return false;
         } else {
             return true;
         }
     }
 
     public boolean nameValidation(String name) {
-        Pattern pattern = Pattern.compile("(\\D+)" );
+        Pattern pattern = Pattern.compile("(\\D+)");
         Matcher matcher = pattern.matcher(name);
         boolean checkName = matcher.matches();
 
         if (name == null || name.isEmpty() || !checkName) {
-            return  false;
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean passportValidation(String passport) {
+        Pattern pattern = Pattern.compile("([A-Z]{2}\\d{7})");
+        Matcher matcher = pattern.matcher(passport);
+        boolean checkPassport = matcher.matches();
+
+        if (passport == null || passport.isEmpty() || !checkPassport) {
+            return false;
         } else {
             return true;
         }

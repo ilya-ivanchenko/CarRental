@@ -14,29 +14,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.sql.Date;
-import java.util.List;
 
-public class GetOrderInfo implements Command {
-
+public class ApproveOrder implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             OrderService orderService= ServiceFactory.getInstance().getOrderService();
-            HttpSession session = request.getSession(true);
-            User user = (User) session.getAttribute("user");
-            int role = user.getRole();
-            List<Order> orders;
-            if ((role == 3) ^ (role == 4)) {
-               orders = orderService.getInfoAll();
-            } else {
-                int id = user.getId();
-                orders = orderService.getInfo(id);
-            }
-          session.setAttribute("orders", orders);
-          return PageResourseManager.getValue(PageParameter.USER_HOME);
+            int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+            int idManager  = Integer.parseInt(request.getParameter("idManager"));
+            orderService.approve(idOrder, idManager);
+            return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute("message", e.getMessage());
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
         }
     }
 }

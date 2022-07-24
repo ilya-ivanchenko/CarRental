@@ -26,7 +26,9 @@ public class CreateOrder implements Command {
             User user  = (User) (session.getAttribute("user"));
             Car car = (Car) (session.getAttribute("car"));
             orderService.create(user.getId(), car.getId(), Date.valueOf((session.getAttribute("start_date")).toString()),
-                    Date.valueOf((session.getAttribute("end_date")).toString()), Integer.parseInt(request.getParameter("total_price"))  ); //
+                    Date.valueOf((session.getAttribute("end_date")).toString()),
+                    Integer.parseInt(request.getParameter("total_price")), request.getParameter("passport"),
+                    request.getParameter("comment"));
             return PageResourseManager.getValue(PageParameter.AFTER_ORDER);
         } catch (ServiceException e) {
             request.setAttribute("message", e.getMessage());
