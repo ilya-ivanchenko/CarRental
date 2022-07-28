@@ -10,20 +10,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 public class PayForOrder implements Command {
-    private  static  final String PAY_OK = "Successful payment!";
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             OrderService orderService= ServiceFactory.getInstance().getOrderService();
             HttpSession session = request.getSession(true);
 
-            int idOrder = (Integer) session.getAttribute("idOrder");
+            int idOrder = (Integer) session.getAttribute(ID_ORDER);
             orderService.payment(idOrder);
-            request.setAttribute("message", PAY_OK);
+            request.setAttribute(MESSAGE, PAY_OK);
             return PageResourseManager.getValue(PageParameter.PAY);
         } catch (ServiceException e) {
-            request.setAttribute("message", e.getMessage());
+            request.setAttribute(MESSAGE, e.getMessage());
             return PageResourseManager.getValue(PageParameter.PAY);
         }
     }

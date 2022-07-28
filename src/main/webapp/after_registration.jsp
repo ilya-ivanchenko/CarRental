@@ -5,6 +5,8 @@
 <head>
     <title>Registration successful</title></head>
 <body>
+<c:set  var="page"  value="after_registration.jsp" scope="session"/>
+<jsp:include page="header.jsp"/>
 
 <h3>Your registration completed successfully!</h3>
 Now you can  <button onclick="location='authorization.jsp'">LogIn</button> or go to

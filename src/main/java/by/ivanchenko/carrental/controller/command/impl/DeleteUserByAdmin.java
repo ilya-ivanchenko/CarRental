@@ -11,20 +11,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.IOException;
+
 import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
-public class DeleteUser implements Command {
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.USER_DELETE;
+
+public class DeleteUserByAdmin implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute(USER);
-            userService.delete(user.getId());
-            session.removeAttribute(USER);
-            return PageResourseManager.getValue(PageParameter.MAIN);
-        } catch (ServiceException e) {
-            request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
-        }
-}
+        int id = Integer.parseInt(request.getParameter(ID));
+        userService.delete(id);
+        request.setAttribute(MESSAGE, USER_DELETE);
+        return PageResourseManager.getValue(PageParameter.USER_INFO);
+    } catch (ServiceException e) {
+        request.setAttribute(MESSAGE, e.getMessage());
+        return PageResourseManager.getValue(PageParameter.USER_HOME);
+    }
+    }
 }

@@ -44,4 +44,24 @@ public class CarServiceImpl implements CarService {
             throw new ServiceException("Error displaying booked car", e);
         }
     }
+
+    @Override
+    public void addCar(Car car) throws ServiceException {
+        try {
+            CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
+            carDAO.addCar(car);
+        } catch (DAOException e) {
+            throw new ServiceException("Error while adding new car");
+        }
+    }
+
+    @Override
+    public void deleteCar(int idCar) throws ServiceException {
+        try {
+            CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
+            carDAO.deleteCar(idCar);
+        } catch (DAOException e) {
+            throw new ServiceException("Error while deleting car");
+        }
+    }
 }

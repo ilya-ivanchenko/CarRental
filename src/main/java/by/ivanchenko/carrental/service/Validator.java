@@ -34,7 +34,7 @@ public class Validator {
     }
 
     public boolean nameValidation(String name) {
-        Pattern pattern = Pattern.compile("(\\D+)");
+        Pattern pattern = Pattern.compile("\\D+");
         Matcher matcher = pattern.matcher(name);
         boolean checkName = matcher.matches();
 
@@ -51,6 +51,18 @@ public class Validator {
         boolean checkPassport = matcher.matches();
 
         if (passport == null || passport.isEmpty() || !checkPassport) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean priceValidation(int repairPrice) {
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(String.valueOf(repairPrice));
+        boolean checkPrice = matcher.matches();
+
+        if (!checkPrice) {
             return false;
         } else {
             return true;

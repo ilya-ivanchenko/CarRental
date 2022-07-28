@@ -14,6 +14,7 @@ public interface OrderService {
     void approve(int idOrder, int idManager) throws ServiceException;
     void payment(int idOrder) throws ServiceException;
     void deleteOrder(int idOrder) throws ServiceException;
-
     void giveCarCustomer(int idOrder) throws ServiceException;
+    void registerReturn(int needRepair, int repairPrice, String description, int idOrder) throws ServiceException;
+    void cancelOrderByManager(String description, int idOrder)  throws ServiceException;
 }

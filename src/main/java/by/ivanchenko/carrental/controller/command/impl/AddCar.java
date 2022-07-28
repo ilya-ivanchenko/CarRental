@@ -1,7 +1,6 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.car.Car;
-import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.controller.PageResourseManager;
 import by.ivanchenko.carrental.controller.command.Command;
@@ -10,28 +9,27 @@ import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
-public class BookCar implements Command {
-
+public class AddCar implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             CarService carService = ServiceFactory.getInstance().getCarService();
-            HttpSession session = request.getSession(true);
-            int id = Integer.parseInt(request.getParameter(CAR));
-            Car car = carService.bookCar(id);
-            session.setAttribute(CAR, car);
-            User user = (User) session.getAttribute(USER);
-            if (user == null) {
-                return PageResourseManager.getValue(PageParameter.NO_USER);
-            }
-            return PageResourseManager.getValue(PageParameter.CONFIRM_ORDER);
+            Car car = new Car(request.getParameter(NAME), parseDouble(request.getParameter(ENGINE_CAPACITY)),
+                    request.getParameter(TRANSMISSION), parseInt(request.getParameter(YEAR)), request.getParameter(DRIVE),
+                    parseInt(request.getParameter(TANK)), parseDouble(request.getParameter(CONSUMPTION)),
+                    request.getParameter(FUEL), request.getParameter(BODY_TYPE), parseInt(request.getParameter(PRICE)),
+                    parseInt(request.getParameter(MILEAGE)));
+            carService.addCar(car);
+            request.setAttribute(MESSAGE, SUCCESSFUL_ADDING_CAR);
+            return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            return PageResourseManager.getValue(PageParameter.USER_HOME);
         }
     }
 }

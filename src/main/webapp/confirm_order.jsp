@@ -7,6 +7,8 @@
     <title>Confirm order</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
+<c:set  var="page"  value="confirm_order.jsp" scope="session"/>
 <h3>Check your order and  fill the required data:</h3>
 <br/>
 <h3>Car:</h3>

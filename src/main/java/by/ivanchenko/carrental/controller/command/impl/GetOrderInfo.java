@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.List;
 
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 public class GetOrderInfo implements Command {
 
     @Override
@@ -23,7 +24,7 @@ public class GetOrderInfo implements Command {
         try {
             OrderService orderService= ServiceFactory.getInstance().getOrderService();
             HttpSession session = request.getSession(true);
-            User user = (User) session.getAttribute("user");
+            User user = (User) session.getAttribute(USER);
             int role = user.getRole();
             List<Order> orders;
             if ((role == 3) ^ (role == 4)) {
@@ -32,10 +33,10 @@ public class GetOrderInfo implements Command {
                 int id = user.getId();
                 orders = orderService.getInfo(id);
             }
-          session.setAttribute("orders", orders);
+          session.setAttribute(ORDERS, orders);
           return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
-            request.setAttribute("message", e.getMessage());
+            request.setAttribute(MESSAGE, e.getMessage());
             return PageResourseManager.getValue(PageParameter.USER_HOME);
         }
     }

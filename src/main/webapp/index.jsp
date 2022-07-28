@@ -8,96 +8,69 @@
 <head>
     <title>Main</title>
     <fmt:setLocale value="${sessionScope.local}"/>
-    <fmt:setBundle basename="local" var="localization"/> <%-- "local" - стандатрные данные  --%>
+    <fmt:setBundle basename="local" var="localization"/>
 
-    <fmt:message bundle="${localization}" key="local.cars" var="name"/>
-    <fmt:message bundle="${localization}" key="local.registration" var="reg"/>
-    <fmt:message bundle="${localization}" key="local.locbutton.name.en" var="en_button"/>
-    <fmt:message bundle="${localization}" key="local.locbutton.name.ru" var="ru_button"/>
-    <fmt:message bundle="${localization}" key="local.locbutton.name.by" var="by_button"/>
+    <fmt:message bundle="${localization}" key="local.gearbox" var="gearbox"/>
+    <fmt:message bundle="${localization}" key="local.drive" var="drive"/>
+    <fmt:message bundle="${localization}" key="local.engine" var="engine"/>
+    <fmt:message bundle="${localization}" key="local.capacity" var="capacity"/>
+    <fmt:message bundle="${localization}" key="local.consumption" var="consumption"/>
+    <fmt:message bundle="${localization}" key="local.price" var="price"/>
+    <fmt:message bundle="${localization}" key="local.dates" var="dates"/>
+    <fmt:message bundle="${localization}" key="local.apply" var="apply"/>
+    <fmt:message bundle="${localization}" key="local.any" var="any"/>
+    <fmt:message bundle="${localization}" key="local.any1" var="any1"/>
+    <fmt:message bundle="${localization}" key="local.manual" var="manual"/>
+    <fmt:message bundle="${localization}" key="local.automatic" var="automatic"/>
+    <fmt:message bundle="${localization}" key="local.front" var="front"/>
+    <fmt:message bundle="${localization}" key="local.rear" var="rear"/>
+    <fmt:message bundle="${localization}" key="local.full" var="full"/>
+    <fmt:message bundle="${localization}" key="local.gasoline" var="gasoline"/>
+    <fmt:message bundle="${localization}" key="local.diesel" var="diesel"/>
+    <fmt:message bundle="${localization}" key="local.electro" var="electro"/>
+    <fmt:message bundle="${localization}" key="local.totaldays" var="totaldays"/>
+    <fmt:message bundle="${localization}" key="local.totalprice" var="totalprice"/>
+    <fmt:message bundle="${localization}" key="local.book" var="book"/>
+    <fmt:message bundle="${localization}" key="local.car" var="car"/>
+    <fmt:message bundle="${localization}" key="local.year" var="year"/>
+    <fmt:message bundle="${localization}" key="local.tank" var="tank"/>
+    <fmt:message bundle="${localization}" key="local.body" var="body"/>
+    <fmt:message bundle="${localization}" key="local.power" var="power"/>
+
+
 </head>
 <body>
-<form class="local" action="controller" method="post">
-    <input type="hidden" name="local" value="en"/>
-    <input type="hidden" name="command" value="change_lang"/>
-    <input type="submit" value="${en_button}" />
-</form>
 
-<form class="local" action="controller" method="post">
-    <input type="hidden" name="local" value="ru"/>
-    <input type="hidden" name="command" value="change_lang"/>
-    <input type="submit" value="${ru_button}" />
-</form>
+<c:set  var="page"  value="index.jsp" scope="session"/>
+<jsp:include page="header.jsp"/>
 
-<form class="local" action="controller" method="post">
-    <input type="hidden" name="local" value="by"/>
-    <input type="hidden" name="command" value="change_lang"/>
-    <input type="submit" value="${by_button}" />
-</form>
-<br/>
-<br/>
-
-<c:choose>
-    <c:when test="${user==null || user.role == 4}">
-        <button onclick="location='registration.jsp'">${reg}</button>
-        <button onclick="location='authorization.jsp'">Log In</button>
-    </c:when>
-</c:choose>
-
-<c:choose>
-    <c:when test="${user!=null}">
-        <form class="logout" action="controller" method="post">
-            <input type="hidden" name="command" value="log_out"/>
-            <input type="hidden" name="filter" value=""/>
-            <input type="submit"  value="Log out"/>
-        </form>
-    </c:when>
-</c:choose>
-
-<c:choose>
-    <c:when test="${user.role>1}">
-        <button class="yourpage" onclick="location='user_home.jsp'">My profile</button>
-    </c:when>
-</c:choose>
-<br/>
-<br/>
-
-
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="get_car_list"/>
-    <input type="submit"  value="Каталог авто"/>
-</form>
-
-
-
-<h3>${name}</h3>
 <c:choose>
     <c:when test="${cars != null}">
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="get_car_list_filtred"/>
 <div>
-    <br/>Gear box:<br/>
-    <input type="radio" name="transmission" value="%" checked/>Любая <br/>
-    <input type="radio" name="transmission" value="Механика" />Механика <br/>
-    <input type="radio" name="transmission" value="Автомат" />Автомат <br/>
+    <br/>${gearbox}:<br/>
+    <input type="radio" name="transmission" value="%" checked/>${any}<br/>
+    <input type="radio" name="transmission" value="Механика" />${manual}<br/>
+    <input type="radio" name="transmission" value="Автомат" />${automatic}<br/>
 </div>
 <div>
-    Drive:<br/>
-    <input type="radio" name="drive" value="%" checked/>Любой <br/>
-    <input type="radio" name="drive" value="Передний" />Передний <br/>
-    <input type="radio" name="drive" value="Задний" />Задний <br/>
-    <input type="radio" name="drive" value="Полный" />Полный <br/>
+    ${drive}:<br/>
+    <input type="radio" name="drive" value="%" checked/>${any1}<br/>
+    <input type="radio" name="drive" value="Передний" />${front}<br/>
+    <input type="radio" name="drive" value="Задний" />${rear}<br/>
+    <input type="radio" name="drive" value="Полный" />${full}<br/>
 </div>
     <div>
-        <br/>Engine:<br/>
-        <input type="radio" name="fuel" value="%" checked/>Любой <br/>
-        <input type="radio" name="fuel" value="Бензин" />Бензин <br/>
-        <input type="radio" name="fuel" value="Дизель" />Дизель <br/>
-        <input type="radio" name="fuel" value="Электро" />Электро <br/>
+        <br/>${engine}:<br/>
+        <input type="radio" name="fuel" value="%" checked/>${any1}<br/>
+        <input type="radio" name="fuel" value="Бензин" />${gasoline}<br/>
+        <input type="radio" name="fuel" value="Дизель" />${diesel}<br/>
+        <input type="radio" name="fuel" value="Электро" />${electro}<br/>
     </div>
 <div>
-    Engine capacity, l.:<br/>
+    ${capacity}:<br/>
     <select name="engine_capacity1">
                 <option selected value="0.0">0.0</option>
                 <option value="1.4">1.4</option>
@@ -118,7 +91,7 @@
     </select>
 </div>
     <div>
-        Consumption, l/100 km:<br/>
+        ${consumption}:<br/>
         <select name="consumption1">
             <option selected value="0.0">4.0</option>
             <option value="5.0">5.0</option>
@@ -143,7 +116,7 @@
         </select>
     </div>
 <div>
-    Cost per day, $:<br/>
+    ${price}, $:<br/>
     <select name="price1">
         <option selected value="15">15</option>
         <option value="20">20</option>
@@ -174,36 +147,39 @@
     </select>
 </div>
 <div>
-    Rental dates:<br/>
+    ${dates}:<br/>
     <input type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
     <input type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
 </div>
     <c:choose>
         <c:when test="${rent_days!=null}">
             <div>
-            Total rental days: ${rent_days}
+            ${totaldays}: ${rent_days}
             </div>
         </c:when>
     </c:choose>
-    <br/><input type="submit" value="Применить"/>
+    <br/>
+    <br/>
+    <input type="submit" value="${apply}"/>
 </form>
+<br/>
 
 <table cellpadding="5">
 <tr>
-    <th scope="col">Car</th>
-    <th scope="col">Transmission</th>
-    <th scope="col">Year</th>
-    <th scope="col">Drive</th>
-    <th scope="col">Fuel</th>
-    <th scope="col">Engine Capacity</th>
-    <th scope="col">Tank</th>
-    <th scope="col">Consumption</th>
-    <th scope="col">Body Type</th>
-    <th scope="col">Cost per day</th>
-    <th scope="col">Mileage</th>
+    <th scope="col">${car}</th>
+    <th scope="col">${gearbox}</th>
+    <th scope="col">${year}</th>
+    <th scope="col">${drive}</th>
+    <th scope="col">${engine}</th>
+    <th scope="col">${capacity}</th>
+    <th scope="col">${tank}</th>
+    <th scope="col">${consumption}</th>
+    <th scope="col">${body}</th>
+    <th scope="col">${price}</th>
+    <th scope="col">${power}</th>
     <c:choose>
         <c:when test="${rent_days!=null}">
-            <th scope="col">Total price</th>
+            <th scope="col">${totalprice}</th>
         </c:when>
     </c:choose>
     <th></th>
@@ -231,7 +207,7 @@
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="book_car"/>
                 <input type="hidden" name="car" value="${cars.id}" />
-                <input type="submit"  value="Забронировать"/>
+                <input type="submit"  value="${book}"/>
             </form>
         </td>
     </tr>
@@ -241,6 +217,7 @@
 </c:choose>
 <br/>
 
+</body>
 
 
 

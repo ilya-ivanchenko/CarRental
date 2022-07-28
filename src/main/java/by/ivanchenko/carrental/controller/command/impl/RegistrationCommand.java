@@ -11,18 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 
 public class RegistrationCommand implements Command {
-
-   // private static final String ID = "id_user";
-    private static final String NAME = "name";
-    private static final String SURNAME = "surname";
-    private static final String PHONE = "phone";
-    private static final String PASSWORD = "password";
-    private static final String EMAIL = "email";
-    private static final String ROLE = "role";
-    private static final String MANAGER_REG= "Manager registration completed successfully!";
- // ;
 
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         try {
@@ -38,18 +29,16 @@ public class RegistrationCommand implements Command {
             HttpSession session = req.getSession(true);
 
 
-            if (session.getAttribute("user") == null) {
+            if (session.getAttribute(USER) == null) {
 //                session.setAttribute("user", user);
                 return PageResourseManager.getValue(PageParameter.AFTER_REGISTRATION);
             } else {
-                req.setAttribute("message",MANAGER_REG);
+                req.setAttribute(MESSAGE,MANAGER_REG);
                 return PageResourseManager.getValue(PageParameter.USER_HOME);
             }
         } catch (ServiceException e) {
-            req.setAttribute("message", e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            req.setAttribute(MESSAGE, e.getMessage());
+            return PageResourseManager.getValue(PageParameter.REGISTRATION);
         }
     }
-
-    //сессия
 }

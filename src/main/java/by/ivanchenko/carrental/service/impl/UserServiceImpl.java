@@ -8,6 +8,8 @@ import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.UserService;
 import by.ivanchenko.carrental.service.Validator;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
 
     private static final Validator validator = new Validator();
@@ -83,12 +85,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User user) throws ServiceException {
+    public void delete(int idUser) throws ServiceException {
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-            userDAO.delete(user);
+            userDAO.delete(idUser);
         } catch (DAOException e) {
             throw new ServiceException("Error while deleting user", e);
+        }
+    }
+
+    @Override
+    public List<User> allUserInfo() throws ServiceException {
+        try {
+            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+           return userDAO.allUserInfo();
+        } catch (DAOException e) {
+            throw new ServiceException("Error while getting user list", e);
         }
     }
 }

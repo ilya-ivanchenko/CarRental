@@ -113,11 +113,27 @@ public class Car {
     }
 
     public Car() {
-
     }
+
     public Car(int id, String name, double engineCapacity, String transmission, int year, String drive,
                int tank, double consumption, String fuel, String bodyType, int price, int mileage) {
         setId(id);
+        setName(name);
+        setEngineCapacity(engineCapacity);
+        setTransmission(transmission);
+        setYear(year);
+        setDrive(drive);
+        setTank(tank);
+        setConsumption(consumption);
+        setFuel(fuel);
+        setBodyType(bodyType);
+        setPrice(price);
+        setMileage(mileage);
+    }
+
+    public Car(String name, double engineCapacity, String transmission, int year, String drive,
+               int tank, double consumption, String fuel, String bodyType, int price, int mileage) {
+
         setName(name);
         setEngineCapacity(engineCapacity);
         setTransmission(transmission);

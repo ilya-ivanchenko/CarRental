@@ -19,25 +19,26 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 public class GetCarListCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             CarService carService = ServiceFactory.getInstance().getCarService();
             List<Car> cars = carService.getCarList();
-            HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
-            session.setAttribute("cars", cars);
+            HttpSession session = request.getSession(true);
+            session.setAttribute(CARS, cars);
 
             LocalDate currentDate = LocalDate.now();
             LocalDate maxDate = currentDate.plusDays(180);
             LocalDate currentDatePlus = currentDate.plusDays(1);
-            session.setAttribute("currentDatePlus", currentDatePlus);
-            session.setAttribute("currentDate", currentDate);
-            session.setAttribute("maxDate", maxDate);
+            session.setAttribute(CURRENT_DATE_PLUS, currentDatePlus);
+            session.setAttribute(CURRENT_DATE, currentDate);
+            session.setAttribute(MAX_DATE, maxDate);
 
             return PageResourseManager.getValue(PageParameter.MAIN);
         } catch (ServiceException e) {
-            request.setAttribute("message", e.getMessage());
+            request.setAttribute(MESSAGE, e.getMessage());
             return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
         }
     }

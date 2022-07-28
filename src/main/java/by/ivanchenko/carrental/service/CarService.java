@@ -12,4 +12,6 @@ public interface CarService {
                                 double consumption1, double consumption2, int price1, int price2,
                                 LocalDate startDate, LocalDate endDate) throws ServiceException;  //edit
     Car bookCar(int id) throws ServiceException;
+    void addCar(Car car) throws ServiceException;
+    void deleteCar(int idCar) throws ServiceException;
 }

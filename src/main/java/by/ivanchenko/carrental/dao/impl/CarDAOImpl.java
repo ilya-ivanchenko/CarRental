@@ -26,17 +26,17 @@ public class CarDAOImpl implements CarDAO {
     private static final String MILEAGE = "mileage";
 
     private static final String GET_CAR_LIST = "SELECT * FROM cars";
-    //TO DO:
     private static final String GET_CAR_LIST_FILTRED = "SELECT * FROM cars WHERE drive LIKE ? AND transmission LIKE ?  AND " +
             " engine_capacity BETWEEN ? AND ? AND fuel LIKE ? AND consumption BETWEEN ? AND ? AND price BETWEEN ? AND ? " +
             " AND id_car NOT IN (SELECT car_id FROM orders WHERE ? BETWEEN start_date AND end_date OR ? BETWEEN start_date " +
             "AND end_date OR start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?)";
-
     private  static final String GET_CAR = "SELECT * FROM cars WHERE id_car = ?";
+    private  static final String ADD_CAR = "INSERT INTO cars (name, engine_capacity, transmission, year, drive, tank," +
+            "consumption, fuel, body_type, price, mileage) VALUES (?,?,?,?,?,?,?,?,?,?,?);";
+    private  static final String DELETE_CAR = "DELETE FROM cars WHERE id_car = ?";
 
     @Override
     public List<Car> getCarList() throws DAOException {
-
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -75,8 +75,6 @@ public class CarDAOImpl implements CarDAO {
         ResultSet resultSet = null;
 
         try {
-//            ConnectionPool connectionPool = new ConnectionPool();
-//            connection = connectionPool.takeConnection();
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(GET_CAR_LIST_FILTRED);
             preparedStatement.setString(1, drive);
@@ -94,8 +92,6 @@ public class CarDAOImpl implements CarDAO {
             preparedStatement.setDate(13, Date.valueOf(endDate));
             preparedStatement.setDate(14, Date.valueOf(startDate));
             preparedStatement.setDate(15, Date.valueOf(endDate));
-
-            //add
             resultSet = preparedStatement.executeQuery();
 
             List<Car> cars =  new ArrayList<>();
@@ -123,14 +119,10 @@ public class CarDAOImpl implements CarDAO {
         ResultSet resultSet = null;
 
         try {
-//            ConnectionPool connectionPool = new ConnectionPool();
-//            connection = connectionPool.takeConnection();
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(GET_CAR);
             preparedStatement.setInt(1, id);
-
             resultSet = preparedStatement.executeQuery();
-
             Car car = new Car();
             while (resultSet.next()) {
                car = new Car(resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getDouble(ENGINE_CAPACITY),
@@ -149,4 +141,51 @@ public class CarDAOImpl implements CarDAO {
         }
     }
 
+    @Override
+    public void addCar(Car car) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(ADD_CAR);
+            preparedStatement.setString(1, car.getName());
+            preparedStatement.setDouble(2, car.getEngineCapacity());
+            preparedStatement.setString(3, car.getTransmission());
+            preparedStatement.setInt(4, car.getYear());
+            preparedStatement.setString(5, car.getDrive());
+            preparedStatement.setInt(6, car.getTank());
+            preparedStatement.setDouble(7, car.getConsumption());
+            preparedStatement.setString(8, car.getFuel());
+            preparedStatement.setString(9, car.getBodyType());
+            preparedStatement.setInt(10, car.getPrice());
+            preparedStatement.setInt(11, car.getMileage());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Error while adding new Car", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while adding new Car", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
+        }
+    }
+
+    @Override
+    public void deleteCar(int idCar) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(DELETE_CAR);
+            preparedStatement.setInt(1, idCar);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {  // to do      likewise upper 'logIn'
+            //log.error("some message", e);
+            throw new DAOException("Error while deleting Car", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while deleting Car", e);
+        } finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement);
+        }
+    }
 }

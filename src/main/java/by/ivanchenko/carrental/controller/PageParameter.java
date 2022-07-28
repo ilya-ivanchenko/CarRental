@@ -14,8 +14,12 @@ public class PageParameter {
     public  static final String NO_USER  = "page.no_user";
     public  static final String AFTER_ORDER  = "page.after_order";
     public static final String PAY = "page.payment";
-    public static final String REG_RETURN = "page.reg_return";
 
+    public static final String CAR_INFO = "page.car_info";
+    public static final String USER_INFO = "page.user_info";
+    public static final String AUTHORIZATION = "page.authorization";
+
+    public static final String REGISTRATION = "page.registration";
 
 
 

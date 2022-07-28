@@ -99,4 +99,27 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public void registerReturn(int needRepair, int repairPrice, String description, int idOrder) throws ServiceException {
+
+        if (!validator.priceValidation(repairPrice)) {
+            throw new ServiceException("Incorrect Repair price format");
+        }
+        try {
+            OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
+            orderDAO.registerReturn(needRepair, repairPrice, description, idOrder);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't register a return", e);
+        }
+    }
+
+    @Override
+    public void cancelOrderByManager(String description, int idOrder) throws ServiceException {
+        try {
+            OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
+            orderDAO.cancelOrderByManager(description, idOrder);
+        } catch (DAOException e) {
+            throw new ServiceException("Can't cancel the order by manager", e);
+        }
+    }
 }

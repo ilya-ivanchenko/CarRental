@@ -28,7 +28,7 @@ public class Controller extends HttpServlet {
         commandName = request.getParameter("command");
         command = provider.getCommand(commandName);
         commandPage = command.execute(request, response);
-        request.getSession(true).setAttribute("local", request.getParameter("local"));
+       // request.getSession(true).setAttribute("local", request.getParameter("local"));
         request.getRequestDispatcher(commandPage).forward(request, response);  //check;
 
 

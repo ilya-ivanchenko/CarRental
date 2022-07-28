@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 
 public class ManagerOrder implements Command {
     @Override
@@ -20,12 +21,12 @@ public class ManagerOrder implements Command {
         try {
             OrderService orderService = ServiceFactory.getInstance().getOrderService();
             HttpSession session = request.getSession(true);
-            int id = Integer.parseInt(request.getParameter("id"));
+            int id = Integer.parseInt(request.getParameter(ID));
             List<Order> orders = orderService.getInfoManager(id);
-            session.setAttribute("orders", orders);
+            session.setAttribute(ORDERS, orders);
             return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
-            request.setAttribute("message", e.getMessage());
+            request.setAttribute(MESSAGE, e.getMessage());
             return PageResourseManager.getValue(PageParameter.USER_HOME);
         }
     }

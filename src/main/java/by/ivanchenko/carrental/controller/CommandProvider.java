@@ -26,6 +26,13 @@ final class CommandProvider {
             commands.put(CommandName.MANAGER_ORDER, new ManagerOrder());
             commands.put(CommandName.DELETE_ORDER, new DeleteOrder());
             commands.put(CommandName.GIVE_CAR_CUSTOMER, new GiveCarCustomer());
+            commands.put(CommandName.REGISTER_RETURN, new RegisterReturn());
+            commands.put(CommandName.CANCEL_ORDER_MANAGER, new CancelOrderManager());
+            commands.put(CommandName.ADD_CAR, new AddCar());
+            commands.put(CommandName.CAR_INFO, new CarInfo());
+            commands.put(CommandName.DELETE_USER_BY_ADMIN, new DeleteUserByAdmin());
+            commands.put(CommandName.DELETE_CAR, new DeleteCar());
+            commands.put(CommandName.ALL_USER_INFO, new AllUserInfo());
             // another UNKNOWN
 
         }

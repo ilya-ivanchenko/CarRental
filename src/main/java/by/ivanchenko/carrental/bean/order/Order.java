@@ -20,6 +20,7 @@ public class Order {
     private String description;
     private boolean payment;
     private boolean returned;
+    private boolean given;
     private boolean needRepair;
     private boolean approved;
     private int repairPrice;
@@ -106,6 +107,14 @@ public class Order {
         this.returned = returned;
     }
 
+    public boolean isGiven() {
+        return given;
+    }
+
+    public void setGiven(boolean given) {
+        this.given = given;
+    }
+
     public boolean isNeedRepair() {
         return needRepair;
     }
@@ -136,9 +145,9 @@ public class Order {
         this.passport = passport;
     }
 
-    public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate,
-                 int totalPrice, String description, boolean payment, boolean returned, boolean needRepair,
-                 boolean approved, int repairPrice, String passport) {
+    public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate, int totalPrice,
+                 String description, boolean payment, boolean returned,  boolean needRepair,
+                 boolean approved, int repairPrice, String passport, boolean given) {
         setId(id);
         setCustomerId(customerId);
         setCarId(carId);
@@ -153,6 +162,7 @@ public class Order {
         setApproved(approved);
         setRepairPrice(repairPrice);
         setPassport(passport);
+        setGiven(given);
     }
 
     public Order (int customerId, int carId, Date startDate, Date endDate, int totalPrice) {
@@ -176,6 +186,7 @@ public class Order {
                 ", description='" + description + '\'' +
                 ", payment=" + payment +
                 ", returned=" + returned +
+                ", given=" + given +
                 ", needRepair=" + needRepair +
                 ", approved=" + approved +
                 ", repairPrice=" + repairPrice +
@@ -194,14 +205,15 @@ public class Order {
         Order order = (Order) o;
         return id == order.id && customerId == order.customerId && carId == order.carId && managerId == order.managerId
                 && totalPrice == order.totalPrice && payment == order.payment && returned == order.returned
-                && needRepair == order.needRepair && approved == order.approved && repairPrice == order.repairPrice
-                && Objects.equals(startDate, order.startDate) && Objects.equals(endDate, order.endDate)
-                && Objects.equals(description, order.description) && Objects.equals(passport, order.passport);
+                && given == order.given && needRepair == order.needRepair && approved == order.approved
+                && repairPrice == order.repairPrice && Objects.equals(startDate, order.startDate)
+                && Objects.equals(endDate, order.endDate) && Objects.equals(description, order.description)
+                && Objects.equals(passport, order.passport);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, customerId, carId, managerId, startDate, endDate, totalPrice, description, payment, returned,
-                needRepair, approved, repairPrice, passport);
+                given, needRepair, approved, repairPrice, passport);
     }
 }

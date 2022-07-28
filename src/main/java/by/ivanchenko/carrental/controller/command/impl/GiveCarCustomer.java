@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
+
 public class GiveCarCustomer implements Command {
 
     @Override
@@ -17,11 +19,11 @@ public class GiveCarCustomer implements Command {
         try {
             OrderService orderService= ServiceFactory.getInstance().getOrderService();
             HttpSession session = request.getSession(true);
-            int idOrder = Integer.parseInt(request.getParameter("idOrder"));
+            int idOrder = Integer.parseInt(request.getParameter(ID_ORDER));
             orderService.giveCarCustomer(idOrder);
             return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
-            request.setAttribute("message", e.getMessage());
+            request.setAttribute(MESSAGE, e.getMessage());
             return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
         }
     }

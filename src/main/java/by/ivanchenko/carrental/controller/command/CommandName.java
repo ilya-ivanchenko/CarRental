@@ -16,7 +16,15 @@ public enum CommandName {
     PAY,
     MANAGER_ORDER,
     DELETE_ORDER,
-GIVE_CAR_CUSTOMER,
+    GIVE_CAR_CUSTOMER,
+    REGISTER_RETURN,
+    CANCEL_ORDER_MANAGER,
+    ADD_CAR,
+    CAR_INFO,
+    DELETE_USER_BY_ADMIN,
+    DELETE_CAR,
+    ALL_USER_INFO,
+
         // another
    UNKNOWN
 
