@@ -34,7 +34,11 @@ public class GetCarListFiltredCommand implements Command {
                     parseInt(request.getParameter(PRICE2)), startDate, endDate);
             HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
             session.setAttribute(CARS, cars);
+
             //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+
+            System.out.println(cars.isEmpty());
 
             int rentDays = (int) DAYS.between(startDate, endDate);
             session.setAttribute(START_DATE, startDate);

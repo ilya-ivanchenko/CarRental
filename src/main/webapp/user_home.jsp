@@ -1,8 +1,53 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
+    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setBundle basename="local" var="localization"/>
+
+    <fmt:message bundle="${localization}" key="local.userinfo" var="userinfo"/>
+    <fmt:message bundle="${localization}" key="local.hi" var="hi"/>
+    <fmt:message bundle="${localization}" key="local.yourinfo" var="yourinfo"/>
+    <fmt:message bundle="${localization}" key="local.Name" var="Name"/>
+    <fmt:message bundle="${localization}" key="local.Surname" var="Surname"/>
+    <fmt:message bundle="${localization}" key="local.Phone" var="Phone"/>
+    <fmt:message bundle="${localization}" key="local.Mail" var="Mail"/>
+    <fmt:message bundle="${localization}" key="local.myorders" var="myorders"/>
+    <fmt:message bundle="${localization}" key="local.editinfo" var="editinfo"/>
+    <fmt:message bundle="${localization}" key="local.delaccount" var="delaccount"/>
+    <fmt:message bundle="${localization}" key="local.passport" var="passport"/>
+    <fmt:message bundle="${localization}" key="local.userinfo" var="userinfo"/>
+    <fmt:message bundle="${localization}" key="local.startdate" var="startdate"/>
+    <fmt:message bundle="${localization}" key="local.enddate" var="enddate"/>
+    <fmt:message bundle="${localization}" key="local.description" var="description"/>
+    <fmt:message bundle="${localization}" key="local.approvedmanager" var="approved"/>
+    <fmt:message bundle="${localization}" key="local.paid" var="paid"/>
+    <fmt:message bundle="${localization}" key="local.gopayment" var="gopayment"/>
+    <fmt:message bundle="${localization}" key="local.cancel" var="cancel"/>
+    <fmt:message bundle="${localization}" key="local.canceled" var="canceled"/>
+    <fmt:message bundle="${localization}" key="local.allorders" var="allorders"/>
+    <fmt:message bundle="${localization}" key="local.addnewcar" var="addnewcar"/>
+    <fmt:message bundle="${localization}" key="local.order" var="orderid"/>
+    <fmt:message bundle="${localization}" key="local.user" var="userid"/>
+    <fmt:message bundle="${localization}" key="local.manager" var="managerid"/>
+    <fmt:message bundle="${localization}" key="local.given" var="given"/>
+    <fmt:message bundle="${localization}" key="local.returned" var="returned"/>
+    <fmt:message bundle="${localization}" key="local.needrepair" var="needrepair"/>
+    <fmt:message bundle="${localization}" key="local.repairprice" var="repairprice"/>
+    <fmt:message bundle="${localization}" key="local.approve" var="approve"/>
+    <fmt:message bundle="${localization}" key="local.givecustomer" var="givecustomer"/>
+    <fmt:message bundle="${localization}" key="local.registerreturn" var="registerreturn"/>
+    <fmt:message bundle="${localization}" key="local.allcars" var="allcars"/>
+    <fmt:message bundle="${localization}" key="local.allusers" var="allusers"/>
+    <fmt:message bundle="${localization}" key="local.car" var="car"/>
+    <fmt:message bundle="${localization}" key="local.price" var="price"/>
+    <fmt:message bundle="${localization}" key="local.no" var="no"/>
+    <fmt:message bundle="${localization}" key="local.yes" var="yes"/>
+    <fmt:message bundle="${localization}" key="local.back" var="back"/>
+    <fmt:message bundle="${localization}" key="local.addmanager" var="addmanager"/>
+
     <title>User information</title>
 </head>
 <body>
@@ -12,28 +57,28 @@
 
 <c:choose>
     <c:when test="${user.role == 2}">
-<h2>Hi, ${user.name}!</h2>
+<h2>${hi}, ${user.name}!</h2>
 
-<h3>Your information:</h3>
+<h3>${yourinfo}:</h3>
 <div>
-    <p>Имя: ${user.name}</p>
-    <p>Фамилия: ${user.surname}</p>
-    <p>Телефон: ${user.phone}</p>
-    <p>E-mail: ${user.email}</p>
+    <p>${Name}: ${user.name}</p>
+    <p>${Surname}: ${user.surname}</p>
+    <p>${Phone}: ${user.phone}</p>
+    <p>${Mail}: ${user.email}</p>
     <p>ID: ${user.id}</p>
 </div>
 
 <br/>
 <form  action="controller" method="post">
     <input type="hidden" name="command" value="order_info"/>
-    <input type="submit"  value="My orders"/>
+    <input type="submit"  value="${myorders}"/>
 </form>
 
-<button onclick="location='edit_user.jsp'">Edit information</button>
+<button onclick="location='edit_user.jsp'">${editinfo}</button>
 
 <form  action="controller" method="post">
     <input type="hidden" name="command" value="delete_user"/>
-    <input class="del" type="submit"  value="Delete account"/>
+    <input class="del" type="submit"  value="${delaccount}"/>
 </form>
 <br/>
 <br/>
@@ -42,20 +87,21 @@
 <table>
     <tr>
         <th scope="col">ID</th>
-        <th scope="col">Passport</th>
-        <th scope="col">Car</th>
-        <th scope="col">Price</th>
-        <th scope="col">Start date</th>
-        <th scope="col">End date</th>
-        <th scope="col">Description</th>
-        <th scope="col">Approved by manager</th>
-        <th scope="col">Payment</th>
+        <th scope="col">${passport}</th>
+        <th scope="col">${car}</th>
+        <th scope="col">${price}</th>
+        <th scope="col">${startdate}</th>
+        <th scope="col">${enddate}</th>
+        <th scope="col">${description}</th>
+        <th scope="col">${approved}</th>
+        <th scope="col">${paid}</th>
         <th></th>
         <th></th>
 
     </tr>
-    <tr scope="row">
+
     <c:forEach var="orders" items="${orders}">
+    <tr scope="row">
         <td>${orders.id}</td>
         <td>${orders.passport}</td>
         <td>${orders.carId}</td>
@@ -66,21 +112,21 @@
 
         <c:choose>
             <c:when test="${!orders.approved}">
-                <td>No</td>
-                <td>No</td>
+                <td>${no}</td>
+                <td>${no}</td>
             </c:when>
             <c:when test="${orders.approved}">
-                <td>Yes</td>
+                <td>${yes}</td>
                     <c:choose>
                         <c:when test="${!orders.payment}">
-                            <td> No </td>
+                            <td>${no}</td>
                             <td>
                                 <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                <button  onclick="location='payment.jsp'">Go to payment</button>
+                                <button  onclick="location='payment.jsp'">${gopayment}</button>
                             </td>
                         </c:when>
                         <c:when test="${orders.payment}">
-                             <td>Yes</td>
+                             <td>${yes}</td>
                         </c:when>
                     </c:choose>
             </c:when>
@@ -91,19 +137,20 @@
                     <form  action="controller" method="post">
                         <input type="hidden" name="command" value="delete_order"/>
                         <input type="hidden" name="id" value="${orders.id}"/>
-                        <input class="del" type="submit"  value="Cancel"/>
+                        <input class="del" type="submit"  value="${cancel}"/>
                     </form>
                     </p>
                 </td>
             </c:when>
             <c:when test="${!orders.approved && orders.returned}">
-                <td class="cancel">Order canceled</td>
+                <td class="cancel">${canceled}</td>
             </c:when>
         </c:choose>
-    </c:forEach>
     </tr>
+    </c:forEach>
 </table>
     </c:when>
+
 </c:choose>
 <br>
 ${message}
@@ -119,14 +166,14 @@ ${message}
         <h3>${user.name}, ID: ${user.id}</h3>
         <form  action="controller" method="post">
             <input type="hidden" name="command" value="order_info"/>
-            <input type="submit"  value="See all orders"/>
+            <input type="submit"  value="${allorders}"/>
         </form>
         <form  action="controller" method="post">
             <input type="hidden" name="command" value="manager_order"/>
             <input type="hidden" name="id" value="${user.id}"/>
-            <input type="submit"  value="My orders"/>
+            <input type="submit"  value="${myorders}"/>
         </form>
-        <button  onclick="location='add_car.jsp'">Add new car</button>
+        <button  onclick="location='add_car.jsp'">${addnewcar}</button>
 
         <p class="ok_message">${message}</p>
         <br/>
@@ -134,21 +181,21 @@ ${message}
             <c:when test="${orders.size()>0}">
                 <table>
                     <tr>
-                        <th scope="col">Order id</th>
-                        <th scope="col">Manager id</th>
-                        <th scope="col">User id</th>
-                        <th scope="col">Passport</th>
-                        <th scope="col">Car</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Start date</th>
-                        <th scope="col">End date</th>
-                        <th scope="col">Approved</th>
-                        <th scope="col">Payment</th>
-                        <th scope="col">Given</th>
-                        <th scope="col">Returned</th>
-                        <th scope="col">Need repair</th>
-                        <th scope="col">Repair price</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">${orderid}</th>
+                        <th scope="col">${managerid}</th>
+                        <th scope="col">${userid}</th>
+                        <th scope="col">${passport}</th>
+                        <th scope="col">${car}</th>
+                        <th scope="col">${price}</th>
+                        <th scope="col">${startdate}</th>
+                        <th scope="col">${enddate}</th>
+                        <th scope="col">${approved}</th>
+                        <th scope="col">${paid}</th>
+                        <th scope="col">${given}</th>
+                        <th scope="col">${returned}</th>
+                        <th scope="col">${needrepair}</th>
+                        <th scope="col">${repairprice}</th>
+                        <th scope="col">${description}</th>
                         <th></th>
                     </tr>
                         <c:forEach var="orders" items="${orders}">
@@ -163,42 +210,42 @@ ${message}
                             <td>${orders.endDate}</td>
                             <c:choose>
                                 <c:when test="${!orders.approved}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.approved}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.payment}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.payment}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                         <c:choose>
                             <c:when test="${!orders.given}">
-                                <td>No</td>
+                                <td>${no}</td>
                             </c:when>
                             <c:when test="${orders.given}">
-                                <td>Yes</td>
+                                <td>${yes}</td>
                             </c:when>
                         </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.returned}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.returned}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.needRepair}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.needRepair}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <td>${orders.repairPrice}</td>
@@ -206,28 +253,32 @@ ${message}
                         <td>
                             <c:choose>
                                 <c:when test="${!orders.approved && !orders.returned}">
+                                <div class="buttons">
                             <form action="controller" method="post">
                                 <input type="hidden" name="command" value="approve_order"/>
                                 <input type="hidden" name="idOrder" value="${orders.id}"/>
                                 <input type="hidden" name="idManager" value="${user.id}"/>
-                                <input type="submit"  value="Approve"/>
+                                <input type="submit"  value="${approve}"/>
                             </form>
+                                </div>
+                                <div class="buttons">
                                     <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                    <button  onclick="location='cancel_order.jsp'">Cancel</button>
+                                    <button  onclick="location='cancel_order.jsp'">${cancel}</button>
+                                </div>
                                 </c:when>
                                 <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
                                     <form action="controller" method="post">
                                         <input type="hidden" name="command" value="give_car_customer"/>
                                         <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                        <input type="submit"  value="Give to customer"/>
+                                        <input type="submit"  value="${givecustomer}"/>
                                     </form>
                                 </c:when>
                                 <c:when test="${orders.given && !orders.returned}">
                                     <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                    <button  onclick="location='reg_return.jsp'">Register a return</button>
+                                    <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
                                 </c:when>
                                 <c:when test="${!orders.approved && orders.returned}">
-                                    <td class = "cancel">Order canceled</td>
+                                    <td class = "cancel">${canceled}</td>
                                 </c:when>
                             </c:choose>
                         </td>
@@ -237,8 +288,7 @@ ${message}
             </c:when>
         </c:choose>
         <br/>
-        <button onclick="location='index.jsp'">Main page</button>
-        <button onclick="window.history.back();">Back</button>
+        <button onclick="window.history.back();">${back}</button>
         <br>
         ${message}
     </c:when>
@@ -254,41 +304,41 @@ ${message}
         </br> <p class="ok_message">${message}</p>
         <form  action="controller" method="post">
             <input type="hidden" name="command" value="order_info"/>
-            <input type="submit"  value="See all orders"/>
+            <input type="submit"  value="${allorders}"/>
         </form>
         <form action="controller" method="post">
             <input type="hidden" name="command" value="car_info"/>
-            <input type="submit"  value="See all cars"/>
+            <input type="submit"  value="${allcars}"/>
         </form>
-        <button  onclick="location='add_car.jsp'">Add new car</button>
+        <button  onclick="location='add_car.jsp'">${addnewcar}</button>
 
         <form action="controller" method="post">
             <input type="hidden" name="command" value="all_user_info"/>
-            <input type="submit"  value="See all users"/>
+            <input type="submit"  value="${allusers}"/>
         </form>
-        <button onclick="location='registration.jsp'">Register manager</button>
+        <button onclick="location='registration.jsp'">${addmanager}</button>
         <br/>
         <br/>
-        <button onclick="window.history.back();">Back</button>
+        <button onclick="window.history.back();">${back}</button>
         <c:choose>
             <c:when test="${orders.size()>0}">
                 <table>
                     <tr>
-                        <th scope="col">Order id</th>
-                        <th scope="col">Manager id</th>
-                        <th scope="col">User id</th>
-                        <th scope="col">Passport</th>
-                        <th scope="col">Car</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Start date</th>
-                        <th scope="col">End date</th>
-                        <th scope="col">Approved</th>
-                        <th scope="col">Payment</th>
-                        <th scope="col">Given</th>
-                        <th scope="col">Returned</th>
-                        <th scope="col">Need repair</th>
-                        <th scope="col">Repair price</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">${orderid}</th>
+                        <th scope="col">${managerid}</th>
+                        <th scope="col">${userid}</th>
+                        <th scope="col">${passport}</th>
+                        <th scope="col">${car}</th>
+                        <th scope="col">${price}</th>
+                        <th scope="col">${startdate}</th>
+                        <th scope="col">${enddate}</th>
+                        <th scope="col">${approved}</th>
+                        <th scope="col">${paid}</th>
+                        <th scope="col">${given}</th>
+                        <th scope="col">${returned}</th>
+                        <th scope="col">${needrepair}</th>
+                        <th scope="col">${repairprice}</th>
+                        <th scope="col">${description}</th>
                         <th></th>
                     </tr>
                     <c:forEach var="orders" items="${orders}">
@@ -303,42 +353,42 @@ ${message}
                             <td>${orders.endDate}</td>
                             <c:choose>
                                 <c:when test="${!orders.approved}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.approved}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.payment}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.payment}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.given}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.given}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.returned}">
-                                    <td>No</td>
+                                    <td>${yes}</td>
                                 </c:when>
                                 <c:when test="${orders.returned}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <c:choose>
                                 <c:when test="${!orders.needRepair}">
-                                    <td>No</td>
+                                    <td>${no}</td>
                                 </c:when>
                                 <c:when test="${orders.needRepair}">
-                                    <td>Yes</td>
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
                             <td>${orders.repairPrice}</td>
@@ -350,24 +400,24 @@ ${message}
                                     <input type="hidden" name="command" value="approve_order"/>
                                     <input type="hidden" name="idOrder" value="${orders.id}"/>
                                     <input type="hidden" name="idManager" value="${user.id}"/>
-                                    <input type="submit"  value="Approve"/>
+                                    <input type="submit"  value="${approve}"/>
                                 </form>
                                     <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                <button  onclick="location='cancel_order.jsp'">Cancel</button>
+                                <button  onclick="location='cancel_order.jsp'">${cancel}</button>
                                 </c:when>
                                 <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
                                 <form action="controller" method="post">
                                     <input type="hidden" name="command" value="give_car_customer"/>
                                     <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                    <input type="submit"  value="Give to customer"/>
+                                    <input type="submit"  value="${givecustomer}"/>
                                 </form>
                                 </c:when>
                                 <c:when test="${orders.given && !orders.returned}">
                                     <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                <button  onclick="location='reg_return.jsp'">Register a return</button>
+                                <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
                                 </c:when>
                                 <c:when test="${!orders.approved && orders.returned}">
-                            <td class = "cancel">Order canceled</td>
+                            <td class = "cancel">${canceled}</td>
                             </c:when>
                             </c:choose>
                             </td>
@@ -401,6 +451,9 @@ ${message}
     form {
     display: inline-block;
     }
+    div.buttons {
+        display: inline-block;
+    }
     td {
         text-align: center;
     }
@@ -417,6 +470,7 @@ ${message}
     p.ok_message {
         color: blue;
     }
+
 
 </style>
 </body>

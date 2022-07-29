@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Main</title>
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var="localization"/>
 
@@ -15,7 +14,7 @@
     <fmt:message bundle="${localization}" key="local.engine" var="engine"/>
     <fmt:message bundle="${localization}" key="local.capacity" var="capacity"/>
     <fmt:message bundle="${localization}" key="local.consumption" var="consumption"/>
-    <fmt:message bundle="${localization}" key="local.price" var="price"/>
+    <fmt:message bundle="${localization}" key="local.priceday" var="priceday"/>
     <fmt:message bundle="${localization}" key="local.dates" var="dates"/>
     <fmt:message bundle="${localization}" key="local.apply" var="apply"/>
     <fmt:message bundle="${localization}" key="local.any" var="any"/>
@@ -36,13 +35,16 @@
     <fmt:message bundle="${localization}" key="local.tank" var="tank"/>
     <fmt:message bundle="${localization}" key="local.body" var="body"/>
     <fmt:message bundle="${localization}" key="local.power" var="power"/>
-
+    <fmt:message bundle="${localization}" key="local.catalog" var="main"/>
+    <fmt:message bundle="${localization}" key="local.nocars" var="nocars"/>
+    <title>${main}</title>
 
 </head>
 <body>
 
 <c:set  var="page"  value="index.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
+
 
 <c:choose>
     <c:when test="${cars != null}">
@@ -116,7 +118,7 @@
         </select>
     </div>
 <div>
-    ${price}, $:<br/>
+    ${priceday}, $:<br/>
     <select name="price1">
         <option selected value="15">15</option>
         <option value="20">20</option>
@@ -175,7 +177,7 @@
     <th scope="col">${tank}</th>
     <th scope="col">${consumption}</th>
     <th scope="col">${body}</th>
-    <th scope="col">${price}</th>
+    <th scope="col">${priceday}, $</th>
     <th scope="col">${power}</th>
     <c:choose>
         <c:when test="${rent_days!=null}">
@@ -196,7 +198,7 @@
         <td>${cars.tank}</td>
         <td>${cars.consumption}</td>
         <td>${cars.bodyType}</td>
-        <td>${cars.price}$</td>
+        <td>${cars.price}</td>
         <td>${cars.mileage}</td>
         <c:choose>
             <c:when test="${rent_days!=null}">
@@ -215,7 +217,13 @@
     </table>
     </c:when>
 </c:choose>
-<br/>
+<c:choose>
+    <c:when test="${cars.size()<1}">
+        <br/>
+        <br/>
+        <p class="nocars">${nocars}</p>
+    </c:when>
+</c:choose>
 
 </body>
 
@@ -253,7 +261,10 @@
     td {
         text-align: center;
     }
-
+    p.nocars {
+        text-align: center;
+        font-weight: bolder;
+    }
 
 </style>
 

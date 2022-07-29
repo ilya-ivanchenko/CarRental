@@ -162,12 +162,14 @@ public class OrderDAOImpl implements OrderDAO {
     public void approve(int idOrder, int idManager) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(APPROVE_ORDER);
             preparedStatement.setInt(1, idManager);
             preparedStatement.setInt(2, idOrder);
             preparedStatement.executeUpdate();
+
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
             //log.error("some message", e);
             throw new DAOException("Can't to approve the order", e);

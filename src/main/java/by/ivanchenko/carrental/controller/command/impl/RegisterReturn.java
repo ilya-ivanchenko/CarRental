@@ -1,5 +1,6 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
+import by.ivanchenko.carrental.bean.order.Order;
 import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.controller.PageResourseManager;
 import by.ivanchenko.carrental.controller.command.Command;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.net.IDN;
+import java.util.List;
 
 import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 public class RegisterReturn implements Command {
@@ -33,6 +35,9 @@ public class RegisterReturn implements Command {
             String description = request.getParameter(DESCRIPTION);
             int idOrder = (Integer) session.getAttribute(ID_ORDER);
             orderService.registerReturn(needRepair, repairPrice, description, idOrder);
+            List<Order> orders;
+            orders = orderService.getInfoAll();
+            session.setAttribute(ORDERS, orders);
             return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
