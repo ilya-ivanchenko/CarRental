@@ -20,18 +20,12 @@ public class RegistrationCommand implements Command {
             UserService userService = ServiceFactory.getInstance().getUserService();
                 User user  = new User(req.getParameter(NAME), req.getParameter(SURNAME), req.getParameter(PHONE),
                         req.getParameter(PASSWORD),req.getParameter(EMAIL), Integer.parseInt(req.getParameter(ROLE)));
-
-//            if (req.getParameter("role") != null){
-//                user.setRole(Integer.parseInt(req.getParameter("role")));
-//            }
             userService.register(user);
-            //*
             HttpSession session = req.getSession(true);
 
-
             if (session.getAttribute(USER) == null) {
-//                session.setAttribute("user", user);
-                return PageResourseManager.getValue(PageParameter.AFTER_REGISTRATION);
+                req.setAttribute(MESSAGE,USER_REG);
+                return PageResourseManager.getValue(PageParameter.REGISTRATION);
             } else {
                 req.setAttribute(MESSAGE,MANAGER_REG);
                 return PageResourseManager.getValue(PageParameter.USER_HOME);

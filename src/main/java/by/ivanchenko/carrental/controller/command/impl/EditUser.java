@@ -27,6 +27,7 @@ public class EditUser implements Command {
             user.setEmail(request.getParameter(EMAIL));
             userService.updateInfo(user);
             session.setAttribute(USER, user);
+            request.setAttribute(MESSAGE, EDIT_SAVE);
             return PageResourseManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());

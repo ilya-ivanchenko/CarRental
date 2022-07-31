@@ -18,7 +18,6 @@
     <fmt:message bundle="${localization}" key="local.editinfo" var="editinfo"/>
     <fmt:message bundle="${localization}" key="local.delaccount" var="delaccount"/>
     <fmt:message bundle="${localization}" key="local.passport" var="passport"/>
-    <fmt:message bundle="${localization}" key="local.userinfo" var="userinfo"/>
     <fmt:message bundle="${localization}" key="local.startdate" var="startdate"/>
     <fmt:message bundle="${localization}" key="local.enddate" var="enddate"/>
     <fmt:message bundle="${localization}" key="local.description" var="description"/>
@@ -48,7 +47,7 @@
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
     <fmt:message bundle="${localization}" key="local.addmanager" var="addmanager"/>
 
-    <title>User information</title>
+    <title>${userinfo}</title>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -67,7 +66,7 @@
     <p>${Mail}: ${user.email}</p>
     <p>ID: ${user.id}</p>
 </div>
-
+        <p class="ok_message">${message}</p>
 <br/>
 <form  action="controller" method="post">
     <input type="hidden" name="command" value="order_info"/>
@@ -89,7 +88,7 @@
         <th scope="col">ID</th>
         <th scope="col">${passport}</th>
         <th scope="col">${car}</th>
-        <th scope="col">${price}</th>
+        <th scope="col">${price}, $</th>
         <th scope="col">${startdate}</th>
         <th scope="col">${enddate}</th>
         <th scope="col">${description}</th>
@@ -105,7 +104,7 @@
         <td>${orders.id}</td>
         <td>${orders.passport}</td>
         <td>${orders.carId}</td>
-        <td>${orders.totalPrice}$</td>
+        <td>${orders.totalPrice}</td>
         <td>${orders.startDate}</td>
         <td>${orders.endDate}</td>
         <td class="desc">${orders.description}</td>
@@ -150,10 +149,7 @@
     </c:forEach>
 </table>
     </c:when>
-
 </c:choose>
-<br>
-${message}
     </c:when>
 
 
@@ -163,7 +159,12 @@ ${message}
 
 
     <c:when test="${user.role == 3}">
-        <h3>${user.name}, ID: ${user.id}</h3>
+       <div>
+           <h3> <p> ${user.name} ${user.surname}, ID: ${user.id}</p></h3>
+            <p>${Phone}: ${user.phone}</p>
+            <p>${Mail}: ${user.email}</p>
+        </div>
+
         <form  action="controller" method="post">
             <input type="hidden" name="command" value="order_info"/>
             <input type="submit"  value="${allorders}"/>
@@ -186,7 +187,7 @@ ${message}
                         <th scope="col">${userid}</th>
                         <th scope="col">${passport}</th>
                         <th scope="col">${car}</th>
-                        <th scope="col">${price}</th>
+                        <th scope="col">${price}, $</th>
                         <th scope="col">${startdate}</th>
                         <th scope="col">${enddate}</th>
                         <th scope="col">${approved}</th>
@@ -194,7 +195,7 @@ ${message}
                         <th scope="col">${given}</th>
                         <th scope="col">${returned}</th>
                         <th scope="col">${needrepair}</th>
-                        <th scope="col">${repairprice}</th>
+                        <th scope="col">${repairprice}, $</th>
                         <th scope="col">${description}</th>
                         <th></th>
                     </tr>
@@ -205,7 +206,7 @@ ${message}
                             <td>${orders.customerId}</td>
                             <td>${orders.passport}</td>
                             <td>${orders.carId}</td>
-                            <td>${orders.totalPrice}$</td>
+                            <td>${orders.totalPrice}</td>
                             <td>${orders.startDate}</td>
                             <td>${orders.endDate}</td>
                             <c:choose>
@@ -263,6 +264,7 @@ ${message}
                                 </div>
                                 <div class="buttons">
                                     <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
+                                    <c:set  var="idManager"  value="${user.id}" scope="session"/>
                                     <button  onclick="location='cancel_order.jsp'">${cancel}</button>
                                 </div>
                                 </c:when>
@@ -289,8 +291,6 @@ ${message}
         </c:choose>
         <br/>
         <button onclick="window.history.back();">${back}</button>
-        <br>
-        ${message}
     </c:when>
 
 
@@ -329,7 +329,7 @@ ${message}
                         <th scope="col">${userid}</th>
                         <th scope="col">${passport}</th>
                         <th scope="col">${car}</th>
-                        <th scope="col">${price}</th>
+                        <th scope="col">${price}, $</th>
                         <th scope="col">${startdate}</th>
                         <th scope="col">${enddate}</th>
                         <th scope="col">${approved}</th>
@@ -337,7 +337,7 @@ ${message}
                         <th scope="col">${given}</th>
                         <th scope="col">${returned}</th>
                         <th scope="col">${needrepair}</th>
-                        <th scope="col">${repairprice}</th>
+                        <th scope="col">${repairprice}, $</th>
                         <th scope="col">${description}</th>
                         <th></th>
                     </tr>
@@ -348,7 +348,7 @@ ${message}
                             <td>${orders.customerId}</td>
                             <td>${orders.passport}</td>
                             <td>${orders.carId}</td>
-                            <td>${orders.totalPrice}$</td>
+                            <td>${orders.totalPrice}</td>
                             <td>${orders.startDate}</td>
                             <td>${orders.endDate}</td>
                             <c:choose>

@@ -1,17 +1,23 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Done</title>
+    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setBundle basename="local" var="localization"/>
+
+    <fmt:message bundle="${localization}" key="local.done" var="done"/>
+    <fmt:message bundle="${localization}" key="local.succesbook" var="succesbook"/>
+    <fmt:message bundle="${localization}" key="local.checkstatusorder" var="checkstatusorder"/>
+    <fmt:message bundle="${localization}" key="local.yourprofile" var="youprofile"/>
+    <title>${done}</title>
 </head>
 <body>
 <c:set  var="page"  value="after_order.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
-<h3>Rental booking completed successfully! Manager will contact you</h3>
-<br/>Also you can check  your order status in
-<button class="yourpage" onclick="location='user_home.jsp'">Your profile</button>
-<br/>
-<br/><button onclick="location='index.jsp'">Main page</button>
+<h3>${succesbook}</h3>
+<br/>${checkstatusorder}
+<a href="user_home.jsp">${youprofile}</a>
 </body>
 </html>

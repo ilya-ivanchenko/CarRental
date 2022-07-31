@@ -114,10 +114,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void cancelOrderByManager(String description, int idOrder) throws ServiceException {
+    public void cancelOrderByManager(String description, int idOrder, int idManager) throws ServiceException {
         try {
             OrderDAO orderDAO = DAOFactory.getInstance().getOrderDAO();
-            orderDAO.cancelOrderByManager(description, idOrder);
+            orderDAO.cancelOrderByManager(description, idOrder, idManager);
         } catch (DAOException e) {
             throw new ServiceException("Can't cancel the order by manager", e);
         }

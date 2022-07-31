@@ -13,8 +13,7 @@ public class Validator {
         Matcher matcherAdmin = patternAdmin.matcher(email);
         boolean checkEmail = matcherEmail.matches();
         boolean checkAdmin = matcherAdmin.matches();
-
-        if (email == null || email.isEmpty() || !(!checkEmail || !checkAdmin)) {
+        if (email == null || email.isEmpty() || !(!checkEmail ^ !checkAdmin)) {
             return false;
         } else {
             return true;

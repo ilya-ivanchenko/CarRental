@@ -1,9 +1,22 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-  <title>Edit information</title>
+  <fmt:setLocale value="${sessionScope.local}"/>
+  <fmt:setBundle basename="local" var="localization"/>
+
+  <fmt:message bundle="${localization}" key="local.editinfo" var="editinfo"/>
+  <fmt:message bundle="${localization}" key="local.name" var="name"/>
+  <fmt:message bundle="${localization}" key="local.surname" var="surname"/>
+  <fmt:message bundle="${localization}" key="local.phone" var="phone"/>
+  <fmt:message bundle="${localization}" key="local.password" var="password"/>
+  <fmt:message bundle="${localization}" key="local.email" var="email"/>
+  <fmt:message bundle="${localization}" key="local.save" var="save"/>
+  <fmt:message bundle="${localization}" key="local.back" var="back"/>
+
+  <title>${editinfo}</title>
 </head>
 <body>
 <c:set  var="page"  value="edit_user.jsp" scope="session"/>
@@ -11,24 +24,22 @@
 <form action="controller" method="post">
   <input type="hidden" name="command" value="edit_user"/>
 
-  Enter name:<br/>
+  ${name}:<br/>
   <input type="text" name="name" value="" placeholder="${user.name}"/> <br/>
-  Enter surname:<br/>
+  ${surname}:<br/>
   <input type="text" name="surname" value="" placeholder="${user.surname}"/> <br/>
-  Enter phone:<br/>
+  ${phone}:<br/>
   <input type="text" name="phone" value="" placeholder="${user.phone}"/> <br/>
-  Enter password:<br/>
+  ${password}:<br/>
   <input type="password" name="password" value="" /> <br/>
-  Enter email:<br/>
+  ${email}:<br/>
   <input type="email" name="email" value="" placeholder="${user.email}"/> <br/>
-  <input type="submit" value="Save"/>
+  <input type="submit" value="${save}"/>
 </form>
 <br/>
-
-<button onclick="location='index.jsp'">Main page</button>
-<button onclick="window.history.back();">Back</button>
+<button onclick="window.history.back();">${back}</button>
 </body>
 </html>
 
-<%----%>
+
 

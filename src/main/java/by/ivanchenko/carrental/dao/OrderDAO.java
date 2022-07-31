@@ -15,5 +15,5 @@ public interface OrderDAO {
     void deleteOrder(int idOrder) throws DAOException;
     void giveCarCustomer(int idOrder) throws DAOException;
     void registerReturn(int needRepair, int repairPrice, String description, int idOrder) throws DAOException;
-    void cancelOrderByManager(String description, int idOrder)  throws DAOException;
+    void cancelOrderByManager(String description, int idOrder, int idManager)  throws DAOException;
 }

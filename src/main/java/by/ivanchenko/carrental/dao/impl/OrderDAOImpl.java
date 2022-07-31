@@ -39,7 +39,7 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String GIVE_CAR = "UPDATE orders SET given = 1 WHERE id_order = ?";
     private static final String REGISTER_RETURN = "UPDATE orders SET returned = 1, need_repair = ?, repair_price = ?, description = ? " +
             "WHERE id_order = ?";
-    private static final String CANCEL_ORDER_MANAGER = "UPDATE orders SET returned = 1, description = ? WHERE id_order = ?";
+    private static final String CANCEL_ORDER_MANAGER = "UPDATE orders SET returned = 1, manager_id = ?, description = ? WHERE id_order = ?";
 
     @Override
     public void create(int customerId, int carId, Date startDate, Date endDate, int totalPrice, String passport, String description) throws DAOException {
@@ -263,14 +263,16 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void cancelOrderByManager(String description, int idOrder) throws DAOException {
+    public void cancelOrderByManager(String description, int idOrder, int idManager) throws DAOException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionPool.getInstance().takeConnection();
             preparedStatement = connection.prepareStatement(CANCEL_ORDER_MANAGER);
-            preparedStatement.setString(1, description);
-            preparedStatement.setInt(2, idOrder);
+            preparedStatement.setInt(1, idManager);
+            preparedStatement.setString(2, description);
+            preparedStatement.setInt(3, idOrder);
+
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {  // to do      likewise upper 'logIn'

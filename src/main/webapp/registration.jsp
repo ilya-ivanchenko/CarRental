@@ -22,6 +22,7 @@
 <jsp:include page="header.jsp"/>
 <body>
 <c:set  var="page"  value="registration.jsp" scope="session"/>
+
 <form action="controller" method="post">
   <input type="hidden" name="command" value="registration"/>
   <c:choose>
@@ -51,12 +52,18 @@
     </c:when>
   </c:choose>
 </form>
+<br/>
 <h4>${message}</h4>
 <br/>
 
 <%--<div> <input type = "button" value = "Back" onclick = "window.history.back();" /> </div>--%>
 <button onclick="window.history.back();">${back}</button>
 </body>
+<style>
+  p.ok_message {
+    color: blue;
+  }
+</style>
 </html>
 
 <%----%>

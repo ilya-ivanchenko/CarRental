@@ -4,27 +4,57 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Confirm order</title>
+    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setBundle basename="local" var="localization"/>
+
+    <fmt:message bundle="${localization}" key="local.confirmorder" var="confirmorder"/>
+    <fmt:message bundle="${localization}" key="local.checkorder" var="checkorder"/>
+    <fmt:message bundle="${localization}" key="local.from" var="from"/>
+    <fmt:message bundle="${localization}" key="local.to" var="to"/>
+    <fmt:message bundle="${localization}" key="local.writecomment" var="writecomment"/>
+    <fmt:message bundle="${localization}" key="local.passportid" var="passportid"/>
+    <fmt:message bundle="${localization}" key="local.sendbookrequest" var="sendbookrequest"/>
+    <fmt:message bundle="${localization}" key="local.car" var="Car"/>
+    <fmt:message bundle="${localization}" key="local.gearbox" var="gearbox"/>
+    <fmt:message bundle="${localization}" key="local.drive" var="drive"/>
+    <fmt:message bundle="${localization}" key="local.engine" var="engine"/>
+    <fmt:message bundle="${localization}" key="local.capacity" var="capacity"/>
+    <fmt:message bundle="${localization}" key="local.consumption" var="consumption"/>
+    <fmt:message bundle="${localization}" key="local.priceday" var="priceday"/>
+    <fmt:message bundle="${localization}" key="local.year" var="year"/>
+    <fmt:message bundle="${localization}" key="local.tank" var="tank"/>
+    <fmt:message bundle="${localization}" key="local.body" var="body"/>
+    <fmt:message bundle="${localization}" key="local.power" var="power"/>
+    <fmt:message bundle="${localization}" key="local.dates" var="dates"/>
+    <fmt:message bundle="${localization}" key="local.totaldays" var="totaldays"/>
+    <fmt:message bundle="${localization}" key="local.totalprice" var="totalprice"/>
+    <fmt:message bundle="${localization}" key="local.yourinfo" var="yourinfo"/>
+    <fmt:message bundle="${localization}" key="local.Name" var="Name"/>
+    <fmt:message bundle="${localization}" key="local.Surname" var="Surname"/>
+    <fmt:message bundle="${localization}" key="local.Phone" var="Phone"/>
+    <fmt:message bundle="${localization}" key="local.Mail" var="Mail"/>
+    <fmt:message bundle="${localization}" key="local.back" var="back"/>
+
+    <title>${confirmorder}</title>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <c:set  var="page"  value="confirm_order.jsp" scope="session"/>
-<h3>Check your order and  fill the required data:</h3>
+<h3>${checkorder}:</h3>
 <br/>
-<h3>Car:</h3>
 <table cellpadding="5">
     <tr>
-        <th scope="col">Car</th>
-        <th scope="col">Transmission</th>
-        <th scope="col">Year</th>
-        <th scope="col">Drive</th>
-        <th scope="col">Fuel</th>
-        <th scope="col">Engine Capacity</th>
-        <th scope="col">Tank</th>
-        <th scope="col">Consumption</th>
-        <th scope="col">Body Type</th>
-        <th scope="col">Price</th>
-        <th scope="col">Mileage</th>
+        <th scope="col">${Car}</th>
+        <th scope="col">${gearbox}</th>
+        <th scope="col">${year}</th>
+        <th scope="col">${drive}</th>
+        <th scope="col">${engine}</th>
+        <th scope="col">${capacity}</th>
+        <th scope="col">${tank}</th>
+        <th scope="col">${consumption}</th>
+        <th scope="col">${body}</th>
+        <th scope="col">${priceday}, $</th>
+        <th scope="col">${power}</th>
         <th></th>
     </tr>
         <tr scope="row">
@@ -42,53 +72,49 @@
         </tr>
 </table>
 <br/>
-<%--кол-во дней--%>
-<h3 class="dates">Rental dates: с ${start_date} по ${end_date}</h3>
+<h3 class="dates">${dates}: ${from} ${start_date} ${to} ${end_date}</h3>
 
 
-<h3 class="dates">Total days: ${rent_days}</h3>
+<h3 class="dates">${totaldays}: ${rent_days}</h3>
 
 
-<h3 class="dates">Total price: ${car.price * rent_days}$</h3>
+<h3 class="dates">${totalprice}: ${car.price * rent_days}$</h3>
 <br/>
 
-<h3>Your information:</h3>
+<h3>${yourinfo}:</h3>
 <div>
-    <p>Имя: ${user.name}</p>
-    <p>Фамилия: ${user.surname}</p>
-    <p>Телефон: ${user.phone}</p>
-    <p>E-mail: ${user.email}</p>
+    <p>${Name}: ${user.name}</p>
+    <p>${Surname}: ${user.surname}</p>
+    <p>${Phone}: ${user.phone}</p>
+    <p>${Mail}: ${user.email}</p>
     <p>ID: ${user.id}</p>
 </div>
 
 <form action="controller" method="post">
     <input type="hidden" name="command" value="create_order"/>
     <input type="hidden" name="total_price" value="${car.price * rent_days}"/>
-    You can write a comment:<br/>
+    ${writecomment}:<br/>
     <textarea name="comment" cols="30" rows="3"></textarea>
     <br/>
-    Enter passport ID:<br/>
+    ${passportid}:<br/>
     <input type="text" name="passport" value=""  required="required"/> <br/>
-
-    <input type="submit" value="Send book request"/>
+    <input type="submit" value="${sendbookrequest}"/>
 </form>
+<p class="ok_message">${message}</p>
 <br/>
-<button onclick="location='index.jsp'">Main page</button>
-<button onclick="window.history.back();">Back</button>
-
-
-<jsp:useBean id="now" class="java.util.Date" scope="session"/>
-
-<fmt:formatDate value="${now}" pattern="dd.MM.yyyy"/>
-
-<br/>
-
+<button onclick="window.history.back();">${back}</button>
 </body>
 <style>
     h3.dates {
         display: inline-block;
         /*padding-left: 30px;*/
         margin-left: 30px;
+    }
+    p.ok_message {
+        color: blue;
+    }
+    td {
+        text-align: center;
     }
 </style>
 </html>

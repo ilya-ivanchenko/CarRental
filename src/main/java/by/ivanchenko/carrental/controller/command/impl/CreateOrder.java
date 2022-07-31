@@ -32,7 +32,7 @@ public class CreateOrder implements Command {
             return PageResourseManager.getValue(PageParameter.AFTER_ORDER);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            return PageResourseManager.getValue(PageParameter.CONFIRM_ORDER);
         }
     }
 }

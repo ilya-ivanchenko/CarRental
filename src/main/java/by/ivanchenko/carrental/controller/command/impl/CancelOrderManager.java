@@ -24,7 +24,8 @@ public class CancelOrderManager implements Command {
             HttpSession session = request.getSession(true);
             String description = request.getParameter(DESCRIPTION);
             int idOrder = (Integer) session.getAttribute(ID_ORDER);
-            orderService.cancelOrderByManager(description ,idOrder);
+            int idManager  = Integer.parseInt(session.getAttribute(ID_MANAGER).toString());
+            orderService.cancelOrderByManager(description ,idOrder, idManager);
             List<Order> orders;
             orders = orderService.getInfoAll();
             session.setAttribute(ORDERS, orders);

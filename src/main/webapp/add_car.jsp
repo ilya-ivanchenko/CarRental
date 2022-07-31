@@ -1,9 +1,42 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
-    <title>Adding a new car</title>
+    <fmt:setLocale value="${sessionScope.local}"/>
+    <fmt:setBundle basename="local" var="localization"/>
+
+    <fmt:message bundle="${localization}" key="local.addignewcar" var="addingnewcar"/>
+    <fmt:message bundle="${localization}" key="local.Namecar" var="Namecar"/>
+    <fmt:message bundle="${localization}" key="local.capacity" var="capacity"/>
+    <fmt:message bundle="${localization}" key="local.gearbox" var="gearbox"/>
+    <fmt:message bundle="${localization}" key="local.manual" var="manual"/>
+    <fmt:message bundle="${localization}" key="local.automatic" var="automaic"/>
+    <fmt:message bundle="${localization}" key="local.year" var="year"/>
+    <fmt:message bundle="${localization}" key="local.drive" var="drive"/>
+    <fmt:message bundle="${localization}" key="local.rear" var="rear"/>
+    <fmt:message bundle="${localization}" key="local.front" var="front"/>
+    <fmt:message bundle="${localization}" key="local.full" var="full"/>
+    <fmt:message bundle="${localization}" key="local.tank" var="tank"/>
+    <fmt:message bundle="${localization}" key="local.consumption" var="consumption"/>
+    <fmt:message bundle="${localization}" key="local.engine" var="engine"/>
+    <fmt:message bundle="${localization}" key="local.gasoline" var="gasoline"/>
+    <fmt:message bundle="${localization}" key="local.diesel" var="diesel"/>
+    <fmt:message bundle="${localization}" key="local.electro" var="electro"/>
+    <fmt:message bundle="${localization}" key="local.addcar" var="addcar"/>
+    <fmt:message bundle="${localization}" key="local.sedan" var="sedan"/>
+    <fmt:message bundle="${localization}" key="local.hatchback" var="hatch"/>
+    <fmt:message bundle="${localization}" key="local.wagon" var="wagon"/>
+    <fmt:message bundle="${localization}" key="local.liftback" var="lift"/>
+    <fmt:message bundle="${localization}" key="local.suv" var="suv"/>
+    <fmt:message bundle="${localization}" key="local.coupe" var="coupe"/>
+    <fmt:message bundle="${localization}" key="local.cabriolet" var="cabriolet"/>
+    <fmt:message bundle="${localization}" key="local.priceday" var="priceday"/>
+    <fmt:message bundle="${localization}" key="local.power" var="power"/>
+    <fmt:message bundle="${localization}" key="local.body" var="body"/>
+
+    <title>${addingnewcar}</title>
 </head>
 <body>
 <c:set  var="page"  value="add_car.jsp" scope="session"/>
@@ -11,9 +44,9 @@
 <form  action="controller" method="post">
   <input type="hidden" name="command" value="add_car"/>
 
-    Name: <input type="text" name="name" value="" />
+    ${Namecar}: <input type="text" name="name" value="" />
 
-    <br/> Engine capacity:
+    <br/> ${capacity}:
     <select name="engine_capacity">
         <option selected value="0.0">0.0</option>
         <option value="1.0">1.0</option>
@@ -31,12 +64,12 @@
     </select>
 
     <div>
-        <br/>Gear box:<br/>
-        <input type="radio" name="transmission" value="Механика" />Механика <br/>
-        <input type="radio" name="transmission" value="Автомат" />Автомат <br/>
+        <br/>${gearbox}:<br/>
+        <input type="radio" name="transmission" value="Механика" />${manual} <br/>
+        <input type="radio" name="transmission" value="Автомат" />${automaic} <br/>
     </div>
 
-    <br/>Year:
+    <br/>${year}:
     <select name="year">
         <option selected value="2022">2022</option>
         <option value="2021">2021</option>
@@ -54,42 +87,42 @@
     </select>
 
     <div>
-        <br/>Drive:<br/>
-        <input type="radio" name="drive" value="Передний" />Передний <br/>
-        <input type="radio" name="drive" value="Задний" />Задний <br/>
-        <input type="radio" name="drive" value="Полный" />Полный <br/>
+        <br/>${drive}:<br/>
+        <input type="radio" name="drive" value="Передний" />${front} <br/>
+        <input type="radio" name="drive" value="Задний" />${rear} <br/>
+        <input type="radio" name="drive" value="Полный" />${full} <br/>
     </div>
 
-    <br/>Tank, l:
+    <br/>${tank}:
     <input type="text" name="tank" value="" /> <br/>
 
-    <br/>Consumption, l/100 km:
+    <br/>${consumption}:
     <input type="text" name="consumption" value="" /> <br/>
 
     <div>
-        <br/>Engine:<br/>
-        <input type="radio" name="fuel" value="Бензин" />Бензин <br/>
-        <input type="radio" name="fuel" value="Дизель" />Дизель <br/>
-        <input type="radio" name="fuel" value="Электро" />Электро <br/>
+        <br/>${engine}:<br/>
+        <input type="radio" name="fuel" value="Бензин" />${gasoline} <br/>
+        <input type="radio" name="fuel" value="Дизель" />${diesel} <br/>
+        <input type="radio" name="fuel" value="Электро" />${electro} <br/>
     </div>
 
     <div>
-        <br/>Body type:<br/>
+        <br/>${body}:<br/>
    <select name="body_type">
-       <option value="Седан">Седан</option>
-       <option value="Хэтчбек">Хэтчбек</option>
-       <option value="Универсал">Универсал</option>
-       <option value="Лифтбек">Лифтбек</option>
-       <option value="Внедорожник">Внедорожник</option>
-       <option value="Купе">Купе</option>
-       <option value="Кабриолет">Кабриолет</option>
+       <option value="Седан">${sedan}</option>
+       <option value="Хэтчбек">${hatch}</option>
+       <option value="Универсал">${wagon}</option>
+       <option value="Лифтбек">${lift}</option>
+       <option value="Внедорожник">${suv}</option>
+       <option value="Купе">${coupe}</option>
+       <option value="Кабриолет">${cabriolet}</option>
    </select>
     </div>
 
-    <br/>Price:  <input type="text" name="price" value="" /> <br/>
-    <br/>Mileage: <input type="text" name="mileage" value="" /> <br/>
+    <br/>${priceday}, $:  <input type="text" name="price" value="" /> <br/>
+    <br/>${power}: <input type="text" name="mileage" value="" /> <br/>
 
-    <br/><input type="submit"  value="Add car"/>
+    <br/><input type="submit"  value="${addcar}"/>
 </form>
 </body>
 </html>

@@ -58,7 +58,9 @@ public class RequestConstant {
     public static final String PAY_OK = "Successful payment!";
     public static final String USER_DELETE = "User deleted";
     public static final String SUCCESSFUL_DELETING_CAR = "Car deleted successfully";
-    public static final String MANAGER_REG= "Manager registration completed successfully!";
+    public static final String MANAGER_REG = "Manager registration completed successfully!";
+    public static final String USER_REG = "Your registration completed successfully! Now you can log in";
+    public static final String EDIT_SAVE = "Changes saved";
     //ADD
 
 }
