@@ -34,18 +34,26 @@
     </c:when>
   </c:choose>
   ${name}:<br/>
-  <input type="text" name="name" value=""/> <br/>
+  <input type="text"
+         name="name"
+         value=""
+         required="required"
+         pattern="\D+"
+         oninvalid="this.setCustomValidity('${reg}')"
+         oninput="this.setCustomValidity('')"
+         autocomplete="off"
+  /> <br/>
   ${surname}:<br/>
-  <input type="text" name="surname" value="" /> <br/>
+  <input type="text" name="surname" value="" required="required" /> <br/>
   ${phone}:<br/>
-  <input type="text" name="phone" value="" /> <br/>
+  <input type="text" name="phone" value="" required="required" /> <br/>
   ${password}:<br/>
   <input type="password" name="password" value="" required="required"/> <br/>
   ${email}:<br/>
   <input type="email" name="email" value="" required="required"/> <br/>
   <c:choose>
     <c:when test="${user.role != 4}">
-  <input type="submit" value="${register}"/>
+      <input type="submit" value="${register}"/>
     </c:when>
     <c:when test="${user.role == 4}">
       <input type="submit" value="${addmanager}"/>
@@ -58,6 +66,7 @@
 
 <%--<div> <input type = "button" value = "Back" onclick = "window.history.back();" /> </div>--%>
 <button onclick="window.history.back();">${back}</button>
+<script src="/JS/registration.js"></script>
 </body>
 <style>
   p.ok_message {
