@@ -156,8 +156,8 @@
 </div>
 <div>
     ${dates}:<br/>
-    <input type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
-    <input type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
+    <input id="rentStartDate" type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
+    <input id="rentEndDate" type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
 </div>
     <c:choose>
         <c:when test="${rent_days!=null}">
@@ -273,6 +273,6 @@
     }
 
 </style>
-
+<script src="JS/index.js"></script>
 </body>
 </html>
