@@ -46,6 +46,7 @@
     <fmt:message bundle="${localization}" key="local.yes" var="yes"/>
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
     <fmt:message bundle="${localization}" key="local.addmanager" var="addmanager"/>
+    <fmt:message bundle="${localization}" key="local.noorders" var="noorders"/>
 
     <title>${userinfo}</title>
 </head>
@@ -148,6 +149,12 @@
     </tr>
     </c:forEach>
 </table>
+    </c:when>
+
+    <c:when test="${orders.size()<1}">
+        <br/>
+        <br/>
+        <p class="noorders">${noorders}</p>
     </c:when>
 </c:choose>
     </c:when>
@@ -429,13 +436,6 @@
 
 
 
-
-
-
-
-
-
-
 <%--        <h3>${message}</h3>--%>
 
     </c:when>
@@ -469,6 +469,10 @@
     }
     p.ok_message {
         color: blue;
+    }
+    p.noorders {
+        text-align: center;
+        font-weight: bolder;
     }
 
 

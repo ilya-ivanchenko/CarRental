@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
+    private static final String ELECTRO = "Электро";
     public boolean emailValidation(String email) {
 
         Pattern patternEmail = Pattern.compile("([.[^@\\s]]+)@([.[^@\\s]]+)\\.([a-z]+)");
@@ -65,6 +66,14 @@ public class Validator {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public boolean electroCar(String fuel) {
+        if (fuel.equals(ELECTRO)) {
+            return true;
+        } else {
+            return  false;
         }
     }
 }

@@ -21,18 +21,16 @@
     <input type="hidden" name="command" value="register_return"/>
     <div>
         <br/>
-        <input type="checkbox" name="need_repair" value="1" /> ${needrepair}
+        <input type="checkbox" name="need_repair" onchange="onChangeRepairStatus(this.checked)" value="1"  /> ${needrepair}
     </div>
-    <div>
-        <br/>
-        ${repairprice}, $:<br/>
-        <c:choose>
-            <c:when test="need_repair">
 
-            </c:when>
-        </c:choose>
-        <input type="text" name="repair_price" autocomplete="0" />
-    </div>
+        <br/>
+
+        <div id="repairPrice-block">
+       <label for="repairPrice"> ${repairprice}, $:</label>
+        <input  id="repairPrice" type="text" name="repair_price" autocomplete="0" />
+        </div>
+
     <div>
         <br/>
         ${description}:<br/>
@@ -43,5 +41,6 @@
 </form>
 <br/>
 <button onclick="window.history.back();">${back}</button>
+<script src="JS/reg_return.js"></script>
 </body>
 </html>
