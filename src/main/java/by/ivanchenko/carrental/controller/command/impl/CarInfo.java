@@ -25,7 +25,6 @@ public class CarInfo implements Command {
             List<Car> cars = carService.getCarList();
             HttpSession session = request.getSession(true);
             session.setAttribute(CARS, cars);
-
             return PageResourseManager.getValue(PageParameter.CAR_INFO);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());

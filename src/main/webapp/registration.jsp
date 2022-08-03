@@ -15,6 +15,11 @@
   <fmt:message bundle="${localization}" key="local.register" var="register"/>
   <fmt:message bundle="${localization}" key="local.back" var="back"/>
   <fmt:message bundle="${localization}" key="local.addmanager" var="addmanager"/>
+  <fmt:message bundle="${localization}" key="local.checkname" var="checkname"/>
+  <fmt:message bundle="${localization}" key="local.checksurname" var="checksurname"/>
+  <fmt:message bundle="${localization}" key="local.checkphone" var="checkphone"/>
+  <fmt:message bundle="${localization}" key="local.checkemail" var="checkemail"/>
+
 
     <title>${reg}</title>
 </head>
@@ -39,18 +44,46 @@
          value=""
          required="required"
          pattern="\D+"
-         oninvalid="this.setCustomValidity('${reg}')"
+         oninvalid="this.setCustomValidity('${checkname}')"
          oninput="this.setCustomValidity('')"
          autocomplete="off"
   /> <br/>
   ${surname}:<br/>
-  <input type="text" name="surname" value="" required="required" /> <br/>
+  <input type="text"
+         name="surname"
+         value=""
+         required="required"
+         pattern="\D+"
+         oninvalid="this.setCustomValidity('${checksurname}')"
+         oninput="this.setCustomValidity('')"
+         autocomplete="off"
+  /> <br/>
   ${phone}:<br/>
-  <input type="text" name="phone" value="" required="required" /> <br/>
+  <input type="text"
+         name="phone"
+         value=""
+         required="required"
+         pattern="(\+\d{12})"
+         oninvalid="this.setCustomValidity('${checkphone}')"
+         oninput="this.setCustomValidity('')"
+         autocomplete="off"
+  /> <br/>
   ${password}:<br/>
-  <input type="password" name="password" value="" required="required"/> <br/>
+  <input type="password"
+         name="password"
+         value=""
+         required="required"
+  /> <br/>
   ${email}:<br/>
-  <input type="email" name="email" value="" required="required"/> <br/>
+  <input type="email"
+         name="email"
+         value=""
+         required="required"
+         pattern="([.[^@\s]]+)@([.[^@\s]]+)\.([a-z]+)"
+         oninvalid="this.setCustomValidity('${checkemail}')"
+         oninput="this.setCustomValidity('')"
+         autocomplete="off"
+  /> <br/>
   <c:choose>
     <c:when test="${user.role != 4}">
       <input type="submit" value="${register}"/>

@@ -53,7 +53,6 @@ public class RequestConstant {
     public static final String PAGE = "page";
 
 
-
     public static final String SUCCESSFUL_ADDING_CAR = "New car added successfully!";
     public static final String PAY_OK = "Successful payment!";
     public static final String USER_DELETE = "User deleted";

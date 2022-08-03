@@ -1,5 +1,6 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
+import by.ivanchenko.carrental.bean.car.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.controller.PageResourseManager;
 import by.ivanchenko.carrental.controller.command.Command;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
 
@@ -20,9 +22,12 @@ public class DeleteCar implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             CarService carService = ServiceFactory.getInstance().getCarService();
+            HttpSession session = request.getSession(true);
             int id = Integer.parseInt(request.getParameter(ID));
             carService.deleteCar(id);
-            request.setAttribute(MESSAGE, SUCCESSFUL_ADDING_CAR);
+            List<Car> cars = carService.getCarList();
+            session.setAttribute(CARS, cars);
+            request.setAttribute(MESSAGE, SUCCESSFUL_DELETING_CAR);
             return PageResourseManager.getValue(PageParameter.CAR_INFO);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());

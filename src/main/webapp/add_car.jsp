@@ -46,26 +46,9 @@
 
     ${Namecar}: <input type="text" name="name" value="" />
 
-    <br/> ${capacity}:
-    <select name="engine_capacity">
-        <option selected value="0.0">0.0</option>
-        <option value="1.0">1.0</option>
-        <option value="1.2">1.2</option>
-        <option value="1.4">1.4</option>
-        <option value="1.6">1.6</option>
-        <option value="1.8">1.8</option>
-        <option value="2.0">2.0</option>
-        <option value="2.2">2.2</option>
-        <option value="2.3">2.3</option>
-        <option value="2.5">2.5</option>
-        <option value="2.7">2.7</option>
-        <option value="3.0">3.0</option>
-        <option value="3.5">3.5</option>
-    </select>
-
     <div>
         <br/>${gearbox}:<br/>
-        <input type="radio" name="transmission" value="Механика" />${manual} <br/>
+        <input type="radio" name="transmission" value="Механика" checked/>${manual} <br/>
         <input type="radio" name="transmission" value="Автомат" />${automaic} <br/>
     </div>
 
@@ -85,25 +68,46 @@
         <option value="2011">2011</option>
         <option value="2010">2010</option>
     </select>
-
+    <div>
+        <br/>${engine}:<br/>
+        <input type="radio" name="fuel" value="Бензин" onchange="onChangeEngineType(this.value)" checked/>${gasoline} <br/>
+        <input type="radio" name="fuel" value="Дизель" onchange="onChangeEngineType(this.value)"/>${diesel} <br/>
+        <input type="radio" name="fuel" value="Электро" onchange="onChangeEngineType(this.value)" />${electro} <br/>
+    </div>
     <div>
         <br/>${drive}:<br/>
-        <input type="radio" name="drive" value="Передний" />${front} <br/>
+        <input type="radio" name="drive" value="Передний" checked />${front} <br/>
         <input type="radio" name="drive" value="Задний" />${rear} <br/>
         <input type="radio" name="drive" value="Полный" />${full} <br/>
     </div>
 
-    <br/>${tank}:
-    <input type="text" name="tank" value="" /> <br/>
+    <div id="tank-consumption-block">
+        <br/> ${capacity}:
+        <select name="engine_capacity">
+            <option selected value="0.0">0.0</option>
+            <option value="1.0">1.0</option>
+            <option value="1.2">1.2</option>
+            <option value="1.4">1.4</option>
+            <option value="1.6">1.6</option>
+            <option value="1.8">1.8</option>
+            <option value="2.0">2.0</option>
+            <option value="2.2">2.2</option>
+            <option value="2.3">2.3</option>
+            <option value="2.5">2.5</option>
+            <option value="2.7">2.7</option>
+            <option value="3.0">3.0</option>
+            <option value="3.5">3.5</option>
+        </select>
+        <br/>${tank}:
+        <input type="text" name="tank" value="0" /> <br/>
+        <br/>${consumption}:
+        <input type="text" name="consumption" value="0.0" /> <br/>
+    </div>
+    <br/>
 
-    <br/>${consumption}:
-    <input type="text" name="consumption" value="" /> <br/>
-
-    <div>
-        <br/>${engine}:<br/>
-        <input type="radio" name="fuel" value="Бензин" />${gasoline} <br/>
-        <input type="radio" name="fuel" value="Дизель" />${diesel} <br/>
-        <input type="radio" name="fuel" value="Электро" />${electro} <br/>
+    <div id="e-mileage-block">
+        <label for="e-mileage">${power}:</label>
+        <input id="e-mileage" type="text" name="mileage" value="0" />
     </div>
 
     <div>
@@ -120,9 +124,10 @@
     </div>
 
     <br/>${priceday}, $:  <input type="text" name="price" value="" /> <br/>
-    <br/>${power}: <input type="text" name="mileage" value="" /> <br/>
+
 
     <br/><input type="submit"  value="${addcar}"/>
 </form>
+<script src="JS/add_car.js"></script>
 </body>
 </html>

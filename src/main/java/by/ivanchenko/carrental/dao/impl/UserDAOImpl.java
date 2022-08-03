@@ -39,12 +39,19 @@ public class UserDAOImpl implements UserDAO {
 
          try {
              connection = ConnectionPool.getInstance().takeConnection();
-//             ConnectionPool connectionPool = new ConnectionPool();
-//             connection = connectionPool.takeConnection();
-
              preparedStatement = connection.prepareStatement(LOG_IN);
              preparedStatement.setString(1, email);
              preparedStatement.setString(2, password);
+
+
+
+             System.out.println(password);
+             System.out.println(password.hashCode());               //////
+             int pasHash = password.hashCode();
+
+
+
+
              resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -75,9 +82,6 @@ public class UserDAOImpl implements UserDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-//            ConnectionPool connectionPool = new ConnectionPool();
-//            connection = connectionPool.takeConnection();
-
             preparedStatement = connection.prepareStatement(FIND_EMAIL);
             preparedStatement.setString(1, user.getEmail());
             resultSet = preparedStatement.executeQuery();

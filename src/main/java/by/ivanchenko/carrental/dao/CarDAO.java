@@ -12,5 +12,6 @@ public interface CarDAO {
                                     LocalDate startDate, LocalDate endDate) throws DAOException;  //edit
         Car bookCar(int id) throws DAOException;
         void addCar(Car car) throws DAOException;
+        void addCarElectro(Car car) throws DAOException;
         void deleteCar( int idCar) throws DAOException;
 }

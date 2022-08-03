@@ -6,12 +6,14 @@ import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.DAOFactory;
 import by.ivanchenko.carrental.service.CarService;
 import by.ivanchenko.carrental.service.ServiceException;
+import by.ivanchenko.carrental.service.Validator;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class CarServiceImpl implements CarService {
 
+    private static final Validator validator = new Validator();
     @Override
     public List<Car> getCarList() throws ServiceException {
         try {
@@ -49,7 +51,12 @@ public class CarServiceImpl implements CarService {
     public void addCar(Car car) throws ServiceException {
         try {
             CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
-            carDAO.addCar(car);
+
+            if (validator.electroCar(car.getFuel())) {
+                carDAO.addCarElectro(car);
+            } else {
+                carDAO.addCar(car);
+            }
         } catch (DAOException e) {
             throw new ServiceException("Error while adding new car");
         }

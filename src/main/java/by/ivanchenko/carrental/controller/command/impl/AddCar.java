@@ -19,6 +19,7 @@ public class AddCar implements Command {
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             CarService carService = ServiceFactory.getInstance().getCarService();
+
             Car car = new Car(request.getParameter(NAME), parseDouble(request.getParameter(ENGINE_CAPACITY)),
                     request.getParameter(TRANSMISSION), parseInt(request.getParameter(YEAR)), request.getParameter(DRIVE),
                     parseInt(request.getParameter(TANK)), parseDouble(request.getParameter(CONSUMPTION)),

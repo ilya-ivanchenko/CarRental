@@ -46,8 +46,7 @@ public class UserServiceImpl implements UserService {
         if (!validator.emailValidation(email)) {
             throw new ServiceException("Incorrect email format");
         }
-        // cессия
-        // поверка на авторизован ли уже
+
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
             User user = userDAO.logIn(email, password);
