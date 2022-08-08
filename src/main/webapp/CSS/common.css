@@ -1,0 +1,25 @@
+:root {
+    --logo-color: #186e8d;
+}
+
+body {
+    margin: 0;
+    /*font-family: Montserrat Regular, sans-serif;*/
+    /*font-size: 12px;*/
+}
+
+div {
+    display: inline-block;
+    padding: 10px;
+    /*margin: 10px;*/
+}
+
+button, input.button {
+    background: #ddf6ff;
+    border-color: var(--logo-color);
+    border-width: 1px;
+    font-family:  "Montserrat Medium", sans-serif;
+    /*Roboto*/
+    font-size: 12px;
+}
+

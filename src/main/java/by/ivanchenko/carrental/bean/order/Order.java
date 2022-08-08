@@ -25,6 +25,7 @@ public class Order {
     private boolean approved;
     private int repairPrice;
     private String passport;
+    private String carName;
 
 
     public int getId() {
@@ -144,6 +145,12 @@ public class Order {
     public void setPassport(String passport) {
         this.passport = passport;
     }
+    public String getCarName() {
+        return carName;
+    }
+    public void setCarName(String carName) {
+        this.carName = carName;
+    }
 
     public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate, int totalPrice,
                  String description, boolean payment, boolean returned,  boolean needRepair,
@@ -173,6 +180,26 @@ public class Order {
         setTotalPrice(totalPrice);
     }
 
+    public Order(int id, int customerId, int carId, int managerId, Date startDate, Date endDate, int totalPrice,
+                 String description, boolean payment, boolean returned,  boolean needRepair,
+                 boolean approved, int repairPrice, String passport, boolean given, String carName) {
+        setId(id);
+        setCustomerId(customerId);
+        setCarId(carId);
+        setManagerId(managerId);
+        setStartDate(startDate);
+        setEndDate(endDate);
+        setTotalPrice(totalPrice);
+        setDescription(description);
+        setPayment(payment);
+        setReturned(returned);
+        setNeedRepair(needRepair);
+        setApproved(approved);
+        setRepairPrice(repairPrice);
+        setPassport(passport);
+        setGiven(given);
+        setCarName(carName);
+    }
     @Override
     public String toString() {
         return "Order{" +
@@ -191,6 +218,7 @@ public class Order {
                 ", approved=" + approved +
                 ", repairPrice=" + repairPrice +
                 ", passport=" + passport +
+                ", carName=" + carName +
                 '}';
     }
 
@@ -208,12 +236,12 @@ public class Order {
                 && given == order.given && needRepair == order.needRepair && approved == order.approved
                 && repairPrice == order.repairPrice && Objects.equals(startDate, order.startDate)
                 && Objects.equals(endDate, order.endDate) && Objects.equals(description, order.description)
-                && Objects.equals(passport, order.passport);
+                && Objects.equals(passport, order.passport) && Objects.equals(carName, order.carName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, customerId, carId, managerId, startDate, endDate, totalPrice, description, payment, returned,
-                given, needRepair, approved, repairPrice, passport);
+                given, needRepair, approved, repairPrice, passport, carName);
     }
 }

@@ -11,4 +11,5 @@ public interface UserService {
     void updateInfo(User user) throws ServiceException;
     void delete(int idUser) throws ServiceException;
     List<User> allUserInfo() throws ServiceException;
+    User userInfo(int idUser) throws ServiceException;
 }

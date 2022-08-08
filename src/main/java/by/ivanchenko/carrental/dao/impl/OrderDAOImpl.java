@@ -28,11 +28,17 @@ public class OrderDAOImpl implements OrderDAO {
     private static final String REPAIR_PRICE = "repair_price";
     private static final String PASSPORT = "passport";
 
+    private static final String NAME = "name";
+
+
     private static final String CREATE_ORDER = "INSERT INTO orders (car_id, start_date, end_date, total_price, user_id," +
             " passport, description) VALUES (?,?,?,?,?,?,?)";
-    private static final String ORDER_INFO = "SELECT * FROM orders WHERE user_id = ? ORDER BY id_order DESC; ";
-    private static final String ORDER_INFO_MANAGER = "SELECT * FROM orders WHERE manager_id = ? ORDER BY id_order DESC;";
-    private static final String ORDER_INFO_ALL = "SELECT * FROM orders ORDER BY id_order DESC;";
+    private static final String ORDER_INFO = "SELECT orders.* , cars.name FROM orders  JOIN cars ON cars.id_car = orders.car_id" +
+            "  WHERE user_id = ? ORDER BY start_date DESC; ";
+    private static final String ORDER_INFO_MANAGER = "SELECT orders.* , cars.name FROM orders  JOIN cars ON cars.id_car = orders.car_id" +
+            " WHERE manager_id = ? ORDER BY id_order DESC;";
+    private static final String ORDER_INFO_ALL = "SELECT orders.* , cars.name FROM orders  JOIN cars ON cars.id_car = orders.car_id" +
+            " ORDER BY id_order DESC;";
     private static final String APPROVE_ORDER = "UPDATE orders SET order_approved = 1, manager_id = ? WHERE id_order = ? ";
     private static final String PAY = "UPDATE orders SET payment_rental = 1 WHERE id_order = ?";
     private static final String DELETE_ORDER = "DELETE FROM orders WHERE id_order = ?";
@@ -87,7 +93,8 @@ public class OrderDAOImpl implements OrderDAO {
                      resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
                      resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
                      resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
-                     resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT), resultSet.getBoolean(GIVEN)));
+                     resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT), resultSet.getBoolean(GIVEN),
+                     resultSet.getString(NAME)));
          }
          return orders;
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
@@ -117,7 +124,8 @@ public class OrderDAOImpl implements OrderDAO {
                         resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
                         resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
                         resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
-                        resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT), resultSet.getBoolean(GIVEN)));
+                        resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT), resultSet.getBoolean(GIVEN),
+                        resultSet.getString(NAME)));
             }
             return orders;
         } catch (SQLException e) {  // to do      likewise upper 'logIn'
@@ -145,7 +153,8 @@ public class OrderDAOImpl implements OrderDAO {
                         resultSet.getInt(ID_MANAGER), resultSet.getDate(START_DATE), resultSet.getDate(END_DATE),
                         resultSet.getInt(TOTAL_PRICE), resultSet.getString(DESCRIPTION), resultSet.getBoolean(PAYMENT),
                         resultSet.getBoolean(RETURNED), resultSet.getBoolean(NEED_REPAIR), resultSet.getBoolean(APPROVED),
-                        resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT), resultSet.getBoolean(GIVEN)));
+                        resultSet.getInt(REPAIR_PRICE), resultSet.getString(PASSPORT), resultSet.getBoolean(GIVEN),
+                        resultSet.getString(NAME)));
             }
             return orders;
         } catch (SQLException e) {  // to do      likewise upper 'logIn'

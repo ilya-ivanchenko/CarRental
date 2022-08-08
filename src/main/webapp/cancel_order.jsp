@@ -11,6 +11,8 @@
   <fmt:message bundle="${localization}" key="local.writecomment" var="writecomment"/>
   <fmt:message bundle="${localization}" key="local.back" var="back"/>
     <title>${cancelorder}</title>
+
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
 <c:set  var="page"  value="cancel_order.jsp" scope="session"/>

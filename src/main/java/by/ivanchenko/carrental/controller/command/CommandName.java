@@ -24,6 +24,7 @@ public enum CommandName {
     DELETE_USER_BY_ADMIN,
     DELETE_CAR,
     ALL_USER_INFO,
+    USER_INFO_BY_MANAGER,
 
         // another
    UNKNOWN

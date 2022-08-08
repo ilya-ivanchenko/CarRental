@@ -20,6 +20,7 @@ public class PageParameter {
     public static final String AUTHORIZATION = "page.authorization";
 
     public static final String REGISTRATION = "page.registration";
+    public static final String USER_INFO_BY_MANAGER = "page.user_info_by_manager";
 
 
 

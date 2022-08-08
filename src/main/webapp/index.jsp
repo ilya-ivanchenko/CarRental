@@ -39,6 +39,8 @@
     <fmt:message bundle="${localization}" key="local.nocars" var="nocars"/>
     <title>${main}</title>
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/index.css" type="text/css">
 </head>
 <body>
 
@@ -49,128 +51,139 @@
 <c:choose>
     <c:when test="${cars != null}">
 
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="get_car_list_filtred"/>
-<div>
-    <br/>${gearbox}:<br/>
-    <input type="radio" name="transmission" value="%" checked/>${any}<br/>
-    <input type="radio" name="transmission" value="Механика" />${manual}<br/>
-    <input type="radio" name="transmission" value="Автомат" />${automatic}<br/>
-</div>
-<div>
-    ${drive}:<br/>
-    <input type="radio" name="drive" value="%" checked/>${any1}<br/>
-    <input type="radio" name="drive" value="Передний" />${front}<br/>
-    <input type="radio" name="drive" value="Задний" />${rear}<br/>
-    <input type="radio" name="drive" value="Полный" />${full}<br/>
-</div>
-    <div>
-        <br/>${engine}:<br/>
-        <input type="radio" name="fuel" value="%" checked/>${any1}<br/>
-        <input type="radio" name="fuel" value="Бензин" />${gasoline}<br/>
-        <input type="radio" name="fuel" value="Дизель" />${diesel}<br/>
-        <input type="radio" name="fuel" value="Электро" />${electro}<br/>
-    </div>
-<div>
-    ${capacity}:<br/>
-    <select name="engine_capacity1">
-                <option selected value="0.0">0.0</option>
-                <option value="1.4">1.4</option>
-                <option value="1.6">1.6</option>
-                <option value="1.8">1.8</option>
-                <option value="2.0">2.0</option>
-                <option value="2.5">2.5</option>
-                <option value="3.0">3.0</option>
-    </select>
-    <select name="engine_capacity2">
-        <option value="0.0">0.0</option>
-        <option value="1.4">1.4</option>
-        <option value="1.6">1.6</option>
-        <option value="1.8">1.8</option>
-        <option value="2.0">2.0</option>
-        <option value="2.5">2.5</option>
-        <option selected value="3.0">3.0</option>
-    </select>
-</div>
-    <div>
-        ${consumption}:<br/>
-        <select name="consumption1">
-            <option selected value="0.0">4.0</option>
-            <option value="5.0">5.0</option>
-            <option value="6.0">6.0</option>
-            <option value="7.0">7.0</option>
-            <option value="8.0">8.0</option>
-            <option value="9.0">9.0</option>
-            <option value="10.0">10.0</option>
-            <option value="11.0">11.0</option>
-            <option value="12.0">12.0</option>
-        </select>
-        <select name="consumption2">
-            <option value="4.0">4.0</option>
-            <option value="5.0">5.0</option>
-            <option value="6.0">6.0</option>
-            <option value="7.0">7.0</option>
-            <option value="8.0">8.0</option>
-            <option value="9.0">9.0</option>
-            <option value="10.0">10.0</option>
-            <option value="11.0">11.0</option>
-            <option selected value="12.0">12.0</option>
-        </select>
-    </div>
-<div>
-    ${priceday}, $:<br/>
-    <select name="price1">
-        <option selected value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-        <option value="30">30</option>
-        <option value="35">35</option>
-        <option value="40">40</option>
-        <option value="45">45</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
-        <option value="70">70</option>
-        <option value="80">80</option>
-        <option value="90">90</option>
-        <option value="100">100</option>
-        <option value="110">110</option>
-        <option value="120">120</option>
-    </select>
-    <select name="price2">
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-        <option value="30">30</option>
-        <option value="35">35</option>
-        <option value="40">40</option>
-        <option value="45">45</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
-        <option value="70">70</option>
-        <option value="80">80</option>
-        <option value="90">90</option>
-        <option value="100">100</option>
-        <option value="110">110</option>
-        <option selected value="120">120</option>
-    </select>
-</div>
-<div>
-    ${dates}:<br/>
-    <input id="rentStartDate" type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
-    <input id="rentEndDate" type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
-</div>
-    <c:choose>
-        <c:when test="${rent_days!=null}">
+<div class="cars-filter">
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="get_car_list_filtred"/>
+        <div class="filter">
+            <span class="filter-name">${gearbox}:</span>
+            <input type="radio" name="transmission" value="%" checked/>${any}<br/>
+            <input type="radio" name="transmission" value="Механика"  ${gearboxType == 'Механика' ? 'checked' : ''} />${manual}<br/>
+            <input type="radio" name="transmission" value="Автомат" ${gearboxType == 'Автомат' ? 'checked' : ''} />${automatic}<br/>
+        </div>
+        <div class="filter">
+            <span class="filter-name">${drive}:</span>
+            <input type="radio" name="drive" value="%" checked/>${any1}<br/>
+            <input type="radio" name="drive" value="Передний" ${driveType == 'Передний' ? 'checked' : ''}/>${front}<br/>
+            <input type="radio" name="drive" value="Задний" ${driveType == 'Задний' ? 'checked' : ''}/>${rear}<br/>
+            <input type="radio" name="drive" value="Полный" ${driveType == 'Полный' ? 'checked' : ''} />${full}<br/>
+        </div>
+        <div class="filter">
+            <span class="filter-name">${engine}:</span>
+            <input type="radio" name="fuel" value="%" checked/>${any1}<br/>
+            <input type="radio" name="fuel" value="Бензин" ${fuelType == 'Бензин' ? 'checked' : ''}/>${gasoline}<br/>
+            <input type="radio" name="fuel" value="Дизель" ${fuelType == 'Дизель' ? 'checked' : ''}/>${diesel}<br/>
+            <input type="radio" name="fuel" value="Электро" ${fuelType == 'Электро' ? 'checked' : ''}/>${electro}<br/>
+        </div>
+
+        <div class="filter filter-dvs">
             <div>
-            ${totaldays}: ${rent_days}
+                <span class="filter-name">${capacity}:</span>
+                <select name="engine_capacity1">
+                    <option selected value="0.0" >0.0</option>
+                    <option value="1.4" ${engineCapacity1 == '1.4' ? 'selected' : ''}>1.4</option>
+                    <option value="1.6" ${engineCapacity1 == '1.6' ? 'selected' : ''}>1.6</option>
+                    <option value="1.8" ${engineCapacity1 == '1.8' ? 'selected' : ''}>1.8</option>
+                    <option value="2.0" ${engineCapacity1 == '2.0' ? 'selected' : ''}>2.0</option>
+                    <option value="2.5" ${engineCapacity1 == '2.5' ? 'selected' : ''}>2.5</option>
+                    <option value="3.0" ${engineCapacity1 == '3.0' ? 'selected' : ''}>3.0</option>
+                </select>
+                <select name="engine_capacity2">
+                    <option value="0.0" ${engineCapacity2 == '0.0' ? 'selected' : ''}>0.0</option>
+                    <option value="1.4" ${engineCapacity2 == '1.4' ? 'selected' : ''}>1.4</option>
+                    <option value="1.6" ${engineCapacity2 == '1.6' ? 'selected' : ''}>1.6</option>
+                    <option value="1.8" ${engineCapacity2 == '1.8' ? 'selected' : ''}>1.8</option>
+                    <option value="2.0" ${engineCapacity2 == '2.0' ? 'selected' : ''}>2.0</option>
+                    <option value="2.5" ${engineCapacity2 == '2.5' ? 'selected' : ''}>2.5</option>
+                    <option value="3.0" ${engineCapacity2 == '3.0' ? 'selected' : ''}>3.0</option>
+                </select>
             </div>
-        </c:when>
-    </c:choose>
-    <br/>
-    <br/>
-    <input type="submit" value="${apply}"/>
-</form>
-<br/>
+            <div>
+                <span class="filter-name">${consumption}:</span>
+                <select name="consumption1">
+                    <option value="0.0" ${engineConsumption1 == '0.0' ? 'selected' : ''}>4.0</option>
+                    <option value="5.0" ${engineConsumption1 == '5.0' ? 'selected' : ''}>5.0</option>
+                    <option value="6.0" ${engineConsumption1 == '6.0' ? 'selected' : ''}>6.0</option>
+                    <option value="7.0" ${engineConsumption1 == '7.0' ? 'selected' : ''}>7.0</option>
+                    <option value="8.0" ${engineConsumption1 == '8.0' ? 'selected' : ''}>8.0</option>
+                    <option value="9.0" ${engineConsumption1 == '9.0' ? 'selected' : ''}>9.0</option>
+                    <option value="10.0" ${engineConsumption1 == '10.0' ? 'selected' : ''}>10.0</option>
+                    <option value="11.0" ${engineConsumption1 == '11.0' ? 'selected' : ''}>11.0</option>
+                    <option value="12.0" ${engineConsumption1 == '12.0' ? 'selected' : ''}>12.0</option>
+                </select>
+                <select name="consumption2">
+                    <option value="4.0" ${engineConsumption2 == '4.0' ? 'selected' : ''}>4.0</option>
+                    <option value="5.0" ${engineConsumption2 == '5.0' ? 'selected' : ''}>5.0</option>
+                    <option value="6.0" ${engineConsumption2 == '6.0' ? 'selected' : ''}>6.0</option>
+                    <option value="7.0" ${engineConsumption2 == '7.0' ? 'selected' : ''}>7.0</option>
+                    <option value="8.0" ${engineConsumption2 == '8.0' ? 'selected' : ''}>8.0</option>
+                    <option value="9.0" ${engineConsumption2 == '9.0' ? 'selected' : ''}>9.0</option>
+                    <option value="10.0" ${engineConsumption2 == '10.0' ? 'selected' : ''}>10.0</option>
+                    <option value="11.0" ${engineConsumption2 == '11.0' ? 'selected' : ''}>11.0</option>
+                    <option value="12.0" ${engineConsumption2 == '12.0' ? 'selected' : ''}>12.0</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter">
+            <span class="filter-name">${priceday}, $:</span>
+            <select name="price1">
+                <option value="15" ${rentPrice1 == '15' ? 'selected' : ''}>15</option>
+                <option value="20" ${rentPrice1 == '20' ? 'selected' : ''}>20</option>
+                <option value="25" ${rentPrice1 == '25' ? 'selected' : ''}>25</option>
+                <option value="30" ${rentPrice1 == '30' ? 'selected' : ''}>30</option>
+                <option value="35" ${rentPrice1 == '35' ? 'selected' : ''}>35</option>
+                <option value="40" ${rentPrice1 == '40' ? 'selected' : ''}>40</option>
+                <option value="45" ${rentPrice1 == '45' ? 'selected' : ''}>45</option>
+                <option value="50" ${rentPrice1 == '50' ? 'selected' : ''}>50</option>
+                <option value="60" ${rentPrice1 == '60' ? 'selected' : ''}>60</option>
+                <option value="70" ${rentPrice1 == '70' ? 'selected' : ''}>70</option>
+                <option value="80" ${rentPrice1 == '80' ? 'selected' : ''}>80</option>
+                <option value="90" ${rentPrice1 == '90' ? 'selected' : ''}>90</option>
+                <option value="100" ${rentPrice1 == '100' ? 'selected' : ''}>100</option>
+                <option value="110" ${rentPrice1 == '110' ? 'selected' : ''}>110</option>
+                <option value="120" ${rentPrice1 == '120' ? 'selected' : ''}>120</option>
+            </select>
+            <select name="price2">
+                <option value="15" ${rentPrice2 == '15' ? 'selected' : ''}>15</option>
+                <option value="20" ${rentPrice2 == '20' ? 'selected' : ''}>20</option>
+                <option value="25" ${rentPrice2 == '25' ? 'selected' : ''}>25</option>
+                <option value="30" ${rentPrice2 == '30' ? 'selected' : ''}>30</option>
+                <option value="35" ${rentPrice2 == '35' ? 'selected' : ''}>35</option>
+                <option value="40" ${rentPrice2 == '40' ? 'selected' : ''}>40</option>
+                <option value="45" ${rentPrice2 == '45' ? 'selected' : ''}>45</option>
+                <option value="50" ${rentPrice2 == '50' ? 'selected' : ''}>50</option>
+                <option value="60" ${rentPrice2 == '60' ? 'selected' : ''}>60</option>
+                <option value="70" ${rentPrice2 == '70' ? 'selected' : ''}>70</option>
+                <option value="80" ${rentPrice2 == '80' ? 'selected' : ''}>80</option>
+                <option value="90" ${rentPrice2 == '90' ? 'selected' : ''}>90</option>
+                <option value="100" ${rentPrice2 == '100' ? 'selected' : ''}>100</option>
+                <option value="110" ${rentPrice2 == '110' ? 'selected' : ''}>110</option>
+                <option value="120" ${rentPrice2 == '120' ? 'selected' : ''}>120</option>
+            </select>
+        </div>
+
+        <div>
+            <div class="filter filter-dates">
+                <span class="filter-name">${dates}:</span>
+                <input id="rentStartDate" type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
+                <input id="rentEndDate" type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
+
+                <c:choose>
+                    <c:when test="${rent_days!=null}">
+                        <span>
+                                ${totaldays}: ${rent_days}
+                        </span>
+                    </c:when>
+                </c:choose>
+            </div>
+            <div class="cars-filter-apply">
+                <input type="submit" value="${apply}"/>
+            </div>
+        </div>
+
+    </form>
+</div>
+
 
 <table cellpadding="5">
 <tr>
@@ -200,12 +213,22 @@
         <td>${cars.year}</td>
         <td>${cars.drive}</td>
         <td>${cars.fuel}</td>
-        <td>${cars.engineCapacity}</td>
-        <td>${cars.tank}</td>
-        <td>${cars.consumption}</td>
-        <td>${cars.bodyType}</td>
-        <td>${cars.price}</td>
-        <td>${cars.mileage}</td>
+            <c:choose>
+                <c:when test="${cars.fuel == 'Электро'}">
+                    <td colspan="3">-</td>
+                    <td>${cars.bodyType}</td>
+                    <td>${cars.price}</td>
+                    <td>${cars.mileage}</td>
+                </c:when>
+                <c:when test="${cars.fuel != 'Электро'}">
+                    <td>${cars.engineCapacity}</td>
+                    <td>${cars.tank}</td>
+                    <td>${cars.consumption}</td>
+                    <td>${cars.bodyType}</td>
+                    <td>${cars.price}</td>
+                    <td>-</td>
+                </c:when>
+            </c:choose>
         <c:choose>
             <c:when test="${rent_days!=null}">
                 <td class="price">${cars.price * rent_days}$</td>
@@ -247,32 +270,7 @@
 <%--${end_date}--%>
 <%--date: ${currentDate}--%>
 <%--days: ${rent_days}--%>
-<style>
-    div {
-        display: inline-block;
-        padding: 10px;
-    }
-    form.local {
-        display: inline-block;
-    }
-    form.logout {
-        display: inline-block;
-    }
-    button.yourpage {
-        display: inline-block;
-    }
-    td.price {
-        font-weight: bold;
-    }
-    td {
-        text-align: center;
-    }
-    p.nocars {
-        text-align: center;
-        font-weight: bolder;
-    }
 
-</style>
 <script src="JS/index.js"></script>
 </body>
 </html>

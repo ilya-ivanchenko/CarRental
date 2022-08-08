@@ -14,13 +14,17 @@
     <fmt:message bundle="${localization}" key="local.registnouser" var="registernouser"/>
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
     <title>${pleaseauthorize}</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
-<body>
-<c:set  var="page"  value="no_user.jsp" scope="session"/>
-<jsp:include page="header.jsp"/>
-<h3>${forcontinue} <a href="authorization.jsp">${loginnouser}</a> ${orgoto}
-   <a href="registration.jsp">${registernouser}</a>
-<br/>
-<button onclick="window.history.back();">${back}</button>
-</body>
+    <body>
+    <c:set  var="page"  value="no_user.jsp" scope="session"/>
+    <jsp:include page="header.jsp"/>
+        <div>
+            <h3>${forcontinue} <a href="authorization.jsp">${loginnouser}</a> ${orgoto}
+               <a href="registration.jsp">${registernouser}</a>
+                <br/>
+                <button onclick="window.history.back();">${back}</button>
+            </h3>
+        </div>
+    </body>
 </html>

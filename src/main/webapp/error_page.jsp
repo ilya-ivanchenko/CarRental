@@ -10,6 +10,8 @@
     <fmt:message bundle="${localization}" key="local.Error" var="error"/>
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
     <title>${error}</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
 <c:set  var="page"  value="error_page.jsp" scope="session"/>

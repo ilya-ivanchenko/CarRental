@@ -11,6 +11,7 @@ public class User {
     private String password;      // пароль не хранить больше чем для авторизации
     private String email;
     private int role;
+    private String roleName;
 
 
 
@@ -69,6 +70,13 @@ public class User {
     public void setRole(int role) {
         this.role = role;
     }
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
 
     public User() {
     }
@@ -84,7 +92,7 @@ public class User {
         setRole(role);
     }
 
-    public User( String name, String surname, String phone, String password, String email, int role) {
+    public User(String name, String surname, String phone, String password, String email, int role) {
        setName(name);
        setSurname(surname);
        setPhone(phone);
@@ -102,6 +110,16 @@ public class User {
         setEmail(email);
         setRole(role);
     }
+
+    public User(int id, String name, String surname, String phone,  String email, String roleName) {
+        setId(id);
+        setName(name);
+        setSurname(surname);
+        setPhone(phone);
+        setEmail(email);
+        setRoleName(roleName);
+    }
+
 
     @Override
     public String toString() {

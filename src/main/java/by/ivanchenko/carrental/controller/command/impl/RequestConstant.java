@@ -51,6 +51,23 @@ public class RequestConstant {
     public static final String REPAIR_PRICE = "repair_price";
     public static final String LOCAL = "local";
     public static final String PAGE = "page";
+    public static final String GEARBOX_TYPE = "gearboxType";
+    public static final String DRIVE_TYPE = "driveType";
+    public static final String FUEL_TYPE = "fuelType";
+    public static final String ENGINE_CAPACITY_TYPE1 = "engineCapacity1";
+    public static final String ENGINE_CAPACITY_TYPE2 = "engineCapacity2";
+    public static final String ENGINE_CONSUMPTION_TYPE1 = "engineConsumption1";
+    public static final String ENGINE_CONSUMPTION_TYPE2 = "engineConsumption2";
+    public static final String RENT_PRICE1 = "rentPrice1";
+    public static final String RENT_PRICE2 = "rentPrice2";
+    public static final String USER_INFO = "userInfo";
+
+    public static final double ENGINE_CAPACITY_TYPE1_DEFAULT = 0.0;
+    public static final double ENGINE_CAPACITY_TYPE2_DEFAULT = 3.0;
+    public static final double ENGINE_CONSUMPTION_TYPE1_DEFAULT = 4.0;
+    public static final double ENGINE_CONSUMPTION_TYPE2_DEFAULT = 12.0;
+    public static final int RENT_PRICE1_DEFAULT = 15;
+    public static final int RENT_PRICE2_DEFAULT = 120;
 
 
     public static final String SUCCESSFUL_ADDING_CAR = "New car added successfully!";

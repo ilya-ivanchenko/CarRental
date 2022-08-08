@@ -20,14 +20,17 @@ public class UserDAOImpl implements UserDAO {
     private static final String PASSWORD = "password";
     private static final String EMAIL = "email";
     private static final String ROLE = "id_role";
+    private static final String ROLE_NAME = "role_name";
 
     private static final String REGISTER_USER = "INSERT INTO users (name, surname, phone, password, email, id_role) VALUES (?, ?, ?, ?, ?,?)";  // +
     private static final String LOG_IN = "SELECT * FROM users WHERE email = ? and password = ?";
     private static final String UPDATE_INFO = "UPDATE users SET name = ?, surname = ?, phone = ?, password = ?, email = ? WHERE id_user = ?";
     private static final String DELETE_USER = "DELETE FROM users WHERE  id_user = ?";
     private static final String FIND_EMAIL = "SELECT email FROM users WHERE email = ?";
-    private static final String ALL_USER_INFO = "SELECT * FROM users";
-
+    private static final String ALL_USER_INFO = "SELECT id_user, name, surname, phone, email, roles.role_name FROM users  JOIN roles " +
+            "ON  roles.id_role = users.id_role";
+    private static final String USER_INFO = "SELECT id_user, name, surname, phone, email, roles.role_name FROM users JOIN roles " +
+            "ON roles.id_role = users.id_role WHERE id_user = ?";
 
 
     @Override
@@ -59,7 +62,6 @@ public class UserDAOImpl implements UserDAO {
                         resultSet.getString(PHONE), resultSet.getString(PASSWORD), resultSet.getString(EMAIL), resultSet.getInt(ROLE));
             } else {
                  throw new DAOException("User with this email doesn't exist");
-                //page with error
             }
          } catch (SQLException e) {
              //log.error("some message", e);
@@ -184,8 +186,7 @@ public class UserDAOImpl implements UserDAO {
             List<User> users =  new ArrayList<>();
             while (resultSet.next()) {
                 users.add(new User(resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getString(SURNAME),
-                        resultSet.getString(PHONE), resultSet.getString(PASSWORD), resultSet.getString(EMAIL),
-                        resultSet.getInt(ROLE)));
+                        resultSet.getString(PHONE), resultSet.getString(EMAIL), resultSet.getString(ROLE_NAME)));
             }
             return users;
         } catch (SQLException e) {
@@ -195,9 +196,40 @@ public class UserDAOImpl implements UserDAO {
             throw new DAOException("Error in Connection Pool while getting user list", e);
         }
         finally {
-            ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);     // проверить в конце
+            ConnectionPool.getInstance().closeConnection(connection, statement, resultSet);
         }
     }
+
+    @Override
+    public User userInfo(int idUser) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = ConnectionPool.getInstance().takeConnection();
+            preparedStatement = connection.prepareStatement(USER_INFO);
+            preparedStatement.setInt(1, idUser);
+            resultSet = preparedStatement.executeQuery();
+            User user = new User();
+            while (resultSet.next()) {
+                user = new User (resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getString(SURNAME),
+                       resultSet.getString(PHONE), resultSet.getString(EMAIL), resultSet.getString(ROLE_NAME));
+            }
+           return user;
+        } catch (SQLException e) {
+            //log.error("some message", e);
+            throw new DAOException("Error while getting user info", e);
+        } catch (ConnectionPoolException e) {
+            throw new DAOException("Error in Connection Pool while getting user info", e);
+        }
+        finally {
+            ConnectionPool.getInstance().closeConnection(connection, preparedStatement, resultSet);     // проверить в конце
+        }
+    }
+
+
+
 }
 
 

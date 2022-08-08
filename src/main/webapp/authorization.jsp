@@ -13,23 +13,26 @@
   <fmt:message bundle="${localization}" key="local.email" var="email"/>
   <fmt:message bundle="${localization}" key="local.password" var="password"/>
     <title>${authorization}</title>
+
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <c:set  var="page"  value="authorization.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
 <body>
-<c:set  var="page"  value="authorization.jsp" scope="session"/>
+    <div>
+        <form action="controller" method="post">
+          <input type="hidden" name="command" value="authorization"/>
 
-<form action="controller" method="post">
-  <input type="hidden" name="command" value="authorization"/>
+           ${email}:<br/>
+          <input type="text" name="email" value="" required="required"/> <br/>
+           ${password}:<br/>
+          <input type="password" name="password" value="" required="required"/> <br/>
+          <input type="submit" value="${enter}"/>
+        </form>
 
-   ${email}:<br/>
-  <input type="text" name="email" value="" required="required"/> <br/>
-   ${password}:<br/>
-  <input type="password" name="password" value="" required="required"/> <br/>
-  <input type="submit" value="${enter}"/>
-</form>
 <h4>${message}</h4>
 <br/>
 <button onclick="window.history.back();">${back}</button>
+    </div>
 </body>
 </html>

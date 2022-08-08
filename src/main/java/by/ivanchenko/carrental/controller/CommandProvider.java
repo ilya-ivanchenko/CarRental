@@ -33,6 +33,7 @@ final class CommandProvider {
             commands.put(CommandName.DELETE_USER_BY_ADMIN, new DeleteUserByAdmin());
             commands.put(CommandName.DELETE_CAR, new DeleteCar());
             commands.put(CommandName.ALL_USER_INFO, new AllUserInfo());
+            commands.put(CommandName.USER_INFO_BY_MANAGER, new UserInfoByManager());
             // another UNKNOWN
 
         }

@@ -24,6 +24,10 @@ public class GetCarListCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
+
+
+
+
             CarService carService = ServiceFactory.getInstance().getCarService();
             List<Car> cars = carService.getCarList();
             HttpSession session = request.getSession(true);
@@ -35,6 +39,13 @@ public class GetCarListCommand implements Command {
             session.setAttribute(CURRENT_DATE_PLUS, currentDatePlus);
             session.setAttribute(CURRENT_DATE, currentDate);
             session.setAttribute(MAX_DATE, maxDate);
+
+            session.setAttribute(ENGINE_CAPACITY_TYPE1, ENGINE_CAPACITY_TYPE1_DEFAULT);
+            session.setAttribute(ENGINE_CAPACITY_TYPE2, ENGINE_CAPACITY_TYPE2_DEFAULT);
+            session.setAttribute(ENGINE_CONSUMPTION_TYPE1, ENGINE_CONSUMPTION_TYPE1_DEFAULT);
+            session.setAttribute(ENGINE_CONSUMPTION_TYPE2,ENGINE_CONSUMPTION_TYPE2_DEFAULT);
+            session.setAttribute(RENT_PRICE1, RENT_PRICE1_DEFAULT);
+            session.setAttribute(RENT_PRICE2, RENT_PRICE2_DEFAULT);
 
             return PageResourseManager.getValue(PageParameter.MAIN);
         } catch (ServiceException e) {

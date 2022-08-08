@@ -1,0 +1,54 @@
+.del_button {
+    color: red;
+    background: #ddf6ff;
+    border-color: var(--logo-color);
+    border-width: 1px;
+}
+
+form {
+    display: inline-block;
+}
+
+div.buttons {
+    display: inline-block;
+    padding: 0;
+}
+
+td {
+    text-align: center;
+}
+
+th,td {
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+
+td.desc {
+    width: 150px;
+}
+
+td.cancel {
+    color: red;
+}
+
+p.ok_message {
+    color: blue;
+}
+
+p.noorders {
+    text-align: center;
+    font-weight: bolder;
+}
+
+button{
+    margin: 5px;
+}
+
+input.button-id{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-bottom: 0;
+}

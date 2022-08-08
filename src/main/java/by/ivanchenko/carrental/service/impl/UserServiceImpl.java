@@ -102,4 +102,14 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Error while getting user list", e);
         }
     }
+
+    @Override
+    public User userInfo(int idUser) throws ServiceException {
+        try {
+            UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
+            return userDAO.userInfo(idUser);
+        } catch (DAOException e) {
+            throw new ServiceException("Error while getting user info", e);
+        }
+    }
 }

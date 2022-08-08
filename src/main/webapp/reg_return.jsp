@@ -13,6 +13,8 @@
     <fmt:message bundle="${localization}" key="local.description" var="description"/>
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
     <title>${registerreturn}</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
 <c:set  var="page"  value="reg_return.jsp" scope="session"/>

@@ -18,44 +18,51 @@
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
 
     <title>${userinfo}</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <c:set  var="page"  value="user_info.jsp" scope="session"/>
+    <div>
+        <h3>${allusers}:</h3>
+        <p class="ok_message">${message}</p>
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="delete_user_by_admin"/>
 
-<button onclick="window.history.back();">${back}</button>
+            <table cellpadding="5">
+                <tr><th></th>
+                    <th scope="col">ID</th>
+                    <th scope="col">${Name}</th>
+                    <th scope="col">${Surname}</th>
+                    <th scope="col">${Phone}</th>
+                    <th scope="col">${Mail}</th>
+                    <th scope="col">${role}</th>
+                </tr>
 
-<h3>${allusers}:</h3>
-<p class="ok_message">${message}</p>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="delete_user_by_admin"/>
-
-    <table cellpadding="5">
-        <tr><th></th>
-            <th scope="col">ID</th>
-            <th scope="col">${Name}</th>
-            <th scope="col">${Surname}</th>
-            <th scope="col">${Phone}</th>
-<%--            <th scope="col">Password</th>--%>
-            <th scope="col">${Mail}</th>
-            <th scope="col">${role}</th>
-        </tr>
-
-        <c:forEach  var="users" items="${users}">
-            <tr scope="row">
-                <td>  <input type="radio" name="id" value="${users.id}"/></td>
-                <td>${users.id}</td>
-                <td>${users.name}</td>
-                <td>${users.surname}</td>
-                <td>${users.phone}</td>
-<%--                <td>${users.password}</td>--%>
-                <td>${users.email}</td>
-                <td>${users.role}</td>
-            </tr>
-        </c:forEach>
-    </table>
-    <input class="del" type="submit"  value="${deleteuser}"/>
-</form>
+                <c:forEach  var="users" items="${users}">
+                    <tr scope="row">
+                        <td>
+                            <c:choose>
+                                <c:when test="${users.roleName != 'Админ'}">
+                                    <input type="radio" name="id" value="${users.id}"/>
+                                </c:when>
+                            </c:choose>
+                        </td>
+                        <td>${users.id}</td>
+                        <td>${users.name}</td>
+                        <td>${users.surname}</td>
+                        <td>${users.phone}</td>
+                        <td>${users.email}</td>
+                        <td>${users.roleName}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <input class="del" type="submit"  value="${deleteuser}"/>
+        </form>
+        <br/>
+        <button onclick="window.history.back();">${back}</button>
+    </div>
 </body>
 <style>
     p.ok_message {

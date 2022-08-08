@@ -37,13 +37,22 @@ public class GetCarListFiltredCommand implements Command {
 
             //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-
-            System.out.println(cars.isEmpty());
-
             int rentDays = (int) DAYS.between(startDate, endDate);
             session.setAttribute(START_DATE, startDate);
             session.setAttribute(END_DATE, endDate);
             session.setAttribute(RENT_DAYS, rentDays);
+            session.setAttribute(CURRENT_DATE_PLUS, endDate);
+            session.setAttribute(CURRENT_DATE, startDate);
+
+            session.setAttribute(GEARBOX_TYPE, request.getParameter(TRANSMISSION));
+            session.setAttribute(DRIVE_TYPE, request.getParameter(DRIVE));
+            session.setAttribute(FUEL_TYPE, request.getParameter(FUEL));
+            session.setAttribute(ENGINE_CAPACITY_TYPE1, request.getParameter(ENGINE_CAPACITY1));
+            session.setAttribute(ENGINE_CAPACITY_TYPE2, request.getParameter(ENGINE_CAPACITY2));
+            session.setAttribute(ENGINE_CONSUMPTION_TYPE1, request.getParameter(CONSUMPTION1));
+            session.setAttribute(ENGINE_CONSUMPTION_TYPE2, request.getParameter(CONSUMPTION2));
+            session.setAttribute(RENT_PRICE1, request.getParameter(PRICE1));
+            session.setAttribute(RENT_PRICE2, request.getParameter(PRICE2));
 
             return PageResourseManager.getValue(PageParameter.MAIN);
         } catch (ServiceException e) {

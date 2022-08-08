@@ -49,114 +49,119 @@
     <fmt:message bundle="${localization}" key="local.noorders" var="noorders"/>
 
     <title>${userinfo}</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/user_home.css" type="text/css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <c:set  var="page"  value="user_home.jsp" scope="session"/>
 
-
 <c:choose>
     <c:when test="${user.role == 2}">
-<h2>${hi}, ${user.name}!</h2>
+        <div>
+        <h2>${hi}, ${user.name}!</h2>
 
-<h3>${yourinfo}:</h3>
-<div>
-    <p>${Name}: ${user.name}</p>
-    <p>${Surname}: ${user.surname}</p>
-    <p>${Phone}: ${user.phone}</p>
-    <p>${Mail}: ${user.email}</p>
-    <p>ID: ${user.id}</p>
-</div>
-        <p class="ok_message">${message}</p>
-<br/>
-<form  action="controller" method="post">
-    <input type="hidden" name="command" value="order_info"/>
-    <input type="submit"  value="${myorders}"/>
-</form>
+        <div>
+            <h3>${yourinfo}:</h3>
+            <p>${Name}: ${user.name}</p>
+            <p>${Surname}: ${user.surname}</p>
+            <p>${Phone}: ${user.phone}</p>
+            <p>${Mail}: ${user.email}</p>
+            <p>ID: ${user.id}</p>
+        </div>
+                <p class="ok_message">${message}</p>
+        <div class="buttons">
+            <form  action="controller" method="post">
+                <input type="hidden" name="command" value="order_info"/>
+                <input class="button" type="submit"  value="${myorders}"/>
+            </form>
 
-<button onclick="location='edit_user.jsp'">${editinfo}</button>
+            <button onclick="location='edit_user.jsp'">${editinfo}</button>
 
-<form  action="controller" method="post">
-    <input type="hidden" name="command" value="delete_user"/>
-    <input class="del" type="submit"  value="${delaccount}"/>
-</form>
-<br/>
-<br/>
-<c:choose>
-    <c:when test="${orders.size()>0}">
-<table>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">${passport}</th>
-        <th scope="col">${car}</th>
-        <th scope="col">${price}, $</th>
-        <th scope="col">${startdate}</th>
-        <th scope="col">${enddate}</th>
-        <th scope="col">${description}</th>
-        <th scope="col">${approved}</th>
-        <th scope="col">${paid}</th>
-        <th></th>
-        <th></th>
-
-    </tr>
-
-    <c:forEach var="orders" items="${orders}">
-    <tr scope="row">
-        <td>${orders.id}</td>
-        <td>${orders.passport}</td>
-        <td>${orders.carId}</td>
-        <td>${orders.totalPrice}</td>
-        <td>${orders.startDate}</td>
-        <td>${orders.endDate}</td>
-        <td class="desc">${orders.description}</td>
-
-        <c:choose>
-            <c:when test="${!orders.approved}">
-                <td>${no}</td>
-                <td>${no}</td>
-            </c:when>
-            <c:when test="${orders.approved}">
-                <td>${yes}</td>
-                    <c:choose>
-                        <c:when test="${!orders.payment}">
-                            <td>${no}</td>
-                            <td>
-                                <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                <button  onclick="location='payment.jsp'">${gopayment}</button>
-                            </td>
-                        </c:when>
-                        <c:when test="${orders.payment}">
-                             <td>${yes}</td>
-                        </c:when>
-                    </c:choose>
-            </c:when>
-        </c:choose>
-        <c:choose>
-            <c:when test="${!orders.payment && !orders.returned}">
-                <td>
-                    <form  action="controller" method="post">
-                        <input type="hidden" name="command" value="delete_order"/>
-                        <input type="hidden" name="id" value="${orders.id}"/>
-                        <input class="del" type="submit"  value="${cancel}"/>
-                    </form>
-                    </p>
-                </td>
-            </c:when>
-            <c:when test="${!orders.approved && orders.returned}">
-                <td class="cancel">${canceled}</td>
-            </c:when>
-        </c:choose>
-    </tr>
-    </c:forEach>
-</table>
-    </c:when>
-
-    <c:when test="${orders.size()<1}">
+            <form  action="controller" method="post">
+                <input type="hidden" name="command" value="delete_user"/>
+                <input class="del_button" type="submit"  value="${delaccount}"/>
+            </form>
+        </div>
         <br/>
         <br/>
-        <p class="noorders">${noorders}</p>
-    </c:when>
-</c:choose>
+        <c:choose>
+            <c:when test="${orders.size()>0}">
+        <table>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">${passport}</th>
+                <th scope="col">${car}</th>
+                <th scope="col">${price}, $</th>
+                <th scope="col">${startdate}</th>
+                <th scope="col">${enddate}</th>
+                <th scope="col">${description}</th>
+                <th scope="col">${approved}</th>
+                <th scope="col">${paid}</th>
+                <th></th>
+                <th></th>
+
+            </tr>
+
+            <c:forEach var="orders" items="${orders}">
+            <tr scope="row">
+                <td>${orders.id}</td>
+                <td>${orders.passport}</td>
+                <td>${orders.carName}</td>
+                <td>${orders.totalPrice}</td>
+                <td>${orders.startDate}</td>
+                <td>${orders.endDate}</td>
+                <td class="desc">${orders.description}</td>
+
+                <c:choose>
+                    <c:when test="${!orders.approved}">
+                        <td>${no}</td>
+                        <td>${no}</td>
+                    </c:when>
+                    <c:when test="${orders.approved}">
+                        <td>${yes}</td>
+                            <c:choose>
+                                <c:when test="${!orders.payment}">
+                                    <td>${no}</td>
+                                    <td>
+                                        <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
+                                        <button  onclick="location='payment.jsp'">${gopayment}</button>
+                                    </td>
+                                </c:when>
+                                <c:when test="${orders.payment}">
+                                     <td>${yes}</td>
+                                </c:when>
+                            </c:choose>
+                    </c:when>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${!orders.payment && !orders.returned}">
+                        <td>
+                            <form  action="controller" method="post">
+                                <input type="hidden" name="command" value="delete_order"/>
+                                <input type="hidden" name="id" value="${orders.id}"/>
+                                <input class="del" type="submit"  value="${cancel}"/>
+                            </form>
+                            </p>
+                        </td>
+                    </c:when>
+                    <c:when test="${!orders.approved && orders.returned}">
+                        <td class="cancel">${canceled}</td>
+                    </c:when>
+                </c:choose>
+            </tr>
+            </c:forEach>
+        </table>
+            </c:when>
+
+            <c:when test="${orders.size()<1}">
+                <br/>
+                <br/>
+                <p class="noorders">${noorders}</p>
+            </c:when>
+        </c:choose>
+        </div>
     </c:when>
 
 
@@ -166,138 +171,143 @@
 
 
     <c:when test="${user.role == 3}">
-       <div>
-           <h3> <p> ${user.name} ${user.surname}, ID: ${user.id}</p></h3>
-            <p>${Phone}: ${user.phone}</p>
-            <p>${Mail}: ${user.email}</p>
-        </div>
+           <div>
+               <h3> <p> ${user.name} ${user.surname}, ID: ${user.id}</p></h3>
+                <p>${Phone}: ${user.phone}</p>
+                <p>${Mail}: ${user.email}</p>
+                <form  action="controller" method="post">
+                    <input type="hidden" name="command" value="order_info"/>
+                    <input class="button" type="submit"  value="${allorders}"/>
+                </form>
+                <form  action="controller" method="post">
+                    <input type="hidden" name="command" value="manager_order"/>
+                    <input type="hidden" name="id" value="${user.id}"/>
+                    <input  class="button" type="submit"  value="${myorders}"/>
+                </form>
+                <button  onclick="location='add_car.jsp'">${addnewcar}</button>
 
-        <form  action="controller" method="post">
-            <input type="hidden" name="command" value="order_info"/>
-            <input type="submit"  value="${allorders}"/>
-        </form>
-        <form  action="controller" method="post">
-            <input type="hidden" name="command" value="manager_order"/>
-            <input type="hidden" name="id" value="${user.id}"/>
-            <input type="submit"  value="${myorders}"/>
-        </form>
-        <button  onclick="location='add_car.jsp'">${addnewcar}</button>
-
-        <p class="ok_message">${message}</p>
-        <br/>
-        <c:choose>
-            <c:when test="${orders.size()>0}">
-                <table>
-                    <tr>
-                        <th scope="col">${orderid}</th>
-                        <th scope="col">${managerid}</th>
-                        <th scope="col">${userid}</th>
-                        <th scope="col">${passport}</th>
-                        <th scope="col">${car}</th>
-                        <th scope="col">${price}, $</th>
-                        <th scope="col">${startdate}</th>
-                        <th scope="col">${enddate}</th>
-                        <th scope="col">${approved}</th>
-                        <th scope="col">${paid}</th>
-                        <th scope="col">${given}</th>
-                        <th scope="col">${returned}</th>
-                        <th scope="col">${needrepair}</th>
-                        <th scope="col">${repairprice}, $</th>
-                        <th scope="col">${description}</th>
-                        <th></th>
-                    </tr>
-                        <c:forEach var="orders" items="${orders}">
-                    <tr scope="row">
-                            <td>${orders.id}</td>
-                            <td>${orders.managerId}</td>
-                            <td>${orders.customerId}</td>
-                            <td>${orders.passport}</td>
-                            <td>${orders.carId}</td>
-                            <td>${orders.totalPrice}</td>
-                            <td>${orders.startDate}</td>
-                            <td>${orders.endDate}</td>
-                            <c:choose>
-                                <c:when test="${!orders.approved}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.approved}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.payment}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.payment}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                        <c:choose>
-                            <c:when test="${!orders.given}">
-                                <td>${no}</td>
-                            </c:when>
-                            <c:when test="${orders.given}">
-                                <td>${yes}</td>
-                            </c:when>
-                        </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.returned}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.returned}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.needRepair}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.needRepair}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <td>${orders.repairPrice}</td>
-                            <td class="desc">${orders.description}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${!orders.approved && !orders.returned}">
-                                <div class="buttons">
-                            <form action="controller" method="post">
-                                <input type="hidden" name="command" value="approve_order"/>
-                                <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                <input type="hidden" name="idManager" value="${user.id}"/>
-                                <input type="submit"  value="${approve}"/>
-                            </form>
-                                </div>
-                                <div class="buttons">
-                                    <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                    <c:set  var="idManager"  value="${user.id}" scope="session"/>
-                                    <button  onclick="location='cancel_order.jsp'">${cancel}</button>
-                                </div>
-                                </c:when>
-                                <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
-                                    <form action="controller" method="post">
-                                        <input type="hidden" name="command" value="give_car_customer"/>
-                                        <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                        <input type="submit"  value="${givecustomer}"/>
+            <p class="ok_message">${message}</p>
+            <br/>
+            <c:choose>
+                <c:when test="${orders.size()>0}">
+                    <table>
+                        <tr>
+                            <th scope="col">${orderid}</th>
+                            <th scope="col">${managerid}</th>
+                            <th scope="col">${userid}</th>
+                            <th scope="col">${passport}</th>
+                            <th scope="col">${car}</th>
+                            <th scope="col">${price}, $</th>
+                            <th scope="col">${startdate}</th>
+                            <th scope="col">${enddate}</th>
+                            <th scope="col">${approved}</th>
+                            <th scope="col">${paid}</th>
+                            <th scope="col">${given}</th>
+                            <th scope="col">${returned}</th>
+                            <th scope="col">${needrepair}</th>
+                            <th scope="col">${repairprice}, $</th>
+                            <th scope="col">${description}</th>
+                            <th></th>
+                        </tr>
+                            <c:forEach var="orders" items="${orders}">
+                        <tr scope="row">
+                                <td>${orders.id}</td>
+                                <td>${orders.managerId}</td>
+                                <td>
+                                    <form class="id-user" action="controller" method="post">
+                                        <input type="hidden" name="command" value="user_info_by_manager"/>
+                                        <input type="hidden" name="id" value="${orders.customerId}"/>
+                                        <input  class="button-id" type="submit"  value="${orders.customerId}"/>
                                     </form>
+                                </td>
+                                <td>${orders.passport}</td>
+                                <td>${orders.carName}</td>
+                                <td>${orders.totalPrice}</td>
+                                <td>${orders.startDate}</td>
+                                <td>${orders.endDate}</td>
+                                <c:choose>
+                                    <c:when test="${!orders.approved}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.approved}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${!orders.payment}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.payment}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                            <c:choose>
+                                <c:when test="${!orders.given}">
+                                    <td>${no}</td>
                                 </c:when>
-                                <c:when test="${orders.given && !orders.returned}">
-                                    <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                    <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
-                                </c:when>
-                                <c:when test="${!orders.approved && orders.returned}">
-                                    <td class = "cancel">${canceled}</td>
+                                <c:when test="${orders.given}">
+                                    <td>${yes}</td>
                                 </c:when>
                             </c:choose>
-                        </td>
-                    </tr>
-                        </c:forEach>
-                </table>
-            </c:when>
-        </c:choose>
-        <br/>
-        <button onclick="window.history.back();">${back}</button>
+                                <c:choose>
+                                    <c:when test="${!orders.returned}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.returned}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${!orders.needRepair}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.needRepair}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <td>${orders.repairPrice}</td>
+                                <td class="desc">${orders.description}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${!orders.approved && !orders.returned}">
+                                    <div class="buttons">
+                                <form action="controller" method="post">
+                                    <input type="hidden" name="command" value="approve_order"/>
+                                    <input type="hidden" name="idOrder" value="${orders.id}"/>
+                                    <input type="hidden" name="idManager" value="${user.id}"/>
+                                    <input type="submit"  value="${approve}"/>
+                                </form>
+                                    </div>
+                                    <div class="buttons">
+                                        <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
+                                        <c:set  var="idManager"  value="${user.id}" scope="session"/>
+                                        <button  onclick="location='cancel_order.jsp'">${cancel}</button>
+                                    </div>
+                                    </c:when>
+                                    <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
+                                        <form action="controller" method="post">
+                                            <input type="hidden" name="command" value="give_car_customer"/>
+                                            <input type="hidden" name="idOrder" value="${orders.id}"/>
+                                            <input type="submit"  value="${givecustomer}"/>
+                                        </form>
+                                    </c:when>
+                                    <c:when test="${orders.given && !orders.returned}">
+                                        <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
+                                        <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
+                                    </c:when>
+                                    <c:when test="${!orders.approved && orders.returned}">
+                                        <td class = "cancel">${canceled}</td>
+                                    </c:when>
+                                </c:choose>
+                            </td>
+                        </tr>
+                            </c:forEach>
+                    </table>
+                </c:when>
+            </c:choose>
+            <br/>
+            <button onclick="window.history.back();">${back}</button>
+        </div>
     </c:when>
 
 
@@ -307,133 +317,139 @@
 
 
     <c:when test="${user.role == 4}">
-        <h3>${user.name}</h3>
-        </br> <p class="ok_message">${message}</p>
-        <form  action="controller" method="post">
-            <input type="hidden" name="command" value="order_info"/>
-            <input type="submit"  value="${allorders}"/>
-        </form>
-        <form action="controller" method="post">
-            <input type="hidden" name="command" value="car_info"/>
-            <input type="submit"  value="${allcars}"/>
-        </form>
-        <button  onclick="location='add_car.jsp'">${addnewcar}</button>
-
-        <form action="controller" method="post">
-            <input type="hidden" name="command" value="all_user_info"/>
-            <input type="submit"  value="${allusers}"/>
-        </form>
-        <button onclick="location='registration.jsp'">${addmanager}</button>
-        <br/>
-        <br/>
-        <button onclick="window.history.back();">${back}</button>
-        <c:choose>
-            <c:when test="${orders.size()>0}">
-                <table>
-                    <tr>
-                        <th scope="col">${orderid}</th>
-                        <th scope="col">${managerid}</th>
-                        <th scope="col">${userid}</th>
-                        <th scope="col">${passport}</th>
-                        <th scope="col">${car}</th>
-                        <th scope="col">${price}, $</th>
-                        <th scope="col">${startdate}</th>
-                        <th scope="col">${enddate}</th>
-                        <th scope="col">${approved}</th>
-                        <th scope="col">${paid}</th>
-                        <th scope="col">${given}</th>
-                        <th scope="col">${returned}</th>
-                        <th scope="col">${needrepair}</th>
-                        <th scope="col">${repairprice}, $</th>
-                        <th scope="col">${description}</th>
-                        <th></th>
-                    </tr>
-                    <c:forEach var="orders" items="${orders}">
-                        <tr scope="row">
-                            <td>${orders.id}</td>
-                            <td>${orders.managerId}</td>
-                            <td>${orders.customerId}</td>
-                            <td>${orders.passport}</td>
-                            <td>${orders.carId}</td>
-                            <td>${orders.totalPrice}</td>
-                            <td>${orders.startDate}</td>
-                            <td>${orders.endDate}</td>
-                            <c:choose>
-                                <c:when test="${!orders.approved}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.approved}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.payment}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.payment}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.given}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.given}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.returned}">
-                                    <td>${yes}</td>
-                                </c:when>
-                                <c:when test="${orders.returned}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${!orders.needRepair}">
-                                    <td>${no}</td>
-                                </c:when>
-                                <c:when test="${orders.needRepair}">
-                                    <td>${yes}</td>
-                                </c:when>
-                            </c:choose>
-                            <td>${orders.repairPrice}</td>
-                            <td class="desc">${orders.description}</td>
-                            <td>
-                                <c:choose>
-                                <c:when test="${!orders.approved && !orders.returned}">
-                                <form action="controller" method="post">
-                                    <input type="hidden" name="command" value="approve_order"/>
-                                    <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                    <input type="hidden" name="idManager" value="${user.id}"/>
-                                    <input type="submit"  value="${approve}"/>
-                                </form>
-                                    <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                <button  onclick="location='cancel_order.jsp'">${cancel}</button>
-                                </c:when>
-                                <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
-                                <form action="controller" method="post">
-                                    <input type="hidden" name="command" value="give_car_customer"/>
-                                    <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                    <input type="submit"  value="${givecustomer}"/>
-                                </form>
-                                </c:when>
-                                <c:when test="${orders.given && !orders.returned}">
-                                    <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
-                                </c:when>
-                                <c:when test="${!orders.approved && orders.returned}">
-                            <td class = "cancel">${canceled}</td>
-                            </c:when>
-                            </c:choose>
-                            </td>
+        <div>
+            <h3>${user.name}</h3>
+            </br> <p class="ok_message">${message}</p>
+            <form  action="controller" method="post">
+                <input type="hidden" name="command" value="order_info"/>
+                <input class="button" type="submit"  value="${allorders}"/>
+            </form>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="car_info"/>
+                <input class="button" type="submit"  value="${allcars}"/>
+            </form>
+            <button  onclick="location='add_car.jsp'">${addnewcar}</button>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="all_user_info"/>
+                <input class="button" type="submit"  value="${allusers}"/>
+            </form>
+            <button onclick="location='registration.jsp'">${addmanager}</button>
+            <br/>
+            <br/>
+            <c:choose>
+                <c:when test="${orders.size()>0}">
+                    <table>
+                        <tr>
+                            <th scope="col">${orderid}</th>
+                            <th scope="col">${managerid}</th>
+                            <th scope="col">${userid}</th>
+                            <th scope="col">${passport}</th>
+                            <th scope="col">${car}</th>
+                            <th scope="col">${price}, $</th>
+                            <th scope="col">${startdate}</th>
+                            <th scope="col">${enddate}</th>
+                            <th scope="col">${approved}</th>
+                            <th scope="col">${paid}</th>
+                            <th scope="col">${given}</th>
+                            <th scope="col">${returned}</th>
+                            <th scope="col">${needrepair}</th>
+                            <th scope="col">${repairprice}, $</th>
+                            <th scope="col">${description}</th>
+                            <th></th>
                         </tr>
-                    </c:forEach>
-                </table>
+                        <c:forEach var="orders" items="${orders}">
+                            <tr scope="row">
+                                <td>${orders.id}</td>
+                                <td>${orders.managerId}</td>
+                                <td>
+                                    <form class="id-user" action="controller" method="post">
+                                        <input type="hidden" name="command" value="user_info_by_manager"/>
+                                        <input type="hidden" name="id" value="${orders.customerId}"/>
+                                        <input  class="button-id" type="submit"  value="${orders.customerId}"/>
+                                    </form>
+                                </td>
+                                <td>${orders.passport}</td>
+                                <td>${orders.carName}</td>
+                                <td>${orders.totalPrice}</td>
+                                <td>${orders.startDate}</td>
+                                <td>${orders.endDate}</td>
+                                <c:choose>
+                                    <c:when test="${!orders.approved}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.approved}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${!orders.payment}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.payment}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${!orders.given}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.given}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${!orders.returned}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                    <c:when test="${orders.returned}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${!orders.needRepair}">
+                                        <td>${no}</td>
+                                    </c:when>
+                                    <c:when test="${orders.needRepair}">
+                                        <td>${yes}</td>
+                                    </c:when>
+                                </c:choose>
+                                <td>${orders.repairPrice}</td>
+                                <td class="desc">${orders.description}</td>
+                                <td>
+                                    <c:choose>
+                                    <c:when test="${!orders.approved && !orders.returned}">
+                                    <form action="controller" method="post">
+                                        <input type="hidden" name="command" value="approve_order"/>
+                                        <input type="hidden" name="idOrder" value="${orders.id}"/>
+                                        <input type="hidden" name="idManager" value="${user.id}"/>
+                                        <input type="submit"  value="${approve}"/>
+                                    </form>
+                                        <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
+                                    <button  onclick="location='cancel_order.jsp'">${cancel}</button>
+                                    </c:when>
+                                    <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
+                                    <form action="controller" method="post">
+                                        <input type="hidden" name="command" value="give_car_customer"/>
+                                        <input type="hidden" name="idOrder" value="${orders.id}"/>
+                                        <input type="submit"  value="${givecustomer}"/>
+                                    </form>
+                                    </c:when>
+                                    <c:when test="${orders.given && !orders.returned}">
+                                        <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
+                                    <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
+                                    </c:when>
+                                    <c:when test="${!orders.approved && orders.returned}">
+                                <td class = "cancel">${canceled}</td>
+                                </c:when>
+                                </c:choose>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
             </c:when>
         </c:choose>
-
+            <button onclick="window.history.back();">${back}</button>
+        </div>
 
 
 <%--        <h3>${message}</h3>--%>
@@ -442,40 +458,5 @@
 </c:choose>
 
 
-
-<style>
-    input.del {
-    /*font-weight: bold;*/
-        color: red;
-    }
-    form {
-    display: inline-block;
-    }
-    div.buttons {
-        display: inline-block;
-    }
-    td {
-        text-align: center;
-    }
-    th,td {
-        padding-right: 20px;
-        padding-bottom: 5px;
-    }
-    td.desc {
-        width: 150px;
-    }
-    td.cancel {
-        color: red;
-    }
-    p.ok_message {
-        color: blue;
-    }
-    p.noorders {
-        text-align: center;
-        font-weight: bolder;
-    }
-
-
-</style>
 </body>
 </html>

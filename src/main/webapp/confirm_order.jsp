@@ -34,14 +34,16 @@
     <fmt:message bundle="${localization}" key="local.Phone" var="Phone"/>
     <fmt:message bundle="${localization}" key="local.Mail" var="Mail"/>
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
-
     <title>${confirmorder}</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <c:set  var="page"  value="confirm_order.jsp" scope="session"/>
 <h3>${checkorder}:</h3>
 <br/>
+<div>
 <table cellpadding="5">
     <tr>
         <th scope="col">${Car}</th>
@@ -49,27 +51,38 @@
         <th scope="col">${year}</th>
         <th scope="col">${drive}</th>
         <th scope="col">${engine}</th>
-        <th scope="col">${capacity}</th>
-        <th scope="col">${tank}</th>
-        <th scope="col">${consumption}</th>
+        <c:choose>
+            <c:when test="${car.fuel != 'Электро'}">
+                <th scope="col">${capacity}</th>
+                <th scope="col">${tank}</th>
+                <th scope="col">${consumption}</th>
+            </c:when>
+            <c:when test="${car.fuel =='Электро'}">
+                <th scope="col">${power}</th>
+            </c:when>
+        </c:choose>
         <th scope="col">${body}</th>
         <th scope="col">${priceday}, $</th>
-        <th scope="col">${power}</th>
-        <th></th>
     </tr>
-        <tr scope="row">
-            <td>${car.name}</td>
-            <td>${car.transmission}</td>
-            <td>${car.year}</td>
-            <td>${car.drive}</td>
-            <td>${car.fuel}</td>
-            <td>${car.engineCapacity}</td>
-            <td>${car.tank}</td>
-            <td>${car.consumption}</td>
-            <td>${car.bodyType}</td>
-            <td>${car.price}</td>
-            <td>${car.mileage}</td>
-        </tr>
+    <tr scope="row">
+        <td>${car.name}</td>
+        <td>${car.transmission}</td>
+        <td>${car.year}</td>
+        <td>${car.drive}</td>
+        <td>${car.fuel}</td>
+        <c:choose>
+            <c:when test="${car.fuel != 'Электро'}">
+                <td>${car.engineCapacity}</td>
+                <td>${car.tank}</td>
+                <td>${car.consumption}</td>
+            </c:when>
+            <c:when test="${car.fuel == 'Электро'}">
+                <td>${car.mileage}</td>
+            </c:when>
+        </c:choose>
+        <td>${car.bodyType}</td>
+        <td>${car.price}</td>
+    </tr>
 </table>
 <br/>
 <h3 class="dates">${dates}: ${from} ${start_date} ${to} ${end_date}</h3>
@@ -103,6 +116,7 @@
 <p class="ok_message">${message}</p>
 <br/>
 <button onclick="window.history.back();">${back}</button>
+</div>
 </body>
 <style>
     h3.dates {

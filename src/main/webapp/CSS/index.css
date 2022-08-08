@@ -1,0 +1,71 @@
+.cars-filter {
+    //background: aqua;
+    border-bottom: 2px solid var(--logo-color);
+    display: block;
+}
+
+.cars-filter form {
+    display: flex;
+    flex-direction: row;
+}
+
+.filter-name {
+    font-size: 16px;
+    color: #0e7dc7;
+    display: block;
+
+}
+
+.filter {
+    width: 140px;
+}
+
+.filter-dvs {
+    width: 200px;
+}
+.filter-dvs div {
+    display: block;
+    padding-top: 0;
+}
+
+.filter-dates {
+    padding-top: 0;
+    width:210px;
+    height: 75px;
+}
+
+.cars-filter-apply {
+    display: block;
+}
+
+th {
+    background: antiquewhite;
+}
+tr:nth-child(even) {
+    background: #ddf6ff;
+}
+table {
+    border-collapse: collapse;
+}
+
+/*==========================================*/
+
+form.local {
+    display: inline-block;
+}
+form.logout {
+    display: inline-block;
+}
+button.yourpage {
+    display: inline-block;
+}
+td.price {
+    font-weight: bold;
+}
+td {
+    text-align: center;
+}
+p.nocars {
+    text-align: center;
+    font-weight: bolder;
+}

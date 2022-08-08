@@ -12,6 +12,8 @@
     <fmt:message bundle="${localization}" key="local.checkstatusorder" var="checkstatusorder"/>
     <fmt:message bundle="${localization}" key="local.yourprofile" var="youprofile"/>
     <title>${done}</title>
+
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
 <c:set  var="page"  value="after_order.jsp" scope="session"/>
