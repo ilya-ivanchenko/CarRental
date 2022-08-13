@@ -2,10 +2,9 @@ package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.car.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.CarService;
-import by.ivanchenko.carrental.service.OrderService;
 import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,10 +27,10 @@ public class DeleteCar implements Command {
             List<Car> cars = carService.getCarList();
             session.setAttribute(CARS, cars);
             request.setAttribute(MESSAGE, SUCCESSFUL_DELETING_CAR);
-            return PageResourseManager.getValue(PageParameter.CAR_INFO);
+            return PageResourceManager.getValue(PageParameter.CAR_INFO);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.CAR_INFO);
+            return PageResourceManager.getValue(PageParameter.CAR_INFO);
         }
     }
 }

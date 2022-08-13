@@ -13,7 +13,7 @@ final class CommandProvider {
             commands.put(CommandName.REGISTRATION, new RegistrationCommand());
             commands.put(CommandName.AUTHORIZATION, new AuthorizationCommand());
             commands.put(CommandName.GET_CAR_LIST, new GetCarListCommand());
-            commands.put(CommandName.GET_CAR_LIST_FILTRED, new GetCarListFiltredCommand());
+            commands.put(CommandName.GET_CAR_LIST_FILTERED, new GetCarListFilteredCommand());
             commands.put(CommandName.CHANGE_LANG, new ChangeLangCommand());
             commands.put(CommandName.EDIT_USER, new EditUser());
             commands.put(CommandName.DELETE_USER, new DeleteUser());

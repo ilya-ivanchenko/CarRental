@@ -23,14 +23,14 @@
     <title>${reg}</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/authorization.css" type="text/css">
 
 </head>
 <c:set  var="page"  value="registration.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
 <body>
-<c:set  var="page"  value="registration.jsp" scope="session"/>
 <div>
-    <form action="controller" method="post">
+    <form class="auth" action="controller" method="post">
         <input type="hidden" name="command" value="registration"/>
           <c:choose>
               <c:when test="${user.role == 4}">
@@ -89,17 +89,16 @@
         <br/>
           <c:choose>
               <c:when test="${user.role != 4}">
-                <input  type="submit" value="${register}"/>
+                <input class="button" type="submit" value="${register}"/>
               </c:when>
               <c:when test="${user.role == 4}">
-                <input  type="submit" value="${addmanager}"/>
+                <input class="button" type="submit" value="${addmanager}"/>
               </c:when>
           </c:choose>
     </form>
     <br/>
     <h4>${message}</h4>
     <br/>
-    <button onclick="window.history.back();">${back}</button>
 </div>
 <script src="/JS/registration.js"></script>
 </body>

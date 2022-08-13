@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
 </head>
 <body>
-<c:set  var="page"  value="payment.jsp" scope="session"/>
+<c:set var="page" value="payment.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
 <form  action="controller" method="post">
     <input type="hidden" name="command" value="pay"/>

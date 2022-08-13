@@ -128,6 +128,6 @@
             <br/><input type="submit"  value="${addcar}"/>
         </form>
     </div>
-    <script src="JS/add_car.js"></script>
+    <script src="../JS/add_car.js"></script>
 </body>
 </html>

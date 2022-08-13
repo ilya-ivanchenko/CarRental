@@ -2,7 +2,7 @@ package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.order.Order;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.OrderService;
 import by.ivanchenko.carrental.service.ServiceException;
@@ -29,10 +29,10 @@ public class CancelOrderManager implements Command {
             List<Order> orders;
             orders = orderService.getInfoAll();
             session.setAttribute(ORDERS, orders);
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourceManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }
     }
 }

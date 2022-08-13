@@ -2,7 +2,7 @@ package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.car.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.CarService;
 import by.ivanchenko.carrental.service.ServiceException;
@@ -25,10 +25,10 @@ public class CarInfo implements Command {
             List<Car> cars = carService.getCarList();
             HttpSession session = request.getSession(true);
             session.setAttribute(CARS, cars);
-            return PageResourseManager.getValue(PageParameter.CAR_INFO);
+            return PageResourceManager.getValue(PageParameter.CAR_INFO);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }
     }
 }

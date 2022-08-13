@@ -1,7 +1,7 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.OrderService;
 import by.ivanchenko.carrental.service.ServiceException;
@@ -22,10 +22,10 @@ public class PayForOrder implements Command {
             int idOrder = (Integer) session.getAttribute(ID_ORDER);
             orderService.payment(idOrder);
             request.setAttribute(MESSAGE, PAY_OK);
-            return PageResourseManager.getValue(PageParameter.PAY);
+            return PageResourceManager.getValue(PageParameter.PAY);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.PAY);
+            return PageResourceManager.getValue(PageParameter.PAY);
         }
     }
 }

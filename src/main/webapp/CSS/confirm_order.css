@@ -1,0 +1,29 @@
+tr {
+    background: antiquewhite;
+}
+tr:nth-child(even) {
+    background: #ddf6ff;
+}
+table{
+    tab-size: 12px;
+}
+form.auth{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    margin: -125px 0 0 -125px;
+}
+
+h3.dates {
+    display: inline-block;
+    /*padding-left: 30px;*/
+    margin-left: 30px;
+}
+p.ok_message {
+    color: blue;
+}
+td {
+    text-align: center;
+}

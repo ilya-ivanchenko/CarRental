@@ -43,6 +43,6 @@
 </form>
 <br/>
 <button onclick="window.history.back();">${back}</button>
-<script src="JS/reg_return.js"></script>
+<script src="../JS/reg_return.js"></script>
 </body>
 </html>

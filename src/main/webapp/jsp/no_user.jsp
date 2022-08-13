@@ -22,9 +22,9 @@
         <div>
             <h3>${forcontinue} <a href="authorization.jsp">${loginnouser}</a> ${orgoto}
                <a href="registration.jsp">${registernouser}</a>
-                <br/>
-                <button onclick="window.history.back();">${back}</button>
             </h3>
+            <br/>
+            <button onclick="window.history.back();">${back}</button>
         </div>
     </body>
 </html>

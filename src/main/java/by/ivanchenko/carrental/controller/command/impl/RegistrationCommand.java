@@ -2,7 +2,7 @@ package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.ServiceFactory;
@@ -25,14 +25,14 @@ public class RegistrationCommand implements Command {
 
             if (session.getAttribute(USER) == null) {
                 req.setAttribute(MESSAGE,USER_REG);
-                return PageResourseManager.getValue(PageParameter.REGISTRATION);
+                return PageResourceManager.getValue(PageParameter.REGISTRATION);
             } else {
                 req.setAttribute(MESSAGE,MANAGER_REG);
-                return PageResourseManager.getValue(PageParameter.USER_HOME);
+                return PageResourceManager.getValue(PageParameter.USER_HOME);
             }
         } catch (ServiceException e) {
             req.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.REGISTRATION);
+            return PageResourceManager.getValue(PageParameter.REGISTRATION);
         }
     }
 }

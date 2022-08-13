@@ -1,8 +1,11 @@
 .del_button {
-    color: red;
+    color: #d53a3a;
     background: #ddf6ff;
-    border-color: var(--logo-color);
     border-width: 1px;
+    font-family:  "Montserrat Medium", sans-serif;
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 5px 10px;
 }
 
 form {
@@ -14,12 +17,19 @@ div.buttons {
     padding: 0;
 }
 
+table{
+    font-size: 14px;
+}
+
+table.big{
+    font-size: 12px;
+}
 td {
     text-align: center;
 }
 
 th,td {
-    padding-right: 20px;
+    padding-right: 15px;
     padding-bottom: 5px;
 }
 
@@ -52,3 +62,5 @@ input.button-id{
     border: none;
     margin-bottom: 0;
 }
+
+

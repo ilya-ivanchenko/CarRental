@@ -20,6 +20,6 @@
 <jsp:include page="header.jsp"/>
 <h3>${succesbook}</h3>
 <br/>${checkstatusorder}
-<a href="user_home.jsp">${youprofile}</a>
+<a href="jsp/user_home.jsp">${youprofile}</a>
 </body>
 </html>

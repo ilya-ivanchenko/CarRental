@@ -44,11 +44,11 @@
 }
 
 .header-user{
-    display: flex;
+    /*display: flex;*/
     flex-direction: row;
 }
 
-input.button{
+input.button-top{
     margin: 5px;
 }
 

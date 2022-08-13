@@ -37,13 +37,14 @@
     <title>${confirmorder}</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/confirm_order.css" type="text/css">
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <c:set  var="page"  value="confirm_order.jsp" scope="session"/>
-<h3>${checkorder}:</h3>
 <br/>
 <div>
+    <h3>${checkorder}:</h3>
 <table cellpadding="5">
     <tr>
         <th scope="col">${Car}</th>
@@ -84,17 +85,9 @@
         <td>${car.price}</td>
     </tr>
 </table>
-<br/>
-<h3 class="dates">${dates}: ${from} ${start_date} ${to} ${end_date}</h3>
-
-
-<h3 class="dates">${totaldays}: ${rent_days}</h3>
-
-
-<h3 class="dates">${totalprice}: ${car.price * rent_days}$</h3>
-<br/>
-
-<h3>${yourinfo}:</h3>
+<h4 class="dates">${dates}: ${from} ${start_date} ${to} ${end_date}</h4>
+<h4 class="dates">${totaldays}:     ${rent_days}</h4>
+<h4 class="dates">${totalprice}:    ${car.price * rent_days}$</h4>
 <div>
     <p>${Name}: ${user.name}</p>
     <p>${Surname}: ${user.surname}</p>
@@ -103,32 +96,16 @@
     <p>ID: ${user.id}</p>
 </div>
 
-<form action="controller" method="post">
+<form class="auth" action="controller" method="post">
     <input type="hidden" name="command" value="create_order"/>
     <input type="hidden" name="total_price" value="${car.price * rent_days}"/>
     ${writecomment}:<br/>
     <textarea name="comment" cols="30" rows="3"></textarea>
-    <br/>
-    ${passportid}:<br/>
+    <br/>${passportid}:<br/>
     <input type="text" name="passport" value=""  required="required"/> <br/>
-    <input type="submit" value="${sendbookrequest}"/>
+    <input  class="button" type="submit" value="${sendbookrequest}"/>
 </form>
 <p class="ok_message">${message}</p>
-<br/>
-<button onclick="window.history.back();">${back}</button>
 </div>
 </body>
-<style>
-    h3.dates {
-        display: inline-block;
-        /*padding-left: 30px;*/
-        margin-left: 30px;
-    }
-    p.ok_message {
-        color: blue;
-    }
-    td {
-        text-align: center;
-    }
-</style>
 </html>

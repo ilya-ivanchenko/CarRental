@@ -2,7 +2,7 @@ package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.ServiceFactory;
@@ -28,10 +28,10 @@ public class EditUser implements Command {
             userService.updateInfo(user);
             session.setAttribute(USER, user);
             request.setAttribute(MESSAGE, EDIT_SAVE);
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourceManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }
     }
 }

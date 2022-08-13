@@ -76,9 +76,7 @@
                 <input type="hidden" name="command" value="order_info"/>
                 <input class="button" type="submit"  value="${myorders}"/>
             </form>
-
             <button onclick="location='edit_user.jsp'">${editinfo}</button>
-
             <form  action="controller" method="post">
                 <input type="hidden" name="command" value="delete_user"/>
                 <input class="del_button" type="submit"  value="${delaccount}"/>
@@ -190,7 +188,7 @@
             <br/>
             <c:choose>
                 <c:when test="${orders.size()>0}">
-                    <table>
+                    <table class="big">
                         <tr>
                             <th scope="col">${orderid}</th>
                             <th scope="col">${managerid}</th>
@@ -293,7 +291,7 @@
                                     </c:when>
                                     <c:when test="${orders.given && !orders.returned}">
                                         <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                        <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
+                                        <button onclick="location='reg_return.jsp'">${registerreturn}</button>
                                     </c:when>
                                     <c:when test="${!orders.approved && orders.returned}">
                                         <td class = "cancel">${canceled}</td>
@@ -338,7 +336,7 @@
             <br/>
             <c:choose>
                 <c:when test="${orders.size()>0}">
-                    <table>
+                    <table class="big">
                         <tr>
                             <th scope="col">${orderid}</th>
                             <th scope="col">${managerid}</th>

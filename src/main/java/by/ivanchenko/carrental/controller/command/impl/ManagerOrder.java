@@ -1,9 +1,8 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.order.Order;
-import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.OrderService;
 import by.ivanchenko.carrental.service.ServiceException;
@@ -24,10 +23,10 @@ public class ManagerOrder implements Command {
             int id = Integer.parseInt(request.getParameter(ID));
             List<Order> orders = orderService.getInfoManager(id);
             session.setAttribute(ORDERS, orders);
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourceManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourceManager.getValue(PageParameter.USER_HOME);
         }
     }
 }

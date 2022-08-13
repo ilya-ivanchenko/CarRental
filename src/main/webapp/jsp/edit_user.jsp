@@ -19,12 +19,13 @@
   <title>${editinfo}</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/edit_user.css" type="text/css">
 </head>
   <body>
   <c:set  var="page"  value="edit_user.jsp" scope="session"/>
   <jsp:include page="header.jsp"/>
     <div>
-      <form action="controller" method="post">
+      <form class="edit" action="controller" method="post">
         <input type="hidden" name="command" value="edit_user"/>
 
         ${name}:<br/>
@@ -34,13 +35,11 @@
         ${phone}:<br/>
         <input type="text" name="phone" value="" placeholder="${user.phone}"/> <br/>
         ${password}:<br/>
-        <input type="password" name="password" value="" /> <br/>
+        <input type="password" name="password" value=""/> <br/>
         ${email}:<br/>
         <input type="email" name="email" value="" placeholder="${user.email}"/> <br/>
-        <input class="button" type="submit" value="${save}"/>
+        <input class="button-enter" type="submit" value="${save}"/>
       </form>
-      <br/>
-      <button onclick="window.history.back();">${back}</button>
     </div>
   </body>
 </html>

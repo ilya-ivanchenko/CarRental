@@ -3,7 +3,7 @@ package by.ivanchenko.carrental.controller.command.impl;
 import by.ivanchenko.carrental.bean.car.Car;
 import by.ivanchenko.carrental.bean.user.User;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.CarService;
 import by.ivanchenko.carrental.service.ServiceException;
@@ -26,12 +26,12 @@ public class BookCar implements Command {
             session.setAttribute(CAR, car);
             User user = (User) session.getAttribute(USER);
             if (user == null) {
-                return PageResourseManager.getValue(PageParameter.NO_USER);
+                return PageResourceManager.getValue(PageParameter.NO_USER);
             }
-            return PageResourseManager.getValue(PageParameter.CONFIRM_ORDER);
+            return PageResourceManager.getValue(PageParameter.CONFIRM_ORDER);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.ERROR_PAGE);
+            return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }
     }
 }

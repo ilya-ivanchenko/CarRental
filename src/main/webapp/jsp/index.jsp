@@ -43,17 +43,15 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/index.css" type="text/css">
 </head>
 <body>
-
 <c:set  var="page"  value="index.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
-
 
 <c:choose>
     <c:when test="${cars != null}">
 
 <div class="cars-filter">
     <form action="controller" method="post">
-        <input type="hidden" name="command" value="get_car_list_filtred"/>
+        <input type="hidden" name="command" value="get_car_list_filtered"/>
         <div class="filter">
             <span class="filter-name">${gearbox}:</span>
             <input type="radio" name="transmission" value="%" checked/>${any}<br/>
@@ -177,7 +175,7 @@
                 </c:choose>
             </div>
             <div class="cars-filter-apply">
-                <input type="submit" value="${apply}"/>
+                <input class="button" type="submit" value="${apply}"/>
             </div>
         </div>
 
@@ -238,7 +236,7 @@
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="book_car"/>
                 <input type="hidden" name="car" value="${cars.id}" />
-                <input type="submit"  value="${book}"/>
+                <input class="button-book" type="submit"  value="${book}"/>
             </form>
         </td>
     </tr>
@@ -271,6 +269,6 @@
 <%--date: ${currentDate}--%>
 <%--days: ${rent_days}--%>
 
-<script src="JS/index.js"></script>
+<script src="../JS/index.js"></script>
 </body>
 </html>

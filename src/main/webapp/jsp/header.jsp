@@ -61,15 +61,13 @@
                     <input class="button" type="submit"  value="${main}"/>
                 </form>
             </div>
-
             <div class="header-user">
                 <c:choose>
                     <c:when test="${user==null}">
-                        <button onclick="location='registration.jsp'">${reg}</button>
-                        <button onclick="location='authorization.jsp'">${login}</button>
+                        <button onclick="window.location.pathname='jsp/registration.jsp';">${reg}</button>
+                        <button onclick="window.location.pathname='jsp/authorization.jsp';">${login}</button>
                     </c:when>
                 </c:choose>
-
                 <c:choose>
                     <c:when test="${user!=null}">
                         <form class="logout" action="controller" method="post">

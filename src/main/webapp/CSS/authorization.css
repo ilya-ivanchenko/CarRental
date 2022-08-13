@@ -1,0 +1,17 @@
+form.auth{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin: -125px 0 0 -125px;
+}
+input.button-enter{
+    margin: 0;
+    background: #ddf6ff;
+    border-width: 1px;
+    font-family:  "Montserrat Medium", sans-serif;
+    font-size: 12px;
+    border-radius: 4px;
+    padding: 5px 10px;
+}

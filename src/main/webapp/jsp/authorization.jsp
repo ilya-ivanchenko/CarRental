@@ -15,24 +15,21 @@
     <title>${authorization}</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/authorization.css" type="text/css">
 </head>
 <c:set  var="page"  value="authorization.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
 <body>
     <div>
-        <form action="controller" method="post">
+        <form class="auth" action="controller" method="post">
           <input type="hidden" name="command" value="authorization"/>
-
            ${email}:<br/>
           <input type="text" name="email" value="" required="required"/> <br/>
            ${password}:<br/>
           <input type="password" name="password" value="" required="required"/> <br/>
-          <input type="submit" value="${enter}"/>
+          <input class="button-enter" type="submit" value="${enter}"/>
         </form>
-
-<h4>${message}</h4>
-<br/>
-<button onclick="window.history.back();">${back}</button>
+        <h4 class="message">${message}</h4>
     </div>
 </body>
 </html>

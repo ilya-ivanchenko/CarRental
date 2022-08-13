@@ -2,7 +2,7 @@ package by.ivanchenko.carrental.controller.command.impl;
 
 import by.ivanchenko.carrental.bean.car.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
-import by.ivanchenko.carrental.controller.PageResourseManager;
+import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
 import by.ivanchenko.carrental.service.CarService;
 import by.ivanchenko.carrental.service.ServiceException;
@@ -27,10 +27,10 @@ public class AddCar implements Command {
                     parseInt(request.getParameter(MILEAGE)));
             carService.addCar(car);
             request.setAttribute(MESSAGE, SUCCESSFUL_ADDING_CAR);
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourceManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
-            return PageResourseManager.getValue(PageParameter.USER_HOME);
+            return PageResourceManager.getValue(PageParameter.USER_HOME);
         }
     }
 }
