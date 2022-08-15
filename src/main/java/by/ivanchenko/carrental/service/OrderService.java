@@ -1,7 +1,6 @@
 package by.ivanchenko.carrental.service;
 
-import by.ivanchenko.carrental.bean.order.Order;
-import by.ivanchenko.carrental.dao.DAOException;
+import by.ivanchenko.carrental.bean.Order;
 
 import java.util.Date;
 import java.util.List;

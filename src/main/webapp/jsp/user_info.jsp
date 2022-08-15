@@ -30,7 +30,7 @@
         <form action="controller" method="post">
             <input type="hidden" name="command" value="delete_user_by_admin"/>
 
-            <table cellpadding="5">
+            <table  cellpadding="5">
                 <tr><th></th>
                     <th scope="col">ID</th>
                     <th scope="col">${Name}</th>
@@ -45,7 +45,7 @@
                         <td>
                             <c:choose>
                                 <c:when test="${users.roleName != 'Админ'}">
-                                    <input type="radio" name="id" value="${users.id}"/>
+                                    <input type="radio" name="id" value="${users.id}" checked/>
                                 </c:when>
                             </c:choose>
                         </td>
@@ -58,21 +58,11 @@
                     </tr>
                 </c:forEach>
             </table>
-            <input class="del" type="submit"  value="${deleteuser}"/>
+            <br/>
+            <input class="del_button" type="submit"  value="${deleteuser}"/>
         </form>
         <br/>
         <button onclick="window.history.back();">${back}</button>
     </div>
 </body>
-<style>
-    p.ok_message {
-        color: blue;
-    }
-    td {
-        text-align: center;
-    }
-    input.del {
-        color: red;
-    }
-</style>
 </html>

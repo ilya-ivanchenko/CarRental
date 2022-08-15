@@ -80,7 +80,7 @@
 
                 <c:choose>
                     <c:when test="${user.role>1}">
-                        <button class="yourpage" onclick="location='user_home.jsp'">${profile}</button>
+                        <button class="yourpage" onclick="window.location.pathname='jsp/user_home.jsp'">${profile}</button>
                     </c:when>
                 </c:choose>
             </div>

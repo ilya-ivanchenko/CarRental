@@ -1,3 +1,6 @@
+form.add-car{
+    padding: 10px;
+}
 :root {
     --logo-color: #186e8d;
 }
@@ -7,13 +10,6 @@ body {
     font-family: Montserrat Regular, sans-serif;
     font-size: 14px;
 }
-
-div {
-    /*display: inline-block;*/
-    padding: 10px;
-    /*margin: 10px;*/
-}
-
 button, input.button {
     background: #ddf6ff;
     /*border-color: var(--logo-color);*/
@@ -25,7 +21,7 @@ button, input.button {
     padding: 5px 10px;
 }
 h4.message{
-display: initial;
+    display: initial;
 }
 
 .del_button {
@@ -38,16 +34,4 @@ display: initial;
     padding: 5px 10px;
 }
 
-p.ok_message {
-    color: blue;
-}
 
-td {
-    text-align: center;
-}
-table{
-    font-size: 14px;
-}
-table.big{
-    font-size: 12px;
-}

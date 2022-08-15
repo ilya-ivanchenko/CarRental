@@ -34,10 +34,8 @@
         <p class="ok_message">${message}</p>
         <form action="controller" method="post">
             <input type="hidden" name="command" value="delete_car"/>
-
         <c:choose>
             <c:when test="${cars.size() > 0}">
-
                 <table cellpadding="5">
                     <tr><th></th>
                         <th scope="col">ID</th>
@@ -56,7 +54,7 @@
 
                     <c:forEach  var="cars" items="${cars}">
                         <tr scope="row">
-                            <td>  <input type="radio" name="id" value="${cars.id}"/></td>
+                            <td>  <input type="radio" name="id" value="${cars.id}" checked/></td>
                             <td>${cars.id}</td>
                             <td>${cars.name}</td>
                             <td>${cars.transmission}</td>
@@ -69,26 +67,15 @@
                             <td>${cars.bodyType}</td>
                             <td>${cars.price}</td>
                             <td>${cars.mileage}</td>
-
                         </tr>
                     </c:forEach>
                 </table>
             </c:when>
         </c:choose>
-            <input class="del" type="submit" value="${deletecar}"/>
+            <br/>
+            <input class="del_button" type="submit" value="${deletecar}"/>
         </form>
         <button onclick="window.history.back();">${back}</button>
     </div>
 </body>
-<style>
-    p.ok_message {
-        color: blue;
-    }
-    td {
-        text-align: center;
-    }
-    input.del {
-        color: red;
-    }
-</style>
 </html>

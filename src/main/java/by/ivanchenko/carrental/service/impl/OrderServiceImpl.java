@@ -1,13 +1,11 @@
 package by.ivanchenko.carrental.service.impl;
 
-import by.ivanchenko.carrental.bean.order.Order;
+import by.ivanchenko.carrental.bean.Order;
 import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.DAOFactory;
 import by.ivanchenko.carrental.dao.OrderDAO;
-import by.ivanchenko.carrental.dao.UserDAO;
 import by.ivanchenko.carrental.service.OrderService;
 import by.ivanchenko.carrental.service.ServiceException;
-import by.ivanchenko.carrental.service.ServiceFactory;
 import by.ivanchenko.carrental.service.Validator;
 
 import java.util.Date;

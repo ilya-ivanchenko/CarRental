@@ -17,15 +17,17 @@
 <body>
 <c:set  var="page"  value="cancel_order.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
-<form action="controller" method="post">
-  <input type="hidden" name="command" value="cancel_order_manager"/>
-  ${writecomment}:<br/>
-    <textarea name="description" cols="50" rows="5"></textarea>
+<div>
+  <form action="controller" method="post">
+    <input type="hidden" name="command" value="cancel_order_manager"/>
+    ${writecomment}:<br/>
+      <textarea name="description" cols="50" rows="5"></textarea>
+      <br/>
     <br/>
+    <input class="button" type="submit"  value="${cancelorder}"/>
+  </form>
   <br/>
-  <input type="submit"  value="${cancelorder}"/>
-</form>
-<br/>
-<button onclick="window.history.back();">${back}</button>
+  <button onclick="window.history.back();">${back}</button>
+</div>
 </body>
 </html>

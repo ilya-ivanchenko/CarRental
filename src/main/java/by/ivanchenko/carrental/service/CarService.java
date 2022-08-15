@@ -1,7 +1,6 @@
 package by.ivanchenko.carrental.service;
 
-import by.ivanchenko.carrental.bean.car.Car;
-import by.ivanchenko.carrental.dao.DAOException;
+import by.ivanchenko.carrental.bean.Car;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,6 +1,6 @@
 package by.ivanchenko.carrental.dao.impl;
 
-import by.ivanchenko.carrental.bean.order.Order;
+import by.ivanchenko.carrental.bean.Order;
 import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.OrderDAO;
 import by.ivanchenko.carrental.dao.impl.connection.ConnectionPool;

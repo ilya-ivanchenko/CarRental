@@ -23,8 +23,7 @@
     <title>${reg}</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/authorization.css" type="text/css">
-
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/authorization.css" type="text/css">
 </head>
 <c:set  var="page"  value="registration.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>

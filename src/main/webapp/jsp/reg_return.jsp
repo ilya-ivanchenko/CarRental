@@ -19,30 +19,35 @@
 <body>
 <c:set  var="page"  value="reg_return.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
-<form action="controller" method="post">
-    <input type="hidden" name="command" value="register_return"/>
-    <div>
-        <br/>
-        <input type="checkbox" name="need_repair" onchange="onChangeRepairStatus(this.checked)" value="1"  /> ${needrepair}
-    </div>
-
-        <br/>
-
-        <div id="repairPrice-block">
-       <label for="repairPrice"> ${repairprice}, $:</label>
-        <input  id="repairPrice" type="text" name="repair_price" autocomplete="0" />
+<div>
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="register_return"/>
+        <div>
+            <br/>
+            <input type="checkbox" name="need_repair" onchange="onChangeRepairStatus(this.checked)" value="1"  /> ${needrepair}
         </div>
-
-    <div>
+        <div id="repairPrice-block">
+           <label for="repairPrice"> ${repairprice}, $:</label>
+            <input id="repairPrice"
+                   type="text"
+                   name="repair_price"
+                   required="required"
+                   placeholder="0"
+                   autocomplete="off"
+                   pattern="\d+"
+            />
+        </div>
+        <div>
+            ${description}:<br/>
+            <textarea name="description" cols="30" rows="5"></textarea>
+            <br/>
+            <br/>
+            <input  class="button" type="submit" value="${registerreturn}"/>
+        </div>
         <br/>
-        ${description}:<br/>
-        <textarea name="description" cols="30" rows="5"></textarea>
-    </div>
-    <br/>
-    <input type="submit"  value="${registerreturn}"/>
-</form>
-<br/>
-<button onclick="window.history.back();">${back}</button>
+    </form>
+    <button onclick="window.history.back();">${back}</button>
+</div>
 <script src="../JS/reg_return.js"></script>
 </body>
 </html>

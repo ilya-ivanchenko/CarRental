@@ -1,6 +1,6 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
-import by.ivanchenko.carrental.bean.car.Car;
+import by.ivanchenko.carrental.bean.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
@@ -12,10 +12,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
-import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
 
 public class CarInfo implements Command {
     @Override

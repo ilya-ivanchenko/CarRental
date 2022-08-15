@@ -18,8 +18,10 @@
 <body>
 <c:set  var="page"  value="after_order.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
-<h3>${succesbook}</h3>
-<br/>${checkstatusorder}
-<a href="jsp/user_home.jsp">${youprofile}</a>
+<div>
+    <h3>${succesbook}</h3>
+    <br/>${checkstatusorder}
+    <a href="user_home.jsp">${youprofile}</a>
+</div>
 </body>
 </html>

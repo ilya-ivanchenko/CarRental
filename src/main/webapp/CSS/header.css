@@ -22,7 +22,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 330px;
+    width: 340px;
+    font-family: Roboto, sans-serif;
 }
 
 .header-buttons {
@@ -54,6 +55,9 @@ input.button-top{
 
 button.yourpage{
     margin: 5px;
+}
+form.logout{
+    display: inline-block;
 }
 
 

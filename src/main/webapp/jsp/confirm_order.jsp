@@ -34,6 +34,7 @@
     <fmt:message bundle="${localization}" key="local.Phone" var="Phone"/>
     <fmt:message bundle="${localization}" key="local.Mail" var="Mail"/>
     <fmt:message bundle="${localization}" key="local.back" var="back"/>
+    <fmt:message bundle="${localization}" key="local.checkpassport" var="checkpassport"/>
     <title>${confirmorder}</title>
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
@@ -102,10 +103,20 @@
     ${writecomment}:<br/>
     <textarea name="comment" cols="30" rows="3"></textarea>
     <br/>${passportid}:<br/>
-    <input type="text" name="passport" value=""  required="required"/> <br/>
+    <input type="text"
+           name="passport"
+           value=""
+           required="required"
+           pattern="([A-Za-z]{2}\d{7})"
+           oninvalid="this.setCustomValidity('${checkpassport}')"
+           oninput="this.setCustomValidity('')"
+           autocomplete="off"
+    /> <br/>
     <input  class="button" type="submit" value="${sendbookrequest}"/>
 </form>
 <p class="ok_message">${message}</p>
+
 </div>
+<script src="/JS/confirm_order.js"></script>
 </body>
 </html>

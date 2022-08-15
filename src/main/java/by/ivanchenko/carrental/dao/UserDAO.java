@@ -1,5 +1,5 @@
 package by.ivanchenko.carrental.dao;
-import by.ivanchenko.carrental.bean.user.User;
+import by.ivanchenko.carrental.bean.User;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
-import by.ivanchenko.carrental.bean.car.Car;
+import by.ivanchenko.carrental.bean.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
@@ -17,7 +17,7 @@ import java.util.List;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static java.time.temporal.ChronoUnit.DAYS;
-import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
 
 public class GetCarListFilteredCommand implements Command {
 

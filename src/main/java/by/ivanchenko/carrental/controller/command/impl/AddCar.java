@@ -1,6 +1,6 @@
 package by.ivanchenko.carrental.controller.command.impl;
 
-import by.ivanchenko.carrental.bean.car.Car;
+import by.ivanchenko.carrental.bean.Car;
 import by.ivanchenko.carrental.controller.PageParameter;
 import by.ivanchenko.carrental.controller.PageResourceManager;
 import by.ivanchenko.carrental.controller.command.Command;
@@ -10,7 +10,7 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 

@@ -37,24 +37,30 @@
     <fmt:message bundle="${localization}" key="local.body" var="body"/>
     <title>${addingnewcar}</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/add_car.css" type="text/css">
 </head>
 <body>
 <c:set  var="page"  value="add_car.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
     <div>
-        <form  action="controller" method="post">
+        <form class="add-car" action="controller" method="post">
           <input type="hidden" name="command" value="add_car"/>
-
-            ${Namecar}: <input type="text" name="name" value="" />
-
-            <div>
-                <br/>${gearbox}:<br/>
+            <div class="add-car">
+            ${Namecar}:
+            <input type="text"
+                   name="name"
+                   value=""
+                   required="required"
+                   autocomplete="off"
+            />
+            </div>
+            <div class="add-car">
+                ${gearbox}:<br/>
                 <input type="radio" name="transmission" value="Механика" checked/>${manual} <br/>
                 <input type="radio" name="transmission" value="Автомат" />${automaic} <br/>
             </div>
-
-            <br/>${year}:
+            <div class="add-car">
+            ${year}:
             <select name="year">
                 <option selected value="2022">2022</option>
                 <option value="2021">2021</option>
@@ -70,24 +76,24 @@
                 <option value="2011">2011</option>
                 <option value="2010">2010</option>
             </select>
-            <div>
-                <br/>${engine}:<br/>
+            </div>
+            <div class="add-car">
+                ${engine}:<br/>
                 <input type="radio" name="fuel" value="Бензин" onchange="onChangeEngineType(this.value)" checked/>${gasoline} <br/>
                 <input type="radio" name="fuel" value="Дизель" onchange="onChangeEngineType(this.value)"/>${diesel} <br/>
                 <input type="radio" name="fuel" value="Электро" onchange="onChangeEngineType(this.value)"/>${electro} <br/>
             </div>
-            <div>
-                <br/>${drive}:<br/>
+            <div class="add-car">
+                ${drive}:<br/>
                 <input type="radio" name="drive" value="Передний" checked />${front} <br/>
                 <input type="radio" name="drive" value="Задний" />${rear} <br/>
                 <input type="radio" name="drive" value="Полный" />${full} <br/>
             </div>
-
-            <div id="tank-consumption-block">
-                <br/> ${capacity}:
+            <div class="add-car" id="tank-consumption-block">
+                <div>
+                 ${capacity}:
                 <select name="engine_capacity">
-                    <option selected value="0.0">0.0</option>
-                    <option value="1.0">1.0</option>
+                    <option selected value="1.0">1.0</option>
                     <option value="1.2">1.2</option>
                     <option value="1.4">1.4</option>
                     <option value="1.6">1.6</option>
@@ -100,20 +106,45 @@
                     <option value="3.0">3.0</option>
                     <option value="3.5">3.5</option>
                 </select>
-                <br/>${tank}:
-                <input type="text" name="tank" value="0" /> <br/>
-                <br/>${consumption}:
-                <input type="text" name="consumption" value="0.0" /> <br/>
+                </div>
+                <div>
+                    ${tank}:
+                    <input name="tank"
+                           type="text"
+                           size="2"
+                           required="required"
+                           value="0"
+                           autocomplete="off"
+                           pattern="\d+"
+                    />
+                </div>
+                <div>
+                    ${consumption}:
+                    <input type="text"
+                           name="consumption"
+                           size="2"
+                           required="required"
+                           value="0.0"
+                           autocomplete="off"
+                           pattern="\d+\.\d"
+                    />
+                </div>
             </div>
-            <br/>
-
-            <div id="e-mileage-block">
+            <div class="add-car" id="e-mileage-block">
                 <label for="e-mileage">${power}:</label>
-                <input id="e-mileage" type="text" name="mileage" value="0" />
+                <input id="e-mileage"
+                       type="text"
+                       name="mileage"
+                       size="2"
+                       required="required"
+                       placeholder="0"
+                       value="0"
+                       autocomplete="off"
+                       pattern="\d+"
+                />
             </div>
-
-            <div>
-                <br/>${body}:<br/>
+            <div class="add-car">
+                ${body}:
            <select name="body_type">
                <option value="Седан">${sedan}</option>
                <option value="Хэтчбек">${hatch}</option>
@@ -124,10 +155,20 @@
                <option value="Кабриолет">${cabriolet}</option>
            </select>
             </div>
-            <br/>${priceday}, $:  <input type="text" name="price" value="" /> <br/>
-            <br/><input type="submit"  value="${addcar}"/>
+            <div class="add-car">
+                ${priceday}, $:
+                <input type="text"
+                       name="price"
+                       size="2"
+                       required="required"
+                       placeholder="0"
+                       autocomplete="off"
+                       pattern="\d+"
+                />
+            </div>
+            <input class="button" type="submit"  value="${addcar}"/>
         </form>
     </div>
-    <script src="../JS/add_car.js"></script>
 </body>
+<script src="../JS/add_car.js"></script>
 </html>

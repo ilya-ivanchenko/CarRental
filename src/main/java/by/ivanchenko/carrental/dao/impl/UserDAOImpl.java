@@ -1,7 +1,6 @@
 package by.ivanchenko.carrental.dao.impl;
 
-import by.ivanchenko.carrental.bean.car.Car;
-import by.ivanchenko.carrental.bean.user.User;
+import by.ivanchenko.carrental.bean.User;
 import by.ivanchenko.carrental.dao.UserDAO;
 import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.impl.connection.ConnectionPool;

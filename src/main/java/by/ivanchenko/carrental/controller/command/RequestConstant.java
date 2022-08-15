@@ -1,4 +1,4 @@
-package by.ivanchenko.carrental.controller.command.impl;
+package by.ivanchenko.carrental.controller.command;
 
 public class RequestConstant {
     public static final String ID = "id";

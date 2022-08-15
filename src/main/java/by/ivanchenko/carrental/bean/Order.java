@@ -1,9 +1,6 @@
-package by.ivanchenko.carrental.bean.order;
+package by.ivanchenko.carrental.bean;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import  java.util.Calendar;
-import java.time.LocalDate;
 import java.util.Objects;
 
 //TemporalType.TIMESTAMP

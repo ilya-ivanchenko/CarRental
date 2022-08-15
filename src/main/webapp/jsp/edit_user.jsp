@@ -15,7 +15,6 @@
   <fmt:message bundle="${localization}" key="local.email" var="email"/>
   <fmt:message bundle="${localization}" key="local.save" var="save"/>
   <fmt:message bundle="${localization}" key="local.back" var="back"/>
-
   <title>${editinfo}</title>
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/common.css" type="text/css">
@@ -29,15 +28,15 @@
         <input type="hidden" name="command" value="edit_user"/>
 
         ${name}:<br/>
-        <input type="text" name="name" value="" placeholder="${user.name}"/> <br/>
+        <input type="text" name="name" required="required" value="${user.name}"/> <br/>
         ${surname}:<br/>
-        <input type="text" name="surname" value="" placeholder="${user.surname}"/> <br/>
+        <input type="text" name="surname" required="required" value="${user.surname}"/> <br/>
         ${phone}:<br/>
-        <input type="text" name="phone" value="" placeholder="${user.phone}"/> <br/>
+        <input type="text" name="phone" required="required" value="${user.phone}"/> <br/>
         ${password}:<br/>
-        <input type="password" name="password" value=""/> <br/>
+        <input type="password" name="password" required="required" value=""/> <br/>
         ${email}:<br/>
-        <input type="email" name="email" value="" placeholder="${user.email}"/> <br/>
+        <input type="email" name="email" required="required" value="${user.email}"/> <br/>
         <input class="button-enter" type="submit" value="${save}"/>
       </form>
     </div>

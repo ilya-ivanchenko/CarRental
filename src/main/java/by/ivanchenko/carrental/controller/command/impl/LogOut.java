@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
 
 public class LogOut implements Command {
     @Override

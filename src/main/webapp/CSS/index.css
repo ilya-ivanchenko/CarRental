@@ -10,9 +10,10 @@
 }
 
 .filter-name {
-    font-size: 16px;
+    font-size: 14px;
     color: #0e7dc7;
     display: block;
+    font-family: "Montserrat Medium",sans-serif;
 }
 
 .filter {
@@ -20,7 +21,7 @@
 }
 
 .filter-dvs {
-    width: 200px;
+    width: 240px;
 }
 .filter-dvs div {
     display: block;

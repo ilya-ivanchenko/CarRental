@@ -18,17 +18,18 @@
 <body>
 <c:set var="page" value="payment.jsp" scope="session"/>
 <jsp:include page="header.jsp"/>
-<form  action="controller" method="post">
-    <input type="hidden" name="command" value="pay"/>
-    <input  type="submit"  value="${pay}"/>
-    <h4>${message}</h4>
-    <br/>
-</form>
-<form  action="controller" method="post">
-    <input type="hidden" name="command" value="order_info"/>
-    <input type="submit"  value="${myorders}"/>
-</form>
-<br/>
-<button onclick="window.history.back();">${back}</button>
+<div>
+    <form  action="controller" method="post">
+        <input type="hidden" name="command" value="pay"/>
+        <input class="button" type="submit"  value="${pay}"/>
+        <h4>${message}</h4>
+        <br/>
+    </form>
+    <form  action="controller" method="post">
+        <input type="hidden" name="command" value="order_info"/>
+        <input class="button" type="submit"  value="${myorders}"/>
+    </form>
+    <button onclick="window.history.back();">${back}</button>
+    </div>
 </body>
 </html>

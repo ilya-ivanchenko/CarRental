@@ -1,12 +1,3 @@
-.del_button {
-    color: #d53a3a;
-    background: #ddf6ff;
-    border-width: 1px;
-    font-family:  "Montserrat Medium", sans-serif;
-    font-size: 12px;
-    border-radius: 4px;
-    padding: 5px 10px;
-}
 
 form {
     display: inline-block;
@@ -16,32 +7,23 @@ div.buttons {
     display: inline-block;
     padding: 0;
 }
-
-table{
-    font-size: 14px;
+div.buttons-approve {
+    width: 200px;
 }
-
-table.big{
-    font-size: 12px;
-}
-td {
-    text-align: center;
+form.cancel{
+    margin-top: 14px;
 }
 
 th,td {
     padding-right: 15px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
 }
 
 td.desc {
     width: 150px;
 }
 
-td.cancel {
-    color: red;
-}
-
-p.ok_message {
+span.cancel {
     color: blue;
 }
 
@@ -52,6 +34,9 @@ p.noorders {
 
 button{
     margin: 5px;
+}
+button.form{
+    margin: 0;
 }
 
 input.button-id{

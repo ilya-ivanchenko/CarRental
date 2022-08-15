@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.*;
-import static by.ivanchenko.carrental.controller.command.impl.RequestConstant.USER_DELETE;
+import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.command.RequestConstant.USER_DELETE;
 
 public class DeleteUserByAdmin implements Command {
     @Override

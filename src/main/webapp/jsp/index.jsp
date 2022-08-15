@@ -1,4 +1,4 @@
-<%@ page  import="by.ivanchenko.carrental.bean.user.User" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  %>
+<%@ page import="by.ivanchenko.carrental.bean.User" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  %>
 <%--<%@ page isELIgnored="true" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -165,7 +165,6 @@
                 <span class="filter-name">${dates}:</span>
                 <input id="rentStartDate" type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
                 <input id="rentEndDate" type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
-
                 <c:choose>
                     <c:when test="${rent_days!=null}">
                         <span>
@@ -178,7 +177,6 @@
                 <input class="button" type="submit" value="${apply}"/>
             </div>
         </div>
-
     </form>
 </div>
 

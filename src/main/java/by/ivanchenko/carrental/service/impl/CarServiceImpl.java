@@ -1,6 +1,6 @@
 package by.ivanchenko.carrental.service.impl;
 
-import by.ivanchenko.carrental.bean.car.Car;
+import by.ivanchenko.carrental.bean.Car;
 import by.ivanchenko.carrental.dao.CarDAO;
 import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.DAOFactory;
@@ -33,7 +33,7 @@ public class CarServiceImpl implements CarService {
             return carDAO.getCarListFiltred(transmission, drive, fuel, engine_capacity1,
                     engine_capacity2, consumption1, consumption2, price1, price2, startDate, endDate);    //TO DO  edit    date?
         } catch (DAOException e) {
-            throw new ServiceException("Error displaying car filtred list", e);
+            throw new ServiceException("Error displaying car filtered list", e);
         }
     }
 
@@ -51,6 +51,22 @@ public class CarServiceImpl implements CarService {
     public void addCar(Car car) throws ServiceException {
         try {
             CarDAO carDAO = DAOFactory.getInstance().getCarDAO();
+
+            if (!validator.priceValidation(car.getPrice())) {
+                throw new ServiceException("Incorrect price format. The price must contain only numbers (more than 0)");
+            }
+
+            if (!validator.priceValidation(car.getTank())) {
+                throw new ServiceException("Incorrect tank format. The tank must contain only numbers (more than 0)");
+            }
+
+            if (!validator.priceValidation(car.getMileage())) {
+                throw new ServiceException("Incorrect mileage format. The mileage must contain only numbers (more than 0)");
+            }
+
+            if (!validator.consumptionValidation(car.getConsumption())) {
+                throw new ServiceException("Incorrect consumption format. The price must contain numbers  in x.x format (more than 0)");
+            }
 
             if (validator.electroCar(car.getFuel())) {
                 carDAO.addCarElectro(car);

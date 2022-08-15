@@ -99,9 +99,7 @@
                 <th scope="col">${paid}</th>
                 <th></th>
                 <th></th>
-
             </tr>
-
             <c:forEach var="orders" items="${orders}">
             <tr scope="row">
                 <td>${orders.id}</td>
@@ -111,7 +109,6 @@
                 <td>${orders.startDate}</td>
                 <td>${orders.endDate}</td>
                 <td class="desc">${orders.description}</td>
-
                 <c:choose>
                     <c:when test="${!orders.approved}">
                         <td>${no}</td>
@@ -124,7 +121,7 @@
                                     <td>${no}</td>
                                     <td>
                                         <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                        <button  onclick="location='payment.jsp'">${gopayment}</button>
+                                        <button  onclick="window.location.pathname ='jsp/payment.jsp'">${gopayment}</button>
                                     </td>
                                 </c:when>
                                 <c:when test="${orders.payment}">
@@ -136,12 +133,11 @@
                 <c:choose>
                     <c:when test="${!orders.payment && !orders.returned}">
                         <td>
-                            <form  action="controller" method="post">
+                            <form class="cancel" action="controller" method="post">
                                 <input type="hidden" name="command" value="delete_order"/>
                                 <input type="hidden" name="id" value="${orders.id}"/>
-                                <input class="del" type="submit"  value="${cancel}"/>
+                                <input class="del_button" type="submit"  value="${cancel}"/>
                             </form>
-                            </p>
                         </td>
                     </c:when>
                     <c:when test="${!orders.approved && orders.returned}">
@@ -164,25 +160,21 @@
 
 
 
-
-
-
-
     <c:when test="${user.role == 3}">
            <div>
                <h3> <p> ${user.name} ${user.surname}, ID: ${user.id}</p></h3>
                 <p>${Phone}: ${user.phone}</p>
                 <p>${Mail}: ${user.email}</p>
-                <form  action="controller" method="post">
+                <form action="controller" method="post">
                     <input type="hidden" name="command" value="order_info"/>
                     <input class="button" type="submit"  value="${allorders}"/>
                 </form>
-                <form  action="controller" method="post">
+                <form action="controller" method="post">
                     <input type="hidden" name="command" value="manager_order"/>
                     <input type="hidden" name="id" value="${user.id}"/>
-                    <input  class="button" type="submit"  value="${myorders}"/>
+                    <input class="button" type="submit"  value="${myorders}"/>
                 </form>
-                <button  onclick="location='add_car.jsp'">${addnewcar}</button>
+                <button class="form" onclick="window.location.pathname='jsp/add_car.jsp'">${addnewcar}</button>
 
             <p class="ok_message">${message}</p>
             <br/>
@@ -268,33 +260,31 @@
                             <td>
                                 <c:choose>
                                     <c:when test="${!orders.approved && !orders.returned}">
-                                    <div class="buttons">
+                                    <div class="buttons-approve">
                                 <form action="controller" method="post">
                                     <input type="hidden" name="command" value="approve_order"/>
                                     <input type="hidden" name="idOrder" value="${orders.id}"/>
                                     <input type="hidden" name="idManager" value="${user.id}"/>
-                                    <input type="submit"  value="${approve}"/>
+                                    <input class="button" type="submit"  value="${approve}"/>
                                 </form>
-                                    </div>
-                                    <div class="buttons">
                                         <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
                                         <c:set  var="idManager"  value="${user.id}" scope="session"/>
-                                        <button  onclick="location='cancel_order.jsp'">${cancel}</button>
+                                        <button class="del_button" onclick="window.location.pathname='jsp/cancel_order.jsp'">${cancel}</button>
                                     </div>
                                     </c:when>
                                     <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
                                         <form action="controller" method="post">
                                             <input type="hidden" name="command" value="give_car_customer"/>
                                             <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                            <input type="submit"  value="${givecustomer}"/>
+                                            <input class="button" type="submit"  value="${givecustomer}"/>
                                         </form>
                                     </c:when>
                                     <c:when test="${orders.given && !orders.returned}">
                                         <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                        <button onclick="location='reg_return.jsp'">${registerreturn}</button>
+                                        <button onclick="window.location.pathname='jsp/reg_return.jsp'">${registerreturn}</button>
                                     </c:when>
                                     <c:when test="${!orders.approved && orders.returned}">
-                                        <td class = "cancel">${canceled}</td>
+                                        <span class="cancel">${canceled}</span>
                                     </c:when>
                                 </c:choose>
                             </td>
@@ -326,13 +316,12 @@
                 <input type="hidden" name="command" value="car_info"/>
                 <input class="button" type="submit"  value="${allcars}"/>
             </form>
-            <button  onclick="location='add_car.jsp'">${addnewcar}</button>
+            <button class="form" onclick="window.location.pathname='jsp/add_car.jsp'">${addnewcar}</button>
             <form action="controller" method="post">
                 <input type="hidden" name="command" value="all_user_info"/>
                 <input class="button" type="submit"  value="${allusers}"/>
             </form>
-            <button onclick="location='registration.jsp'">${addmanager}</button>
-            <br/>
+            <button class="form" onclick="window.location.pathname='jsp/registration.jsp'">${addmanager}</button>
             <br/>
             <c:choose>
                 <c:when test="${orders.size()>0}">
@@ -363,7 +352,7 @@
                                     <form class="id-user" action="controller" method="post">
                                         <input type="hidden" name="command" value="user_info_by_manager"/>
                                         <input type="hidden" name="id" value="${orders.customerId}"/>
-                                        <input  class="button-id" type="submit"  value="${orders.customerId}"/>
+                                        <input class="button-id" type="submit"  value="${orders.customerId}"/>
                                     </form>
                                 </td>
                                 <td>${orders.passport}</td>
@@ -416,28 +405,30 @@
                                 <td>
                                     <c:choose>
                                     <c:when test="${!orders.approved && !orders.returned}">
+                                        <div class="buttons-approve">
                                     <form action="controller" method="post">
                                         <input type="hidden" name="command" value="approve_order"/>
                                         <input type="hidden" name="idOrder" value="${orders.id}"/>
                                         <input type="hidden" name="idManager" value="${user.id}"/>
-                                        <input type="submit"  value="${approve}"/>
+                                        <input class="button" type="submit"  value="${approve}"/>
                                     </form>
                                         <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                    <button  onclick="location='cancel_order.jsp'">${cancel}</button>
-                                    </c:when>
+                                    <button class="del_button" onclick="window.location.pathname='jsp/cancel_order.jsp'">${cancel}</button>
+                                        </div>
+                                        </c:when>
                                     <c:when test="${orders.approved && orders.payment && !orders.returned && !orders.given}">
                                     <form action="controller" method="post">
                                         <input type="hidden" name="command" value="give_car_customer"/>
                                         <input type="hidden" name="idOrder" value="${orders.id}"/>
-                                        <input type="submit"  value="${givecustomer}"/>
+                                        <input class="button" type="submit"  value="${givecustomer}"/>
                                     </form>
                                     </c:when>
                                     <c:when test="${orders.given && !orders.returned}">
                                         <c:set  var="idOrder"  value="${orders.id}" scope="session"/>
-                                    <button  onclick="location='reg_return.jsp'">${registerreturn}</button>
+                                    <button  onclick="window.location.pathname='jsp/reg_return.jsp'">${registerreturn}</button>
                                     </c:when>
                                     <c:when test="${!orders.approved && orders.returned}">
-                                <td class = "cancel">${canceled}</td>
+                                <span class = "cancel">${canceled}</span>
                                 </c:when>
                                 </c:choose>
                                 </td>
@@ -448,13 +439,7 @@
         </c:choose>
             <button onclick="window.history.back();">${back}</button>
         </div>
-
-
-<%--        <h3>${message}</h3>--%>
-
     </c:when>
 </c:choose>
-
-
 </body>
 </html>

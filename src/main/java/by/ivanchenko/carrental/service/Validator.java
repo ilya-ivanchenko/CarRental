@@ -14,11 +14,7 @@ public class Validator {
         Matcher matcherAdmin = patternAdmin.matcher(email);
         boolean checkEmail = matcherEmail.matches();
         boolean checkAdmin = matcherAdmin.matches();
-        if (email == null || email.isEmpty() || !(!checkEmail ^ !checkAdmin)) {
-            return false;
-        } else {
-            return true;
-        }
+        return email != null && !email.isEmpty() && !checkEmail ^ !checkAdmin;
     }
 
     public boolean phoneValidation(String phone) {
@@ -26,11 +22,7 @@ public class Validator {
         Matcher matcher = pattern.matcher(phone);
         boolean checkPhone = matcher.matches();
 
-        if (phone == null || phone.isEmpty() || !checkPhone) {
-            return false;
-        } else {
-            return true;
-        }
+        return phone != null && !phone.isEmpty() && checkPhone;
     }
 
     public boolean nameValidation(String name) {
@@ -38,43 +30,33 @@ public class Validator {
         Matcher matcher = pattern.matcher(name);
         boolean checkName = matcher.matches();
 
-        if (name == null || name.isEmpty() || !checkName) {
-            return false;
-        } else {
-            return true;
-        }
+        return name != null && !name.isEmpty() && checkName;
     }
 
     public boolean passportValidation(String passport) {
-        Pattern pattern = Pattern.compile("([A-Z]{2}\\d{7})");
+        Pattern pattern = Pattern.compile("([A-Za-z]{2}\\d{7})");
         Matcher matcher = pattern.matcher(passport);
         boolean checkPassport = matcher.matches();
 
-        if (passport == null || passport.isEmpty() || !checkPassport) {
-            return false;
-        } else {
-            return true;
-        }
+        return passport != null && !passport.isEmpty() && checkPassport;
     }
 
-    public boolean priceValidation(int repairPrice) {
+    public boolean priceValidation(int price) {
         Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(String.valueOf(repairPrice));
+        Matcher matcher = pattern.matcher(String.valueOf(price));
         boolean checkPrice = matcher.matches();
-
-        if (!checkPrice) {
-            return false;
-        } else {
-            return true;
-        }
+        return checkPrice;
     }
 
     public boolean electroCar(String fuel) {
-        if (fuel.equals(ELECTRO)) {
-            return true;
-        } else {
-            return  false;
-        }
+        return fuel.equals(ELECTRO);
+    }
+
+    public boolean consumptionValidation(double consumption) {
+        Pattern pattern = Pattern.compile("\\d+\\.\\d");
+        Matcher matcher = pattern.matcher(String.valueOf(consumption));
+        boolean checkConsumption = matcher.matches();
+        return checkConsumption;
     }
 }
 

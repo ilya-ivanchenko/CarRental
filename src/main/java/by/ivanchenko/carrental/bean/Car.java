@@ -1,4 +1,4 @@
-package by.ivanchenko.carrental.bean.car;
+package by.ivanchenko.carrental.bean;
 
 import java.util.Objects;
 
