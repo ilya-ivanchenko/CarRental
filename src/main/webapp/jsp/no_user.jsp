@@ -20,9 +20,9 @@
     <c:set  var="page"  value="no_user.jsp" scope="session"/>
     <jsp:include page="header.jsp"/>
         <div>
-            <h3>${forcontinue} <a href="authorization.jsp">${loginnouser}</a> ${orgoto}
+            <h4>${forcontinue} <a href="authorization.jsp">${loginnouser}</a> ${orgoto}
                <a href="registration.jsp">${registernouser}</a>
-            </h3>
+            </h4>
             <br/>
             <button onclick="window.history.back();">${back}</button>
         </div>

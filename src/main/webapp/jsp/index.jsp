@@ -9,6 +9,7 @@
     <fmt:setLocale value="${sessionScope.local}"/>
     <fmt:setBundle basename="local" var="localization"/>
 
+    <fmt:message bundle="${localization}" key="local.intro" var="intro"/>
     <fmt:message bundle="${localization}" key="local.gearbox" var="gearbox"/>
     <fmt:message bundle="${localization}" key="local.drive" var="drive"/>
     <fmt:message bundle="${localization}" key="local.engine" var="engine"/>
@@ -165,13 +166,21 @@
                 <span class="filter-name">${dates}:</span>
                 <input id="rentStartDate" type="date" name="date1" value="${currentDate}" min="${currentDate}" max="${maxDate}" >
                 <input id="rentEndDate" type="date" name="date2" value="${currentDatePlus}" min="${currentDatePlus}" max="${maxDate}" >
+                <br/>
+                <br/>
                 <c:choose>
                     <c:when test="${rent_days!=null}">
                         <span>
-                                ${totaldays}: ${rent_days}
+                            ${totaldays}: ${rent_days}
+                        </span>
+                    </c:when>
+                    <c:when test="${rent_days==null}">
+                        <span class="info">
+                            ${intro}
                         </span>
                     </c:when>
                 </c:choose>
+
             </div>
             <div class="cars-filter-apply">
                 <input class="button" type="submit" value="${apply}"/>
@@ -231,11 +240,13 @@
             </c:when>
         </c:choose>
         <td>
-            <form action="controller" method="post">
-                <input type="hidden" name="command" value="book_car"/>
-                <input type="hidden" name="car" value="${cars.id}" />
-                <input class="button-book" type="submit"  value="${book}"/>
-            </form>
+            <c:if test="${rent_days!=null}">
+                <form action="controller" method="post">
+                    <input type="hidden" name="command" value="book_car"/>
+                    <input type="hidden" name="car" value="${cars.id}" />
+                    <input class="button-book" type="submit"  value="${book}"/>
+                </form>
+            </c:if>
         </td>
     </tr>
 </c:forEach>
@@ -249,24 +260,7 @@
         <p class="nocars">${nocars}</p>
     </c:when>
 </c:choose>
-
 </body>
-
-
-
-
-
-<%--<c:set var="admin" value="admin_user" scope="session"/>--%>
-<%--<c:set var="manager" value="manager_user" scope="session"/>--%>
-<%--<c:set var="customer" value="customer_user" scope="session"/>--%>
-
-
-
-<%--${start_date}--%>
-<%--${end_date}--%>
-<%--date: ${currentDate}--%>
-<%--days: ${rent_days}--%>
-
 <script src="../JS/index.js"></script>
 </body>
 </html>

@@ -28,6 +28,7 @@ public class BookCar implements Command {
             if (user == null) {
                 return PageResourceManager.getValue(PageParameter.NO_USER);
             }
+            
             return PageResourceManager.getValue(PageParameter.CONFIRM_ORDER);
         } catch (ServiceException e) {
             request.setAttribute(MESSAGE, e.getMessage());
