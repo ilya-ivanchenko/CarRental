@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 public class RegisterReturn implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

@@ -9,6 +9,7 @@ import by.ivanchenko.carrental.dao.impl.connection.ConnectionPoolException;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -33,7 +34,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User logIn(String email, String password) throws DAOException {
+    public User logIn(String email, char[] password) throws DAOException {
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -43,22 +44,17 @@ public class UserDAOImpl implements UserDAO {
              connection = ConnectionPool.getInstance().takeConnection();
              preparedStatement = connection.prepareStatement(LOG_IN);
              preparedStatement.setString(1, email);
-             preparedStatement.setString(2, password);
+             preparedStatement.setString(2, Arrays.toString(password));
 
-
-
-             System.out.println(password);
-             System.out.println(password.hashCode());               //////
-             int pasHash = password.hashCode();
-
-
-
+//             System.out.println(password);
+//             System.out.println(Arrays.hashCode(password));
+//             int pasHash = Arrays.hashCode(password);
 
              resultSet = preparedStatement.executeQuery();
-
             if (resultSet.next()) {
                 return  new User(resultSet.getInt(ID), resultSet.getString(NAME), resultSet.getString(SURNAME),
-                        resultSet.getString(PHONE), resultSet.getString(PASSWORD), resultSet.getString(EMAIL), resultSet.getInt(ROLE));
+                        resultSet.getString(PHONE), resultSet.getString(EMAIL),
+                        resultSet.getInt(ROLE));
             } else {
                  throw new DAOException("User with this email doesn't exist");
             }
@@ -75,8 +71,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
-    //метод добавить на  проверку  существующего логина в БД
-    public void registration(User user) throws DAOException { //, int idRole ?
+    public boolean registration(User user) throws DAOException {
             Connection connection = null;
             PreparedStatement preparedStatement = null;
             ResultSet resultSet = null;
@@ -88,18 +83,17 @@ public class UserDAOImpl implements UserDAO {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 throw new DAOException("User with this email is already exist");
-                //как обработать?   page?
             }
 
             preparedStatement = connection.prepareStatement(REGISTER_USER);   // , Statement.RETURN_GENERATED_KEYS для получения id из БД
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getPhone());
-            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(4, Arrays.toString(user.getPassword()));
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setInt(6, user.getRole());
 
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
 
 //            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
 //            generatedKeys.next();
@@ -131,7 +125,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getPhone());
-            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setString(4, Arrays.toString(user.getPassword()));
             preparedStatement.setString(5, user.getEmail());
             preparedStatement.setInt(6,user.getId());
             preparedStatement.executeUpdate();

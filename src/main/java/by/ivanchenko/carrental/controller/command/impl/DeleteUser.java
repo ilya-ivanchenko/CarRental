@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 public class DeleteUser implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

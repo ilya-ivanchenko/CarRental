@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     private static final Validator validator = new Validator();
 
     @Override
-    public void register(User user) throws ServiceException {
+    public boolean register(User user) throws ServiceException {
 
         if (!validator.nameValidation(user.getName())) {
             throw new ServiceException("Incorrect name format. The name must not contain numbers");
@@ -35,14 +35,14 @@ public class UserServiceImpl implements UserService {
 
         try {
             UserDAO userDAO = DAOFactory.getInstance().getUserDAO();
-            userDAO.registration(user);
+           return userDAO.registration(user);
         } catch (DAOException e) {
             throw new ServiceException("Error while register user", e);
         }
     }
 
     @Override
-    public User authorize(String email, String password) throws ServiceException {
+    public User authorize(String email, char[] password) throws ServiceException {
         if (!validator.emailValidation(email)) {
             throw new ServiceException("Incorrect email format");
         }

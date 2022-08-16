@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class RegistrationCommand implements Command {
 
@@ -19,12 +19,12 @@ public class RegistrationCommand implements Command {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
                 User user  = new User(req.getParameter(NAME), req.getParameter(SURNAME), req.getParameter(PHONE),
-                        req.getParameter(PASSWORD),req.getParameter(EMAIL), Integer.parseInt(req.getParameter(ROLE)));
-            userService.register(user);
+                        req.getParameter(PASSWORD).toCharArray(),req.getParameter(EMAIL), Integer.parseInt(req.getParameter(ROLE)));
+            boolean registration = userService.register(user);
             HttpSession session = req.getSession(true);
+            req.setAttribute(REGISTRATION_STATUS, registration);
 
             if (session.getAttribute(USER) == null) {
-                req.setAttribute(MESSAGE,USER_REG);
                 return PageResourceManager.getValue(PageParameter.REGISTRATION);
             } else {
                 req.setAttribute(MESSAGE,MANAGER_REG);

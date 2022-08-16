@@ -1,5 +1,6 @@
 package by.ivanchenko.carrental.bean;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class User {
@@ -8,7 +9,7 @@ public class User {
     private String name;
     private String surname;
     private String phone;
-    private String password;      // пароль не хранить больше чем для авторизации
+    private transient char[] password;      // пароль не хранить больше чем для авторизации
     private String email;
     private int role;
     private String roleName;
@@ -47,11 +48,11 @@ public class User {
         this.phone = phone;
     }
 
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
@@ -81,18 +82,18 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, char[] password) {
         setEmail(email);
         setPassword(password);
     }
 
-    public User(String email, String password, int role) {
+    public User(String email, char[] password, int role) {
         setEmail(email);
         setPassword(password);
         setRole(role);
     }
 
-    public User(String name, String surname, String phone, String password, String email, int role) {
+    public User(String name, String surname, String phone, char[] password, String email, int role) {
        setName(name);
        setSurname(surname);
        setPhone(phone);
@@ -101,7 +102,7 @@ public class User {
        setRole(role);
     }
 
-    public User(int id, String name, String surname, String phone, String password, String email, int role) {
+    public User(int id, String name, String surname, String phone, char[] password, String email, int role) {
         setId(id);
         setName(name);
         setSurname(surname);
@@ -111,6 +112,14 @@ public class User {
         setRole(role);
     }
 
+    public User(int id, String name, String surname, String phone,  String email, int role) {
+        setId(id);
+        setName(name);
+        setSurname(surname);
+        setPhone(phone);
+        setEmail(email);
+        setRole(role);
+    }
     public User(int id, String name, String surname, String phone,  String email, String roleName) {
         setId(id);
         setName(name);
@@ -144,13 +153,13 @@ public class User {
         }
         User user = (User) o;
         return id == user.id && Objects.equals(name, user.name) && Objects.equals(surname, user.surname)
-                && Objects.equals(phone, user.phone) && Objects.equals(password, user.password)
+                && Objects.equals(phone, user.phone) && Arrays.equals(password, user.password)
                 && Objects.equals(email, user.email) && Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, phone, password, email, role, id);
+        return Objects.hash(name, surname, phone, Arrays.hashCode(password), email, role, id);
     }
 }
 

@@ -17,7 +17,7 @@ import java.util.List;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 import static java.time.temporal.ChronoUnit.DAYS;
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class GetCarListFilteredCommand implements Command {
 

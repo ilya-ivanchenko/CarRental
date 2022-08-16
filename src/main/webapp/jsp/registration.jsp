@@ -19,6 +19,8 @@
   <fmt:message bundle="${localization}" key="local.checksurname" var="checksurname"/>
   <fmt:message bundle="${localization}" key="local.checkphone" var="checkphone"/>
   <fmt:message bundle="${localization}" key="local.checkemail" var="checkemail"/>
+  <fmt:message bundle="${localization}" key="local.loginreg" var="login"/>
+  <fmt:message bundle="${localization}" key="local.regok" var="regok"/>
 
     <title>${reg}</title>
 
@@ -97,6 +99,12 @@
     </form>
     <br/>
     <h4>${message}</h4>
+    <c:if test="${reg_status == true}">
+    <span class="regok">
+        <h4>${regok} <a href="authorization.jsp">${login} </a>
+        </h4>
+    </span>
+    </c:if>
     <br/>
 </div>
 <script src="/JS/registration.js"></script>

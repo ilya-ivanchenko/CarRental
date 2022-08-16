@@ -1,4 +1,4 @@
-package by.ivanchenko.carrental.controller.command;
+package by.ivanchenko.carrental.controller;
 
 public class RequestConstant {
     public static final String ID = "id";
@@ -61,6 +61,8 @@ public class RequestConstant {
     public static final String RENT_PRICE1 = "rentPrice1";
     public static final String RENT_PRICE2 = "rentPrice2";
     public static final String USER_INFO = "userInfo";
+    public static final String COMMAND = "command";
+    public static final String REGISTRATION_STATUS = "reg_status";
 
     public static final double ENGINE_CAPACITY_TYPE1_DEFAULT = 0.0;
     public static final double ENGINE_CAPACITY_TYPE2_DEFAULT = 3.0;
@@ -75,8 +77,7 @@ public class RequestConstant {
     public static final String USER_DELETE = "User deleted";
     public static final String SUCCESSFUL_DELETING_CAR = "Car deleted successfully";
     public static final String MANAGER_REG = "Manager registration completed successfully!";
-    public static final String USER_REG = "Your registration completed successfully! Now you can log in";
     public static final String EDIT_SAVE = "Changes saved";
-    //ADD
+
 
 }

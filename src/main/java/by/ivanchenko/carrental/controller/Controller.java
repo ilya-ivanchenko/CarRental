@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
+
 public class Controller extends HttpServlet {
     private final CommandProvider provider = new CommandProvider();
     Command command;
@@ -25,19 +27,11 @@ public class Controller extends HttpServlet {
     }
 
     private void executeTask(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        commandName = request.getParameter("command");
+        commandName = request.getParameter(COMMAND);
         command = provider.getCommand(commandName);
         commandPage = command.execute(request, response);
        // request.getSession(true).setAttribute("local", request.getParameter("local"));
-        request.getRequestDispatcher(commandPage).forward(request, response);  //check;
-
-
-
-        //request.getRequestDispatcher("index.jsp").forward(request,response);
-//        System.out.println("req.attr - " + request.getAttribute("local"));
-//        System.out.println("session.attr - " + request.getSession().getAttribute("local"));
-//        System.out.println("req.param - " + request.getParameter("local"));
-//        System.out.println("---------------");
+        request.getRequestDispatcher(commandPage).forward(request, response);
     }
 
 }

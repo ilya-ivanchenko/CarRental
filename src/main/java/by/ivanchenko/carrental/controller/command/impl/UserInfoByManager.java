@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class UserInfoByManager implements Command {
     @Override

@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 public class EditUser implements Command {
 
     @Override
@@ -23,7 +23,7 @@ public class EditUser implements Command {
             user.setName(request.getParameter(NAME));
             user.setSurname(request.getParameter(SURNAME));
             user.setPhone(request.getParameter(PHONE));
-            user.setPassword(request.getParameter(PASSWORD));
+            user.setPassword(request.getParameter(PASSWORD).toCharArray());
             user.setEmail(request.getParameter(EMAIL));
             userService.updateInfo(user);
             session.setAttribute(USER, user);

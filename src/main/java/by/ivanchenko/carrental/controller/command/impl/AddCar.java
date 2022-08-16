@@ -10,7 +10,7 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import static by.ivanchenko.carrental.controller.command.RequestConstant.*;
+import static by.ivanchenko.carrental.controller.RequestConstant.*;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
