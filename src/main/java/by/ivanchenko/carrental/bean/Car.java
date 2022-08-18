@@ -1,8 +1,11 @@
 package by.ivanchenko.carrental.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Car {
+public class Car implements Serializable {
+
+    private static final long serialVersionUID = 2424216798572387824L;
     private  int id;
     private String name;
     private double engineCapacity;

@@ -48,4 +48,8 @@ input.button-id{
     margin-bottom: 0;
 }
 
+th.date {
+    width: 70px;
+}
+
 

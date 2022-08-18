@@ -70,8 +70,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    // метод сделать synhronized, чтобы одновременно два  одинаковых логина не зарегать
-    public boolean registration(User user) throws DAOException {
+    public synchronized boolean registration(User user) throws DAOException {
             Connection connection = null;
             PreparedStatement preparedStatement = null;
             ResultSet resultSet = null;

@@ -1,17 +1,17 @@
 package by.ivanchenko.carrental.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-//TemporalType.TIMESTAMP
+public class Order implements Serializable {
 
-public class Order {
-
+    private static final long serialVersionUID = -1569614752562823290L;
     private int id;
     private int customerId;
     private int carId;
     private int managerId;
-    private Date startDate; //GregorianCalendar    SimpleDateFormat   LocalDate
+    private Date startDate;
     private Date endDate;
     private int totalPrice;
     private String description;

@@ -141,7 +141,9 @@
                         </td>
                     </c:when>
                     <c:when test="${!orders.approved && orders.returned}">
-                        <td class="cancel">${canceled}</td>
+                        <td>
+                            <span class="cancel">${canceled}</span>
+                        </td>
                     </c:when>
                 </c:choose>
             </tr>
@@ -188,8 +190,8 @@
                             <th scope="col">${passport}</th>
                             <th scope="col">${car}</th>
                             <th scope="col">${price}, $</th>
-                            <th scope="col">${startdate}</th>
-                            <th scope="col">${enddate}</th>
+                            <th class="date" scope="col">${startdate}</th>
+                            <th class="date" scope="col">${enddate}</th>
                             <th scope="col">${approved}</th>
                             <th scope="col">${paid}</th>
                             <th scope="col">${given}</th>
@@ -333,8 +335,8 @@
                             <th scope="col">${passport}</th>
                             <th scope="col">${car}</th>
                             <th scope="col">${price}, $</th>
-                            <th scope="col">${startdate}</th>
-                            <th scope="col">${enddate}</th>
+                            <th class="date" scope="col">${startdate}</th>
+                            <th class="date" scope="col">${enddate}</th>
                             <th scope="col">${approved}</th>
                             <th scope="col">${paid}</th>
                             <th scope="col">${given}</th>

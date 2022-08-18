@@ -1,15 +1,17 @@
 package by.ivanchenko.carrental.bean;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
 
+    private static final long serialVersionUID = -7040152585106831310L;
     private int id;
     private String name;
     private String surname;
     private String phone;
-    private transient char[] password;      // пароль не хранить больше чем для авторизации
+    private transient char[] password;
     private String email;
     private int role;
     private String roleName;

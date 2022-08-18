@@ -26,7 +26,7 @@ public class CarDAOImpl implements CarDAO {
     private static final String MILEAGE = "mileage";
 
     private static final String GET_CAR_LIST = "SELECT * FROM cars";
-    private static final String GET_CAR_LIST_FILTRED = "SELECT * FROM cars WHERE drive LIKE ? AND transmission LIKE ?  AND " +
+    private static final String GET_CAR_LIST_FILTERED = "SELECT * FROM cars WHERE drive LIKE ? AND transmission LIKE ?  AND " +
             " engine_capacity BETWEEN ? AND ? AND fuel LIKE ? AND consumption BETWEEN ? AND ? AND price BETWEEN ? AND ? " +
             " AND id_car NOT IN (SELECT car_id FROM orders WHERE ? BETWEEN start_date AND end_date" +
             " OR ? BETWEEN start_date AND end_date OR start_date BETWEEN ? AND ? OR end_date BETWEEN ? AND ?)";
@@ -78,7 +78,7 @@ public class CarDAOImpl implements CarDAO {
 
         try {
             connection = ConnectionPool.getInstance().takeConnection();
-            preparedStatement = connection.prepareStatement(GET_CAR_LIST_FILTRED);
+            preparedStatement = connection.prepareStatement(GET_CAR_LIST_FILTERED);
             preparedStatement.setString(1, drive);
             preparedStatement.setString(2, transmission);
             preparedStatement.setDouble(3, engine_capacity1);
