@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,12 +37,8 @@ public class Controller extends HttpServlet {
             command = provider.getCommand(commandName);
             commandPage = command.execute(request, response);
             request.getRequestDispatcher(commandPage).forward(request, response);
-
-
-
-            LOGGER.info("Controller works");
         } catch (ServletException | IOException e) {
-            LOGGER.error("Controller method error", e);
+            LOGGER.error("Controller command method error", e);
         }
 
     }

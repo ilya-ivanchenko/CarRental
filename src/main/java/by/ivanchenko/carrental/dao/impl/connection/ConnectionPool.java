@@ -1,16 +1,21 @@
 package by.ivanchenko.carrental.dao.impl.connection;
 
 
+import by.ivanchenko.carrental.controller.command.impl.UserInfoByManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
 public final class ConnectionPool {
+
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
+
    private BlockingQueue<Connection> freeConnectionQueue;
    private BlockingQueue<Connection> givenConnectionQueue;
    private static ConnectionPool instance;
@@ -32,7 +37,7 @@ public final class ConnectionPool {
     private  int poolSize;
     private int defaultPoolSize = 5;
 
-    private ConnectionPool() throws ConnectionPoolException {                    //private ?  EDIT
+    private ConnectionPool() throws ConnectionPoolException {
         DBResourseManager dbResourceManager = DBResourseManager.getInstance();
         this.driver = dbResourceManager.getValue(DBParameter.DRIVER);
         this.url = dbResourceManager.getValue(DBParameter.URL);
@@ -46,13 +51,12 @@ public final class ConnectionPool {
         initPool();
     }
 
-
     public static ConnectionPool getInstance() {
         if (instance==null) {
             try {
                 instance = new ConnectionPool();
             } catch (ConnectionPoolException e) {
-                //log?
+                LOGGER.error("Failed to getInstance.", e);
             }
         }
         return instance;
@@ -69,10 +73,8 @@ public final class ConnectionPool {
                 freeConnectionQueue.add(pooledConnection);
             }
         } catch (SQLException e) {
-            //log ?
             throw new ConnectionPoolException("SQLException in intializing ConnectinPool", e);
         } catch (ClassNotFoundException e) {
-            //log ?
             throw new ConnectionPoolException("Can't find database driver class", e);
         }
     }
@@ -85,40 +87,37 @@ public final class ConnectionPool {
         try {
             closeConnectionQueue(givenConnectionQueue);
             closeConnectionQueue(freeConnectionQueue);
-        } catch (SQLException e) {   // or InterruptedException ?
-           // logger.log(Level.ERROR, "Error closing the connection.", e);
+        } catch (SQLException e) {
+            LOGGER.error("Error closing the connection.", e);
         }
     }
 
     public Connection takeConnection() throws ConnectionPoolException {
         Connection connection = null;
-
         try {
             connection = freeConnectionQueue.take();
             givenConnectionQueue.add(connection);
         } catch (InterruptedException e) {
-            // log ?
             throw new ConnectionPoolException("Error connecting to  the data source", e);
         }
         return connection;
     }
 
-
     public  void closeConnection(Connection con, Statement st, ResultSet rs) {
         try {
             rs.close();
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "ResultSet isn't closed", e);
+            LOGGER.error("ResultSet isn't closed.", e);
         }
         try {
             st.close();
         } catch(SQLException e) {
-            //logger.log(Level.ERROR, "Statement isn't closed", e);
+            LOGGER.error("Statement isn't closed.", e);
         }
         try {
             con.close();
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool", e);    e  передаем или только  message ?
+            LOGGER.error("Connection isn't return to the pool.", e);
         }
     }
 
@@ -126,12 +125,12 @@ public final class ConnectionPool {
         try {
             st.close();
         } catch(SQLException e) {
-            //logger.log(Level.ERROR, "Statement isn't closed", e);
+            LOGGER.error("Statement isn't closed.", e);
         }
         try {
             con.close();
         } catch (SQLException e) {
-            //logger.log(Level.ERROR, "Connection isn't return to the pool", e);    e  передаем или только  message ?
+            LOGGER.error("Connection isn't return to the pool.", e);
         }
     }
 
@@ -139,13 +138,13 @@ public final class ConnectionPool {
         Connection connection;
         while ((connection = queue.poll()) != null) {     // возвращает с удалением элемент из начала очереди. Если очередь пуста, возвращает значение null
             if (!connection.getAutoCommit()) {
-                connection.commit();                       // фиксируем все изменения
+                connection.commit();
             }
-            ((PooledConnection) connection).reallyClose();  // см ниже
+            ((PooledConnection) connection).reallyClose();
         }
     }
 
-    private class PooledConnection implements Connection {          // вложенный
+    private class PooledConnection implements Connection {
         private Connection  connection;
 
         public PooledConnection (Connection con) throws SQLException {
@@ -158,7 +157,7 @@ public final class ConnectionPool {
         }
 
         @Override
-        public void clearWarnings() throws SQLException {           // очищает все предупреждения на этом объекте
+        public void clearWarnings() throws SQLException {
             connection.clearWarnings();
         }
 

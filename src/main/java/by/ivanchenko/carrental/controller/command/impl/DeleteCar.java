@@ -10,6 +10,8 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,6 +19,9 @@ import java.util.List;
 import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class DeleteCar implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(DeleteCar.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
@@ -29,6 +34,7 @@ public class DeleteCar implements Command {
             request.setAttribute(MESSAGE, SUCCESSFUL_DELETING_CAR);
             return PageResourceManager.getValue(PageParameter.CAR_INFO);
         } catch (ServiceException e) {
+            LOGGER.error("Failed to delete the car from DB.", e);
             request.setAttribute(MESSAGE, e.getMessage());
             return PageResourceManager.getValue(PageParameter.CAR_INFO);
         }

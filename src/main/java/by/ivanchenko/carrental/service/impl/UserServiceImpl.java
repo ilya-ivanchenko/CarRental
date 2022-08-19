@@ -1,12 +1,15 @@
 package by.ivanchenko.carrental.service.impl;
 
 import by.ivanchenko.carrental.bean.User;
+import by.ivanchenko.carrental.controller.command.impl.UserInfoByManager;
 import by.ivanchenko.carrental.dao.DAOException;
 import by.ivanchenko.carrental.dao.DAOFactory;
 import by.ivanchenko.carrental.dao.UserDAO;
 import by.ivanchenko.carrental.service.ServiceException;
 import by.ivanchenko.carrental.service.UserService;
 import by.ivanchenko.carrental.service.Validator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 

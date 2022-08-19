@@ -10,12 +10,16 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class GiveCarCustomer implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(GiveCarCustomer.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -29,6 +33,7 @@ public class GiveCarCustomer implements Command {
             session.setAttribute(ORDERS, orders);
             return PageResourceManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
+            LOGGER.error("Failed to change car status (given).", e);
             request.setAttribute(MESSAGE, e.getMessage());
             return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }

@@ -11,12 +11,17 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class DeleteOrder implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(DeleteOrder.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -30,6 +35,7 @@ public class DeleteOrder implements Command {
             session.setAttribute(ORDERS, orders);
             return PageResourceManager.getValue(PageParameter.USER_HOME);
         } catch (ServiceException e) {
+            LOGGER.error("Failed to cancel the order.", e);
             request.setAttribute(MESSAGE, e.getMessage());
             return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }

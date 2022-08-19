@@ -10,10 +10,14 @@ import by.ivanchenko.carrental.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class RegistrationCommand implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(RegistrationCommand.class);
 
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         try {
@@ -25,12 +29,16 @@ public class RegistrationCommand implements Command {
             req.setAttribute(REGISTRATION_STATUS, registration);
 
             if (session.getAttribute(USER) == null) {
+                LOGGER.info("Going to registration new customer.");
                 return PageResourceManager.getValue(PageParameter.REGISTRATION);
             } else {
+                LOGGER.info("Going to registration new manager.");
                 req.setAttribute(MESSAGE,MANAGER_REG);
+
                 return PageResourceManager.getValue(PageParameter.USER_HOME);
             }
         } catch (ServiceException e) {
+            LOGGER.error("Failed to register new user.", e);
             req.setAttribute(MESSAGE, e.getMessage());
             return PageResourceManager.getValue(PageParameter.REGISTRATION);
         }

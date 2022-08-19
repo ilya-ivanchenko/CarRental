@@ -1,5 +1,8 @@
 package by.ivanchenko.carrental.service;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,7 +10,6 @@ public class Validator {
 
     private static final String ELECTRO = "Электро";
     public boolean emailValidation(String email) {
-
         Pattern patternEmail = Pattern.compile("([.[^@\\s]]+)@([.[^@\\s]]+)\\.([a-z]+)");
         Pattern patternAdmin = Pattern.compile("admin");
         Matcher matcherEmail = patternEmail.matcher(email);
@@ -21,7 +23,6 @@ public class Validator {
         Pattern pattern = Pattern.compile("(\\+\\d{12})");
         Matcher matcher = pattern.matcher(phone);
         boolean checkPhone = matcher.matches();
-
         return phone != null && !phone.isEmpty() && checkPhone;
     }
 
@@ -29,7 +30,6 @@ public class Validator {
         Pattern pattern = Pattern.compile("\\D+");
         Matcher matcher = pattern.matcher(name);
         boolean checkName = matcher.matches();
-
         return name != null && !name.isEmpty() && checkName;
     }
 
@@ -37,7 +37,6 @@ public class Validator {
         Pattern pattern = Pattern.compile("([A-Za-z]{2}\\d{7})");
         Matcher matcher = pattern.matcher(passport);
         boolean checkPassport = matcher.matches();
-
         return passport != null && !passport.isEmpty() && checkPassport;
     }
 

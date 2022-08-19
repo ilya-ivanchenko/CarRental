@@ -10,6 +10,8 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +22,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class GetCarListFilteredCommand implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(GetCarListFilteredCommand.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -32,18 +36,14 @@ public class GetCarListFilteredCommand implements Command {
                     parseDouble(request.getParameter(ENGINE_CAPACITY2)), parseDouble(request.getParameter(CONSUMPTION1)),
                     parseDouble(request.getParameter(CONSUMPTION2)), parseInt(request.getParameter(PRICE1)),
                     parseInt(request.getParameter(PRICE2)), startDate, endDate);
-            HttpSession session = request.getSession(true);  //если сессии нет, то создать новую
-            session.setAttribute(CARS, cars);
-
-            //SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
+            HttpSession session = request.getSession(true);
             int rentDays = (int) DAYS.between(startDate, endDate);
+            session.setAttribute(CARS, cars);
             session.setAttribute(START_DATE, startDate);
             session.setAttribute(END_DATE, endDate);
             session.setAttribute(RENT_DAYS, rentDays);
             session.setAttribute(CURRENT_DATE_PLUS, endDate);
             session.setAttribute(CURRENT_DATE, startDate);
-
             session.setAttribute(GEARBOX_TYPE, request.getParameter(TRANSMISSION));
             session.setAttribute(DRIVE_TYPE, request.getParameter(DRIVE));
             session.setAttribute(FUEL_TYPE, request.getParameter(FUEL));
@@ -53,9 +53,9 @@ public class GetCarListFilteredCommand implements Command {
             session.setAttribute(ENGINE_CONSUMPTION_TYPE2, request.getParameter(CONSUMPTION2));
             session.setAttribute(RENT_PRICE1, request.getParameter(PRICE1));
             session.setAttribute(RENT_PRICE2, request.getParameter(PRICE2));
-
             return PageResourceManager.getValue(PageParameter.MAIN);
         } catch (ServiceException e) {
+            LOGGER.error("Failed to show filtered cars list.", e);
             request.setAttribute(MESSAGE, e.getMessage());
             return PageResourceManager.getValue(PageParameter.ERROR_PAGE);
         }

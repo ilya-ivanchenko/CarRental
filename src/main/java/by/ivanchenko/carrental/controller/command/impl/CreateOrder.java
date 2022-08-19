@@ -11,11 +11,16 @@ import by.ivanchenko.carrental.service.ServiceFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
 import static by.ivanchenko.carrental.controller.RequestConstant.*;
 
 public class CreateOrder implements Command {
+
+    private static final Logger LOGGER = LogManager.getLogger(CreateOrder.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
@@ -29,6 +34,7 @@ public class CreateOrder implements Command {
                     request.getParameter(COMMENT));
             return PageResourceManager.getValue(PageParameter.AFTER_ORDER);
         } catch (ServiceException e) {
+            LOGGER.error("Failed creating new order.", e);
             request.setAttribute(MESSAGE, e.getMessage());
             return PageResourceManager.getValue(PageParameter.CONFIRM_ORDER);
         }
