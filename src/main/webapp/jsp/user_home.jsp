@@ -388,7 +388,7 @@
                                 </c:choose>
                                 <c:choose>
                                     <c:when test="${!orders.returned}">
-                                        <td>${yes}</td>
+                                        <td>${no}</td>
                                     </c:when>
                                     <c:when test="${orders.returned}">
                                         <td>${yes}</td>

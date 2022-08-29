@@ -1,7 +1,7 @@
 console.log("add_car works...");
 let eMileageBlock;
 
-let tankConsumptionBlock; //
+let tankConsumptionBlock;
 
 function init(){
     console.log("document onload");

@@ -35,6 +35,7 @@
                    placeholder="0"
                    autocomplete="off"
                    pattern="\d+"
+                   value="0"
             />
         </div>
         <div>
@@ -42,7 +43,7 @@
             <textarea name="description" cols="30" rows="5"></textarea>
             <br/>
             <br/>
-            <input  class="button" type="submit" value="${registerreturn}"/>
+            <input class="button" type="submit" value="${registerreturn}"/>
         </div>
         <br/>
     </form>
